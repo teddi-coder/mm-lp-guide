@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WhatConverts Reference Guide | Mechanic Marketing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #EA580C;
+    --orange-light: #FFF7ED;
+    --black: #0C0A09;
+    --grey-900: #1C1917;
+    --grey-700: #44403C;
+    --grey-500: #78716C;
+    --grey-200: #E7E5E4;
+    --grey-100: #F5F4F3;
+    --white: #FAFAF9;
+    --blue: #0369A1;
+    --blue-light: #E0F2FE;
+    --green: #15803D;
+    --green-light: #DCFCE7;
+    --red-light: #FEF2F2;
+    --red: #B91C1C;
+    --yellow-light: #FEFCE8;
+    --yellow: #CA8A04;
+    --sidebar-width: 240px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--grey-900); font-size: 16px; line-height: 1.7; }
+
+  .topbar { position: fixed; top: 0; left: 0; right: 0; height: 52px; background: var(--black); display: flex; align-items: center; padding: 0 24px; gap: 12px; z-index: 100; }
+  .topbar-logo { font-size: 13px; font-weight: 600; color: var(--white); letter-spacing: 0.08em; text-transform: uppercase; }
+  .topbar-sep { color: var(--grey-700); }
+  .topbar-title { font-size: 13px; color: var(--grey-500); }
+  .topbar-badge { margin-left: auto; background: var(--orange); color: white; font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 20px; letter-spacing: 0.04em; }
+
+  .layout { display: flex; padding-top: 52px; min-height: 100vh; }
+
+  .sidebar { width: var(--sidebar-width); position: fixed; top: 52px; bottom: 0; left: 0; overflow-y: auto; background: var(--grey-100); border-right: 1px solid var(--grey-200); padding: 28px 0 40px; }
+  .sidebar-label { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey-500); padding: 0 20px 10px; }
+  .sidebar a { display: block; padding: 7px 20px; font-size: 13.5px; color: var(--grey-700); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; line-height: 1.4; }
+  .sidebar a:hover, .sidebar a.active { color: var(--orange); background: var(--orange-light); border-left-color: var(--orange); font-weight: 500; }
+  .sidebar-divider { height: 1px; background: var(--grey-200); margin: 12px 20px; }
+
+  .main { margin-left: var(--sidebar-width); flex: 1; padding: 56px 48px 80px; }
+  .content { max-width: 760px; }
+
+  .hero { margin-bottom: 56px; padding-bottom: 40px; border-bottom: 1px solid var(--grey-200); }
+  .hero-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange); margin-bottom: 12px; }
+  .hero h1 { font-size: 36px; font-weight: 600; line-height: 1.15; color: var(--black); margin-bottom: 16px; }
+  .hero-meta { font-size: 13px; color: var(--grey-500); }
+
+  .section { margin-bottom: 64px; scroll-margin-top: 80px; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .section-num { width: 28px; height: 28px; border-radius: 50%; background: var(--orange); color: white; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  h2 { font-size: 22px; font-weight: 600; color: var(--black); }
+  h3 { font-size: 13px; font-weight: 600; color: var(--grey-900); margin: 28px 0 10px; text-transform: uppercase; letter-spacing: 0.08em; }
+  p { margin-bottom: 14px; color: var(--grey-700); font-size: 15px; }
+  p:last-child { margin-bottom: 0; }
+  strong { color: var(--grey-900); font-weight: 600; }
+  code { font-family: 'DM Mono', monospace; font-size: 13px; background: var(--grey-100); border: 1px solid var(--grey-200); padding: 1px 6px; border-radius: 4px; color: var(--grey-900); }
+
+  .callout { border-radius: 8px; padding: 14px 16px; font-size: 14px; margin: 16px 0; display: flex; gap: 10px; line-height: 1.55; }
+  .callout-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .callout strong { display: block; margin-bottom: 2px; }
+  .callout.info { background: var(--blue-light); color: #1E40AF; }
+  .callout.warning { background: #FFFBEB; color: #92400E; }
+  .callout.danger { background: var(--red-light); color: var(--red); }
+  .callout.success { background: var(--green-light); color: #14532D; }
+
+  .table-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  th { background: var(--black); color: white; font-weight: 600; text-align: left; padding: 10px 14px; font-size: 12px; letter-spacing: 0.04em; }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--grey-200); color: var(--grey-700); vertical-align: top; font-size: 14px; line-height: 1.5; }
+  tr:nth-child(even) td { background: var(--grey-100); }
+
+  .pill { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px; white-space: nowrap; }
+  .pill-ok { background: var(--green-light); color: var(--green); }
+  .pill-normal { background: var(--yellow-light); color: var(--yellow); }
+  .pill-action { background: var(--red-light); color: var(--red); }
+
+  .steps { margin: 16px 0; }
+  .step { display: flex; gap: 14px; margin-bottom: 12px; }
+  .step-num { width: 24px; height: 24px; border-radius: 50%; background: var(--orange); color: white; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .step-content { font-size: 15px; color: var(--grey-700); }
+
+  ul.bullets { list-style: none; margin: 10px 0 16px; padding: 0; }
+  ul.bullets li { padding: 5px 0 5px 20px; font-size: 14.5px; color: var(--grey-700); position: relative; }
+  ul.bullets li::before { content: '—'; position: absolute; left: 0; color: var(--orange); font-weight: 600; }
+
+  .conversion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+  .conv-card { border-radius: 8px; padding: 16px 18px; border: 1px solid var(--grey-200); }
+  .conv-card.primary { background: var(--orange-light); border-color: var(--orange-mid, #FED7AA); }
+  .conv-card.secondary { background: var(--grey-100); }
+  .conv-title { font-size: 14px; font-weight: 600; color: var(--grey-900); margin-bottom: 6px; }
+  .conv-body { font-size: 13.5px; color: var(--grey-700); line-height: 1.5; }
+
+  .divider { height: 1px; background: var(--grey-200); margin: 40px 0; }
+
+  @media (max-width: 900px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; padding: 32px 24px 60px; }
+    .conversion-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="topbar-logo">Mechanic Marketing</span>
+  <span class="topbar-sep">/</span>
+  <span class="topbar-title">WhatConverts Reference Guide</span>
+  <span class="topbar-badge">Internal</span>
+</div>
+
+<div class="layout">
+  <nav class="sidebar">
+    <div class="sidebar-label">Contents</div>
+    <a href="#what-is">What is WhatConverts?</a>
+    <a href="#how-it-works">How it works</a>
+    <a href="#wc-leads-vs-calls">WC Leads vs WC Calls</a>
+    <a href="#lead-export">Reading the lead export</a>
+    <a href="#weekly-report">In the weekly report</a>
+    <div class="sidebar-divider"></div>
+    <a href="#common-questions">Common questions</a>
+    <a href="#quick-ref">Quick reference</a>
+  </nav>
+
+  <main class="main">
+    <div class="content">
+
+      <div class="hero">
+        <div class="hero-eyebrow">Mechanic Marketing — Internal Reference</div>
+        <h1>WhatConverts<br>How It Works & How to Read It</h1>
+        <div class="hero-meta">A reference guide for account managers</div>
+      </div>
+
+      <!-- 1. WHAT IS -->
+      <section class="section" id="what-is">
+        <div class="section-header">
+          <div class="section-num">1</div>
+          <h2>What is WhatConverts?</h2>
+        </div>
+        <p>WhatConverts is a lead tracking platform that sits between your website visitors and your ad platforms. It tracks every phone call, form submission, and chat that comes through a client's website, and tells you exactly which ad, keyword, or channel generated that lead.</p>
+        <div class="callout success">
+          <span class="callout-icon">✓</span>
+          <div><strong>Think of it as the source of truth for lead volume and lead quality.</strong> Google Ads and Meta tell you about clicks and impressions. WhatConverts tells you about actual leads.</div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- 2. HOW IT WORKS -->
+      <section class="section" id="how-it-works">
+        <div class="section-header">
+          <div class="section-num">2</div>
+          <h2>How WhatConverts works</h2>
+        </div>
+
+        <h3>The tracking pixel</h3>
+        <p>WhatConverts installs a small JavaScript snippet on the client's website. When someone visits, the pixel reads how they arrived (Google Ads, organic search, direct, etc.) and stores that information in a cookie called <code>wc_client_current</code>.</p>
+        <p>When that visitor then calls or submits a form, WhatConverts reads the cookie and attributes the lead to the correct traffic source — this is how it knows a phone call came from a Google Ads click on "diesel mechanic near me."</p>
+
+        <div class="callout warning">
+          <span class="callout-icon">⚠️</span>
+          <div>The pixel only works in a real browser session. If a lead is created from incognito mode or a server-side system (like a Podium chat webhook), there is no cookie — WhatConverts will show the source as <code>(direct)/(none)</code>. This is not a tracking problem.</div>
+        </div>
+
+        <h3>Dynamic number insertion (DNI)</h3>
+        <p>WhatConverts swaps the phone number displayed on the website depending on how the visitor arrived. A visitor from Google Ads sees a different number to a visitor from organic search. When they call, WhatConverts attributes the lead correctly.</p>
+        <div class="callout danger">
+          <span class="callout-icon">🚨</span>
+          <div><strong>Clients should never call their own tracking numbers to test.</strong> They will get a different result depending on their browser session and it will log a fake lead.</div>
+        </div>
+
+        <h3>How leads are sent back to Google Ads</h3>
+        <p>WhatConverts imports leads into Google Ads as a conversion action called <strong>WC Leads</strong>. Every time WhatConverts records a lead, it sends a "click conversion" signal back to Google Ads, telling it which click generated the lead.</p>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- 3. WC LEADS VS CALLS -->
+      <section class="section" id="wc-leads-vs-calls">
+        <div class="section-header">
+          <div class="section-num">3</div>
+          <h2>WC Leads vs WC Calls — what's the difference?</h2>
+        </div>
+
+        <p>When WhatConverts sets up a new account, it creates two conversion actions in Google Ads:</p>
+
+        <div class="conversion-grid">
+          <div class="conv-card primary">
+            <div class="conv-title">WC Leads ✓</div>
+            <div class="conv-body">All leads — phone calls, form submissions, chats. This is the main conversion action and should always be active and recording.</div>
+          </div>
+          <div class="conv-card secondary">
+            <div class="conv-title">WC Calls — usually Inactive</div>
+            <div class="conv-body">Call-only ads only. A legacy conversion action for a Google Ads format that Google is deprecating. Will always show as Inactive unless the client is running call-only ads — they almost never are.</div>
+          </div>
+        </div>
+
+        <div class="callout success">
+          <span class="callout-icon">✓</span>
+          <div>If you see <strong>WC Calls showing as Inactive</strong> and a "Needs attention" warning on the Contact goal — this is completely normal. It means we are not running call-only ads. It is not a tracking problem. The real check is always: <strong>is WC Leads recording?</strong></div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- 4. LEAD EXPORT -->
+      <section class="section" id="lead-export">
+        <div class="section-header">
+          <div class="section-num">4</div>
+          <h2>How to read the WhatConverts lead export</h2>
+        </div>
+
+        <h3>Where to find it</h3>
+        <p>Log into WhatConverts → select the client profile → Leads → Export. The weekly reports also include a WhatConverts section that pulls this data automatically.</p>
+
+        <h3>Key columns</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Column</th><th>What it means</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Lead Type</strong></td><td>Phone Call, Web Form, Chat, etc.</td></tr>
+              <tr><td><strong>Lead Source / Medium</strong></td><td>Where the visitor came from. <code>google/cpc</code> = Google Ads. <code>google/organic</code> = organic search. If blank or <code>(direct)/(none)</code> — see Section 2 on cookies.</td></tr>
+              <tr><td><strong>Quotable</strong></td><td>Yes = genuine enquiry worth quoting. No = spam, wrong number, or not relevant. Pending = not yet reviewed.</td></tr>
+              <tr><td><strong>Quote Value / Sales Value</strong></td><td>Manually entered by the client or set by automation. $0 is normal if values have not been assigned.</td></tr>
+              <tr><td><strong>Answer Status</strong></td><td>Answered, No Answer, or Busy. <strong>Unanswered calls are still leads</strong> — the phone rang.</td></tr>
+              <tr><td><strong>Call Duration</strong></td><td>Short calls (under 30 seconds) are often wrong numbers or hangups. Worth flagging if there are a lot.</td></tr>
+              <tr><td><strong>Landing URL</strong></td><td>Which page the visitor was on when they converted. Useful for diagnosing which landing pages are performing.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>What to look for when reviewing leads</h3>
+        <ul class="bullets">
+          <li><strong>Quotable column</strong> — what percentage are quotable vs spam? High spam = investigate the keywords driving traffic.</li>
+          <li><strong>Lead Source</strong> — are most leads coming from <code>google/cpc</code>? Organic leads are a bonus sign.</li>
+          <li><strong>Answer Status</strong> — lots of unanswered calls? Flag it to the client. Missed leads are lost revenue.</li>
+          <li><strong>Landing URL</strong> — are leads coming from the right pages? If a campaign sends traffic to the homepage instead of a service page, that is a setup issue.</li>
+          <li><strong>Caller location</strong> — are leads coming from the right area? Cross-reference against the client's target radius.</li>
+        </ul>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- 5. WEEKLY REPORT -->
+      <section class="section" id="weekly-report">
+        <div class="section-header">
+          <div class="section-num">5</div>
+          <h2>WhatConverts in the weekly report</h2>
+        </div>
+        <p>The MM weekly report pulls WhatConverts data automatically. The Lead Tracking section shows:</p>
+        <ul class="bullets">
+          <li>Total leads for the period</li>
+          <li>Quotable leads and percentage</li>
+          <li>Sales value (if assigned)</li>
+          <li>Top lead sources</li>
+        </ul>
+        <div class="callout warning">
+          <span class="callout-icon">⚠️</span>
+          <div>Use this section every Monday and Friday as your first check. <strong>If total leads are significantly down, investigate before touching campaigns</strong> — it may be a tracking issue rather than a performance issue.</div>
+        </div>
+        <div class="callout info">
+          <span class="callout-icon">ℹ️</span>
+          <div><strong>Never use Google Ads conversion data as the primary measure of lead volume.</strong> Always use the WhatConverts lead export. Google Ads conversion data lags, deduplicates, and can look alarming for reasons that are completely normal.</div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- 6. COMMON QUESTIONS -->
+      <section class="section" id="common-questions">
+        <div class="section-header">
+          <div class="section-num">6</div>
+          <h2>Common questions</h2>
+        </div>
+
+        <h3>Why does Google Ads show $0 conversion value?</h3>
+        <p>WhatConverts does not pass a monetary value to Google Ads by default. The $0 is expected unless quote or sales values have been manually entered in WhatConverts. It does not affect how conversions are counted or how Smart Bidding optimises.</p>
+
+        <h3>Why does the Google Ads goal show "Needs attention"?</h3>
+        <p>Usually because WC Calls is inactive (see Section 3). Google flags this because one of the two conversion actions has no recent data. It is cosmetic. Check that WC Leads is still recording — if it is, everything is fine.</p>
+
+        <h3>Why do some leads show as (direct)/(none)?</h3>
+        <p>Three common reasons: the visitor arrived without a trackable source (typed the URL directly), the visitor was in incognito mode so no cookie was set, or the lead was created server-side (e.g. Podium chat via webhook). These are not errors — they are attribution limitations.</p>
+
+        <h3>A client says they're not getting enough leads — where do I start?</h3>
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-content">Check WhatConverts lead count for the period vs the previous period.</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-content"><strong>If leads are down:</strong> check if the tracking pixel is still on the site, check if campaigns have been paused, check if budget has run out.</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-content"><strong>If leads look normal but the client thinks volume is low:</strong> check the Quotable column — they may be counting spam as real leads, or missing calls because they're not answering.</div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-content"><strong>If leads are genuinely down:</strong> look at Google Ads data for impressions, clicks, and conversion rate. Is the drop in traffic or in conversion?</div></div>
+        </div>
+
+        <h3>Can I link all lead sources to WhatConverts?</h3>
+        <p>Not always. WhatConverts tracks leads that come through the client's website where the pixel is installed. Leads from closed third-party platforms like AutoGuru cannot be tracked — AutoGuru is a walled garden and does not allow external tracking.</p>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- 7. QUICK REF -->
+      <section class="section" id="quick-ref">
+        <div class="section-header">
+          <div class="section-num">7</div>
+          <h2>Quick reference</h2>
+        </div>
+
+        <h3>What you see in Google Ads</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>What you see</th><th>What it means</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr><td>WC Leads — X conversions</td><td>The number of leads WhatConverts has recorded for this account</td><td><span class="pill pill-ok">All good</span></td></tr>
+              <tr><td>Conv. value = $0.00</td><td>Normal. Values only appear if manually assigned in WhatConverts.</td><td><span class="pill pill-normal">No action</span></td></tr>
+              <tr><td>WC Calls — Inactive</td><td>Normal. Call-only ads only. See Section 3.</td><td><span class="pill pill-normal">No action</span></td></tr>
+              <tr><td>Contact goal — Needs attention</td><td>Usually WC Calls being inactive. Check WC Leads is recording.</td><td><span class="pill pill-normal">Check WC Leads</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Situations and what to do</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Situation</th><th>What to do</th></tr></thead>
+            <tbody>
+              <tr><td>WC Calls is Inactive</td><td>Normal. No action needed unless running call-only ads.</td></tr>
+              <tr><td>Conv. value = $0 in Google Ads</td><td>Normal. Values only appear if manually assigned in WhatConverts.</td></tr>
+              <tr><td>"Needs attention" on Contact goal</td><td>Check WC Leads is recording. If yes, this is cosmetic — no action.</td></tr>
+              <tr><td>Source showing as (direct)/(none)</td><td>Normal for server-side or incognito leads. Not a tracking error.</td></tr>
+              <tr><td><strong>Leads drop to zero</strong></td><td><strong>Check pixel is still on site before changing campaigns.</strong></td></tr>
+              <tr><td>Client says leads are low</td><td>Check WhatConverts first, then Google Ads. Do not adjust campaigns based on Google Ads numbers alone.</td></tr>
+              <tr><td>Lots of unanswered calls in export</td><td>Flag to client — they are missing real enquiries.</td></tr>
+              <tr><td>High percentage of non-quotable leads</td><td>Review search terms and negative keywords.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout danger">
+          <span class="callout-icon">🚨</span>
+          <div><strong>Red flag:</strong> If leads drop to zero overnight, check WhatConverts is still installed on the site before making any campaign changes. A site update can sometimes remove the tracking pixel.</div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script>
+  const sections = document.querySelectorAll('.section');
+  const links = document.querySelectorAll('.sidebar a');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.sidebar a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
