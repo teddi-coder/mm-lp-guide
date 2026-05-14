@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monthly Reporting Checklist | MM Internal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--orange:#EA580C;--orange-light:#FFF7ED;--black:#0C0A09;--grey-900:#1C1917;--grey-700:#44403C;--grey-500:#78716C;--grey-200:#E7E5E4;--grey-100:#F5F4F3;--white:#FAFAF9;--blue:#0369A1;--blue-light:#E0F2FE;--green:#15803D;--green-light:#DCFCE7;--red-light:#FEF2F2;--red:#B91C1C;--yellow-light:#FEFCE8;--yellow:#CA8A04;--sidebar-width:240px}
+  *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--grey-900);font-size:16px;line-height:1.7}
+  .topbar{position:fixed;top:0;left:0;right:0;height:52px;background:var(--black);display:flex;align-items:center;padding:0 24px;gap:8px;z-index:100}
+  .topbar a{font-size:13px;color:var(--grey-500);text-decoration:none;transition:color .15s}.topbar a:hover{color:var(--white)}
+  .topbar-logo{font-size:13px;font-weight:600;color:var(--white);letter-spacing:.08em;text-transform:uppercase;text-decoration:none!important}
+  .topbar-sep{color:var(--grey-700)}.topbar-badge{margin-left:auto;background:var(--orange);color:white;font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px}
+  .layout{display:flex;padding-top:52px;min-height:100vh}
+  .sidebar{width:var(--sidebar-width);position:fixed;top:52px;bottom:0;left:0;overflow-y:auto;background:var(--grey-100);border-right:1px solid var(--grey-200);padding:28px 0 40px}
+  .sidebar-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--grey-500);padding:0 20px 10px}
+  .sidebar a{display:block;padding:7px 20px;font-size:13.5px;color:var(--grey-700);text-decoration:none;border-left:3px solid transparent;transition:all .15s;line-height:1.4}
+  .sidebar a:hover,.sidebar a.active{color:var(--orange);background:var(--orange-light);border-left-color:var(--orange);font-weight:500}
+  .sidebar-back{display:flex;align-items:center;gap:6px;padding:10px 20px 16px;font-size:12px;color:var(--grey-500);text-decoration:none;border-bottom:1px solid var(--grey-200);margin-bottom:12px;transition:color .15s}.sidebar-back:hover{color:var(--orange)}
+  .main{margin-left:var(--sidebar-width);flex:1;padding:56px 48px 80px}.content{max-width:720px}
+  .hero{margin-bottom:56px;padding-bottom:40px;border-bottom:1px solid var(--grey-200)}
+  .hero-eyebrow{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:12px}
+  .hero h1{font-size:36px;font-weight:600;line-height:1.15;color:var(--black);margin-bottom:16px}
+  .hero-meta{font-size:13px;color:var(--grey-500)}
+  .section{margin-bottom:64px;scroll-margin-top:80px}.section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+  .section-num{width:28px;height:28px;border-radius:50%;background:var(--orange);color:white;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  h2{font-size:22px;font-weight:600;color:var(--black)}h3{font-size:13px;font-weight:600;color:var(--grey-900);margin:28px 0 10px;text-transform:uppercase;letter-spacing:.08em}
+  p{margin-bottom:14px;color:var(--grey-700);font-size:15px}p:last-child{margin-bottom:0}strong{color:var(--grey-900);font-weight:600}
+  code{font-family:'DM Mono',monospace;font-size:13px;background:var(--grey-100);border:1px solid var(--grey-200);padding:1px 6px;border-radius:4px;color:var(--grey-900)}
+  pre{background:#1C1917;border-radius:8px;padding:16px 20px;margin:14px 0;overflow-x:auto}pre code{background:none;border:none;padding:0;color:#D6D3D1;font-size:13px;line-height:1.6}
+  .callout{border-radius:8px;padding:14px 16px;font-size:14px;margin:16px 0;display:flex;gap:10px;line-height:1.55}.callout-icon{font-size:16px;flex-shrink:0;margin-top:1px}.callout strong{display:block;margin-bottom:2px}
+  .callout.info{background:var(--blue-light);color:#1E40AF}.callout.warning{background:#FFFBEB;color:#92400E}.callout.danger{background:var(--red-light);color:var(--red)}.callout.success{background:var(--green-light);color:#14532D}
+  .table-wrap{overflow-x:auto;margin:16px 0}table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{background:var(--black);color:white;font-weight:600;text-align:left;padding:10px 14px;font-size:12px;letter-spacing:.04em}
+  td{padding:10px 14px;border-bottom:1px solid var(--grey-200);color:var(--grey-700);vertical-align:top;font-size:14px;line-height:1.5}tr:nth-child(even) td{background:var(--grey-100)}
+  .pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap}
+  .pill-ok{background:var(--green-light);color:var(--green)}.pill-normal{background:var(--yellow-light);color:var(--yellow)}.pill-action{background:var(--red-light);color:var(--red)}
+  ul.bullets{list-style:none;margin:10px 0 16px;padding:0}ul.bullets li{padding:5px 0 5px 20px;font-size:15px;color:var(--grey-700);position:relative}ul.bullets li::before{content:'—';position:absolute;left:0;color:var(--orange);font-weight:600}
+  .steps{margin:16px 0}.step{display:flex;gap:14px;margin-bottom:14px}.step-num{width:24px;height:24px;border-radius:50%;background:var(--orange);color:white;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}.step-content{font-size:15px;color:var(--grey-700)}
+  .divider{height:1px;background:var(--grey-200);margin:40px 0}
+  .checklist{list-style:none;padding:0;margin:12px 0}.checklist li{display:flex;gap:10px;padding:8px 0;font-size:15px;color:var(--grey-700);border-bottom:1px solid var(--grey-200)}.checklist li:last-child{border-bottom:none}.checklist li::before{content:'☐';color:var(--orange);font-size:16px;flex-shrink:0;line-height:1.5}
+  @media(max-width:900px){.sidebar{display:none}.main{margin-left:0;padding:32px 24px 60px}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="index.html" class="topbar-logo">MM Marketing</a>
+  <span class="topbar-sep">/</span>
+  <span style="font-size:13px;color:var(--grey-500)">Monthly Reporting Checklist</span>
+  <span class="topbar-badge">Internal</span>
+</div>
+<div class="layout">
+  <nav class="sidebar">
+    <a href="index.html" class="sidebar-back">← All guides</a>
+    <div class="sidebar-label">On this page</div>
+    <a href="#week-before">Week before the report</a>
+    <a href="#whatconverts">WhatConverts</a>
+    <a href="#ga4">GA4</a>
+    <a href="#google-ads">Google Ads</a>
+    <a href="#meta">Meta Ads</a>
+    <a href="#wrap-up">Wrap-up</a>
+  </nav>
+  <main class="main"><div class="content">
+    <div class="hero">
+      <div class="hero-eyebrow">Tracking & Reporting</div>
+      <h1>Monthly Reporting Checklist</h1>
+      <div class="hero-meta">What to pull, check, and flag every month across all platforms</div>
+    </div>
+
+    <div class="callout info">
+      <span class="callout-icon">ℹ️</span>
+      <div>The MM weekly report pulls WhatConverts, GA4, Google Ads, and Meta data automatically. This checklist is for your manual review on top of that — catching things the automated report doesn't flag.</div>
+    </div>
+    <section class="section" id="week-before">
+      <div class="section-header"><div class="section-num">1</div><h2>Week before the report</h2></div>
+      <ul class="checklist">
+        <li>Confirm all tracking is working — WhatConverts pixel, GA4, Google Ads conversion import, Meta Pixel</li>
+        <li>Check for any ad disapprovals or account warnings that need resolving before the report period closes</li>
+        <li>Ask the client if there were any offline events this month (trade shows, price changes, seasonal promotions) that might explain data anomalies</li>
+      </ul>
+    </section>
+    <div class="divider"></div>
+    <section class="section" id="whatconverts">
+      <div class="section-header"><div class="section-num">2</div><h2>WhatConverts</h2></div>
+      <ul class="checklist">
+        <li>Total lead count vs previous month and same month last year</li>
+        <li>Quotable lead percentage — flag if under 60% (high spam rate)</li>
+        <li>Answer status — flag any pattern of unanswered calls to the client</li>
+        <li>Top lead sources — is Google Ads the primary driver? Any surprises?</li>
+        <li>Landing URL breakdown — are leads coming from the right pages?</li>
+        <li>Any leads showing (direct)/(none) at unusually high volume? (Usually fine, but worth noting if sudden spike)</li>
+      </ul>
+    </section>
+    <div class="divider"></div>
+    <section class="section" id="ga4">
+      <div class="section-header"><div class="section-num">3</div><h2>GA4</h2></div>
+      <ul class="checklist">
+        <li>Sessions vs previous period — up, down, or flat?</li>
+        <li>Engagement rate — above 50% is healthy for most clients</li>
+        <li>Channel breakdown — which channels are driving traffic?</li>
+        <li>Top landing pages — are people landing on the right service pages?</li>
+        <li>Any pages with unusually high bounce rate? Flag to Josh if a key LP is underperforming.</li>
+        <li>Device split — mobile vs desktop. Useful for LP optimisation decisions.</li>
+      </ul>
+    </section>
+    <div class="divider"></div>
+    <section class="section" id="google-ads">
+      <div class="section-header"><div class="section-num">4</div><h2>Google Ads</h2></div>
+      <ul class="checklist">
+        <li>Total spend vs budget — did we hit the monthly budget? Any days where spend was $0?</li>
+        <li>Impression share — any significant changes in search impression share?</li>
+        <li>CTR trend — stable or declining? Declining CTR may mean ad copy needs refreshing.</li>
+        <li>Average CPC — stable or increasing? Significant CPC increase may indicate competitive changes.</li>
+        <li>Search terms report — any irrelevant queries driving spend? Add negatives if needed (flag to Josh first).</li>
+        <li>Ad strength — any RSAs sitting at "Poor"? Flag to Josh.</li>
+        <li>Conversions (WC Leads) — consistent with WhatConverts lead count? Discrepancy = import issue, flag to Teddi.</li>
+      </ul>
+    </section>
+    <div class="divider"></div>
+    <section class="section" id="meta">
+      <div class="section-header"><div class="section-num">5</div><h2>Meta Ads</h2></div>
+      <ul class="checklist">
+        <li>Spend vs budget</li>
+        <li>Frequency — above 5 on any ad set? Flag to Josh.</li>
+        <li>Results and cost per result (directional only — cross-reference WhatConverts)</li>
+        <li>Any ad rejections or delivery issues?</li>
+        <li>Creative performance — which ads are driving the most results?</li>
+        <li>Pixel still firing? Quick check in Events Manager.</li>
+      </ul>
+    </section>
+    <div class="divider"></div>
+    <section class="section" id="wrap-up">
+      <div class="section-header"><div class="section-num">6</div><h2>Wrap-up</h2></div>
+      <ul class="checklist">
+        <li>Write 2–3 sentence summary of the month: what went well, what didn't, what's being done about it</li>
+        <li>Flag any budget recommendations to Josh before the report goes to the client</li>
+        <li>Flag any tracking issues to Teddi before the report goes to the client</li>
+        <li>Confirm report is reviewed by Josh before sending</li>
+      </ul>
+      <div class="callout success">
+        <span class="callout-icon">✓</span>
+        <div><strong>Rule of thumb:</strong> If you're unsure whether something is a real problem or just noise, compare to the same period last month AND the same period last year. One bad week isn't a trend.</div>
+      </div>
+    </section>
+
+  </div></main>
+</div>
+<script>
+  const sections=document.querySelectorAll('.section'),links=document.querySelectorAll('.sidebar a[href^="#"]');
+  const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){links.forEach(l=>l.classList.remove('active'));const a=document.querySelector(`.sidebar a[href="#${en.target.id}"]`);if(a)a.classList.add('active')}})},{rootMargin:'-20% 0px -70% 0px'});
+  sections.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>

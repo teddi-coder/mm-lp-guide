@@ -3,816 +3,145 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MM Landing Pages — Guide for Guy</title>
+<title>MM Internal Reference | Mechanic Marketing</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --orange: #EA580C;
-    --orange-light: #FFF7ED;
-    --orange-mid: #FED7AA;
-    --black: #0C0A09;
-    --grey-900: #1C1917;
-    --grey-700: #44403C;
-    --grey-500: #78716C;
-    --grey-200: #E7E5E4;
-    --grey-100: #F5F4F3;
-    --white: #FAFAF9;
-    --blue: #0369A1;
-    --blue-light: #E0F2FE;
-    --green: #15803D;
-    --green-light: #DCFCE7;
-    --red-light: #FEF2F2;
-    --red: #B91C1C;
-    --sidebar-width: 260px;
-    --content-max: 720px;
+    --orange: #EA580C; --orange-light: #FFF7ED; --orange-mid: #FED7AA;
+    --black: #0C0A09; --grey-900: #1C1917; --grey-700: #44403C;
+    --grey-500: #78716C; --grey-200: #E7E5E4; --grey-100: #F5F4F3;
+    --white: #FAFAF9; --blue-light: #E0F2FE; --green: #15803D;
+    --green-light: #DCFCE7; --red-light: #FEF2F2; --red: #B91C1C;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--grey-900); }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--white);
-    color: var(--grey-900);
-    font-size: 16px;
-    line-height: 1.7;
-  }
+  .topbar { position: fixed; top: 0; left: 0; right: 0; height: 52px; background: var(--black); display: flex; align-items: center; padding: 0 32px; z-index: 100; }
+  .topbar-logo { font-size: 13px; font-weight: 600; color: var(--white); letter-spacing: 0.08em; text-transform: uppercase; }
+  .topbar-badge { margin-left: auto; background: var(--orange); color: white; font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 20px; }
 
-  /* ── TOP BAR ── */
-  .topbar {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    height: 52px;
-    background: var(--black);
-    display: flex;
-    align-items: center;
-    padding: 0 24px;
-    gap: 12px;
-    z-index: 100;
-  }
-  .topbar-logo {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--white);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-  .topbar-sep { color: var(--grey-700); font-size: 13px; }
-  .topbar-title { font-size: 13px; color: var(--grey-500); }
-  .topbar-badge {
-    margin-left: auto;
-    background: var(--orange);
-    color: white;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 2px 10px;
-    border-radius: 20px;
-    letter-spacing: 0.04em;
-  }
+  .hero { padding: 120px 48px 80px; max-width: 860px; margin: 0 auto; }
+  .hero-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange); margin-bottom: 16px; }
+  .hero h1 { font-size: 48px; font-weight: 600; line-height: 1.1; color: var(--black); margin-bottom: 20px; }
+  .hero p { font-size: 17px; color: var(--grey-700); max-width: 560px; line-height: 1.7; }
 
-  /* ── LAYOUT ── */
-  .layout {
-    display: flex;
-    padding-top: 52px;
-    min-height: 100vh;
-  }
+  .grid { padding: 0 48px 80px; max-width: 860px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
-  /* ── SIDEBAR ── */
-  .sidebar {
-    width: var(--sidebar-width);
-    position: fixed;
-    top: 52px;
-    bottom: 0;
-    left: 0;
-    overflow-y: auto;
-    background: var(--grey-100);
-    border-right: 1px solid var(--grey-200);
-    padding: 28px 0 40px;
-  }
-  .sidebar-label {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--grey-500);
-    padding: 0 20px 10px;
-  }
-  .sidebar a {
-    display: block;
-    padding: 7px 20px;
-    font-size: 13.5px;
-    color: var(--grey-700);
-    text-decoration: none;
-    border-left: 3px solid transparent;
-    transition: all 0.15s;
-    line-height: 1.4;
-  }
-  .sidebar a:hover {
-    color: var(--orange);
-    background: var(--orange-light);
-    border-left-color: var(--orange);
-  }
-  .sidebar a.active {
-    color: var(--orange);
-    background: var(--orange-light);
-    border-left-color: var(--orange);
-    font-weight: 500;
-  }
-  .sidebar-divider {
-    height: 1px;
-    background: var(--grey-200);
-    margin: 12px 20px;
-  }
+  .card { border: 1px solid var(--grey-200); border-radius: 12px; padding: 24px; text-decoration: none; background: var(--white); transition: all 0.15s; display: block; }
+  .card:hover { border-color: var(--orange); box-shadow: 0 4px 20px rgba(234,88,12,0.08); transform: translateY(-1px); }
+  .card-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange); margin-bottom: 8px; }
+  .card-title { font-size: 18px; font-weight: 600; color: var(--black); margin-bottom: 8px; }
+  .card-desc { font-size: 14px; color: var(--grey-700); line-height: 1.55; }
+  .card-icon { font-size: 28px; margin-bottom: 12px; }
+  .card.coming { opacity: 0.5; cursor: default; }
+  .card.coming:hover { transform: none; box-shadow: none; border-color: var(--grey-200); }
+  .card-tag { display: inline-block; margin-top: 12px; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px; background: var(--grey-100); color: var(--grey-500); }
+  .card-tag.new { background: var(--green-light); color: var(--green); }
+  .card-tag.testing { background: #FFFBEB; color: #92400E; }
 
-  /* ── MAIN CONTENT ── */
-  .main {
-    margin-left: var(--sidebar-width);
-    flex: 1;
-    padding: 56px 48px 80px;
-  }
-  .content {
-    max-width: var(--content-max);
-  }
+  .section-label { padding: 0 48px; max-width: 860px; margin: 0 auto 16px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey-500); }
 
-  /* ── HERO ── */
-  .hero {
-    margin-bottom: 56px;
-    padding-bottom: 40px;
-    border-bottom: 1px solid var(--grey-200);
-  }
-  .hero-eyebrow {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--orange);
-    margin-bottom: 12px;
-  }
-  .hero h1 {
-    font-size: 36px;
-    font-weight: 600;
-    line-height: 1.15;
-    color: var(--black);
-    margin-bottom: 16px;
-  }
-  .hero-meta {
-    font-size: 13px;
-    color: var(--grey-500);
-  }
+  .divider { max-width: 860px; margin: 24px auto 32px; padding: 0 48px; }
+  .divider hr { border: none; border-top: 1px solid var(--grey-200); }
 
-  /* ── SECTION ── */
-  .section {
-    margin-bottom: 64px;
-    scroll-margin-top: 80px;
-  }
-  .section-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-  .section-num {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: var(--orange);
-    color: white;
-    font-size: 12px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  h2 {
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--black);
-  }
-  h3 {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--grey-900);
-    margin: 28px 0 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
+  .footer { padding: 32px 48px 48px; max-width: 860px; margin: 0 auto; font-size: 13px; color: var(--grey-500); }
 
-  p { margin-bottom: 14px; color: var(--grey-700); font-size: 15px; }
-  p:last-child { margin-bottom: 0; }
-
-  strong { color: var(--grey-900); font-weight: 600; }
-
-  /* ── CALLOUTS ── */
-  .callout {
-    border-radius: 8px;
-    padding: 14px 16px;
-    font-size: 14px;
-    margin: 16px 0;
-    display: flex;
-    gap: 10px;
-    line-height: 1.55;
+  @media (max-width: 700px) {
+    .hero { padding: 96px 24px 48px; }
+    .hero h1 { font-size: 32px; }
+    .grid { padding: 0 24px 48px; grid-template-columns: 1fr; }
+    .section-label { padding: 0 24px; }
+    .divider { padding: 0 24px; }
   }
-  .callout-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
-  .callout.info { background: var(--blue-light); color: #1E40AF; }
-  .callout.warning { background: #FFFBEB; color: #92400E; }
-  .callout.success { background: var(--green-light); color: #14532D; }
-  .callout.danger { background: var(--red-light); color: var(--red); }
-
-  /* ── STEPS ── */
-  .steps { counter-reset: steps; margin: 16px 0; }
-  .step {
-    display: flex;
-    gap: 14px;
-    margin-bottom: 14px;
-    counter-increment: steps;
-  }
-  .step-num {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: var(--orange);
-    color: white;
-    font-size: 11px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-  .step-content { font-size: 15px; color: var(--grey-700); }
-  .step-content strong { color: var(--grey-900); }
-
-  /* ── BULLETS ── */
-  ul.bullets { list-style: none; margin: 10px 0 16px; padding: 0; }
-  ul.bullets li {
-    padding: 5px 0 5px 20px;
-    font-size: 15px;
-    color: var(--grey-700);
-    position: relative;
-  }
-  ul.bullets li::before {
-    content: '—';
-    position: absolute;
-    left: 0;
-    color: var(--orange);
-    font-weight: 600;
-  }
-
-  /* ── CODE ── */
-  code {
-    font-family: 'DM Mono', monospace;
-    font-size: 13px;
-    background: var(--grey-100);
-    border: 1px solid var(--grey-200);
-    padding: 1px 6px;
-    border-radius: 4px;
-    color: var(--grey-900);
-  }
-  pre {
-    background: #1C1917;
-    border-radius: 8px;
-    padding: 16px 20px;
-    margin: 14px 0;
-    overflow-x: auto;
-  }
-  pre code {
-    background: none;
-    border: none;
-    padding: 0;
-    color: #D6D3D1;
-    font-size: 13px;
-    line-height: 1.6;
-  }
-  .code-label {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--grey-500);
-    margin-bottom: 6px;
-  }
-
-  /* ── TABLE ── */
-  .table-wrap { overflow-x: auto; margin: 16px 0; }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13.5px;
-  }
-  th {
-    background: var(--black);
-    color: white;
-    font-weight: 600;
-    text-align: left;
-    padding: 10px 14px;
-    font-size: 12px;
-    letter-spacing: 0.04em;
-  }
-  td {
-    padding: 9px 14px;
-    border-bottom: 1px solid var(--grey-200);
-    color: var(--grey-700);
-    vertical-align: top;
-  }
-  tr:nth-child(even) td { background: var(--grey-100); }
-  td code { font-size: 12px; }
-  td a { color: var(--blue); text-decoration: none; font-size: 12px; }
-  td a:hover { text-decoration: underline; }
-  .badge {
-    font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 20px;
-    font-weight: 500;
-    white-space: nowrap;
-  }
-  .badge-temp { background: #FEF3C7; color: #92400E; }
-  .badge-live { background: var(--green-light); color: var(--green); }
-
-  /* ── COMPARISON TABLE ── */
-  .compare-table th:first-child { background: var(--grey-700); }
-  .compare-table th:last-child { background: var(--orange); }
-
-  /* ── TASK CARDS ── */
-  .task-grid { display: grid; gap: 12px; margin: 16px 0; }
-  .task-card {
-    border: 1px solid var(--grey-200);
-    border-radius: 8px;
-    padding: 16px 18px;
-    background: var(--white);
-  }
-  .task-card-title {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--grey-900);
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .task-card-title .icon { font-size: 16px; }
-  .task-card p { font-size: 13.5px; margin-bottom: 8px; }
-  .task-card p:last-child { margin-bottom: 0; }
-
-  /* ── PERMISSION CARDS ── */
-  .perm-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 16px 0; }
-  .perm-card {
-    border-radius: 8px;
-    padding: 14px 16px;
-  }
-  .perm-card.green { background: var(--green-light); border: 1px solid #BBF7D0; }
-  .perm-card.amber { background: #FFFBEB; border: 1px solid #FDE68A; }
-  .perm-card.red { background: var(--red-light); border: 1px solid #FECACA; }
-  .perm-title {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-  .perm-card.green .perm-title { color: #166534; }
-  .perm-card.amber .perm-title { color: #92400E; }
-  .perm-card.red .perm-title { color: var(--red); }
-  .perm-card ul { list-style: none; padding: 0; }
-  .perm-card li {
-    font-size: 13px;
-    color: var(--grey-700);
-    padding: 3px 0;
-    display: flex;
-    gap: 6px;
-  }
-  .perm-card.green li::before { content: '✓'; color: var(--green); font-weight: 700; }
-  .perm-card.amber li::before { content: '~'; color: #D97706; font-weight: 700; }
-  .perm-card.red li::before { content: '×'; color: var(--red); font-weight: 700; }
-
-  /* ── CHECKLIST ── */
-  .checklist { list-style: none; padding: 0; margin: 12px 0; }
-  .checklist li {
-    display: flex;
-    gap: 10px;
-    padding: 8px 0;
-    font-size: 15px;
-    color: var(--grey-700);
-    border-bottom: 1px solid var(--grey-200);
-  }
-  .checklist li:last-child { border-bottom: none; }
-  .checklist li::before {
-    content: '☐';
-    color: var(--orange);
-    font-size: 16px;
-    flex-shrink: 0;
-    line-height: 1.5;
-  }
-
-  /* ── QUOTE BLOCK ── */
-  .quote {
-    border-left: 3px solid var(--orange);
-    background: var(--orange-light);
-    padding: 14px 18px;
-    border-radius: 0 8px 8px 0;
-    margin: 16px 0;
-    font-size: 14.5px;
-    color: var(--grey-700);
-    font-style: italic;
-    line-height: 1.6;
-  }
-
-  /* ── DIVIDER ── */
-  .divider {
-    height: 1px;
-    background: var(--grey-200);
-    margin: 40px 0;
-  }
-
-  /* ── MOBILE ── */
-  @media (max-width: 900px) {
-    .sidebar { display: none; }
-    .main { margin-left: 0; padding: 32px 24px 60px; }
-    .perm-grid { grid-template-columns: 1fr; }
-  }
-
-  /* ── SCROLL HIGHLIGHT ── */
-  .section:target h2 { color: var(--orange); }
 </style>
 </head>
 <body>
 
 <div class="topbar">
-  <span class="topbar-logo">MM Marketing</span>
-  <span class="topbar-sep">/</span>
-  <span class="topbar-title">Landing Pages Guide</span>
-  <span class="topbar-badge">For Guy</span>
+  <span class="topbar-logo">Mechanic Marketing</span>
+  <span class="topbar-badge">Internal Reference</span>
 </div>
 
-<div class="layout">
-
-  <!-- SIDEBAR -->
-  <nav class="sidebar">
-    <div class="sidebar-label">Contents</div>
-    <a href="#how-they-work">1. How these pages work</a>
-    <a href="#where-they-live">2. Where the pages live</a>
-    <a href="#what-to-edit">3. What you can edit</a>
-    <a href="#how-to-edit">4. How to make edits</a>
-    <a href="#github-access">5. Getting GitHub access</a>
-    <a href="#checklist">6. Safety checklist</a>
-    <div class="sidebar-divider"></div>
-    <a href="#quick-ref">7. Quick reference tasks</a>
-    <a href="#code-brief">8. Larger changes — Claude Code</a>
-    <a href="#help">9. Getting help</a>
-  </nav>
-
-  <!-- MAIN -->
-  <main class="main">
-    <div class="content">
-
-      <!-- HERO -->
-      <div class="hero">
-        <div class="hero-eyebrow">MM Marketing — Internal Guide</div>
-        <h1>Client Landing Pages<br>Guide for Guy</h1>
-        <div class="hero-meta">Written by Teddi, Hedgehog Marketing &nbsp;·&nbsp; May 2026</div>
-      </div>
-
-      <!-- 1. HOW THEY WORK -->
-      <section class="section" id="how-they-work">
-        <div class="section-header">
-          <div class="section-num">1</div>
-          <h2>How these pages work</h2>
-        </div>
-
-        <p>Each landing page is a single HTML file (<code>index.html</code>) that contains all the content, styling, and layout for that page. There's no backend, no CMS, no theme files. When someone visits the URL, their browser reads that file and renders it — that's it.</p>
-
-        <h3>How it's different from WordPress</h3>
-        <div class="table-wrap">
-          <table class="compare-table">
-            <thead><tr><th>WordPress</th><th>These landing pages</th></tr></thead>
-            <tbody>
-              <tr><td>Content stored in a database</td><td>Content written directly in the HTML file</td></tr>
-              <tr><td>PHP renders the page on each request</td><td>Browser reads a pre-built static file</td></tr>
-              <tr><td>Plugins add features</td><td>Features are coded directly into the file</td></tr>
-              <tr><td>Theme controls layout</td><td>Layout is CSS in the same file</td></tr>
-              <tr><td>Admin panel for editing</td><td>Edit the file via GitHub (see Section 4)</td></tr>
-              <tr><td>Hosting costs money</td><td>Hosted free (GitHub Pages) or cheap (Cloudways)</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <h3>Why we built them this way</h3>
-        <p>Speed and cost. Static HTML pages load faster than WordPress, can't be hacked via plugin vulnerabilities, don't need expensive hosting, and are easy to version-control. The trade-off is that editing requires opening the HTML file rather than a visual admin panel.</p>
-      </section>
-
-      <div class="divider"></div>
-
-      <!-- 2. WHERE THEY LIVE -->
-      <section class="section" id="where-they-live">
-        <div class="section-header">
-          <div class="section-num">2</div>
-          <h2>Where the pages live</h2>
-        </div>
-
-        <p>Each client has their own GitHub repository — a folder in the cloud that stores the code. <strong>All pages will eventually move to Cloudways</strong> — that's the permanent home for all MM client pages. GitHub Pages is a temporary preview environment while pages are being built and reviewed.</p>
-
-        <div class="callout info">
-          <span class="callout-icon">ℹ️</span>
-          <span><strong>Always edit in GitHub.</strong> Where the page is hosted doesn't change how you edit it — the GitHub repo is always the source of truth.</span>
-        </div>
-
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Client</th><th>Repo</th><th>Current URL</th><th>Hosting</th></tr></thead>
-            <tbody>
-              <tr><td>Performance Plus</td><td><code>teddi-coder/performance-plus</code></td><td><a href="https://teddi-coder.github.io/performance-plus/" target="_blank">View ↗</a></td><td><span class="badge badge-temp">Temp</span></td></tr>
-              <tr><td>Automotive Insight</td><td><code>teddi-coder/automotive-insight</code></td><td><a href="https://teddi-coder.github.io/automotive-insight/" target="_blank">View ↗</a></td><td><span class="badge badge-temp">Temp</span></td></tr>
-              <tr><td>Ballarat Automotive SC</td><td><code>teddi-coder/ballarat-automotive-service-centre</code></td><td><a href="https://teddi-coder.github.io/ballarat-automotive-service-centre/" target="_blank">View ↗</a></td><td><span class="badge badge-temp">Temp</span></td></tr>
-              <tr><td>Ballarat Roadworthy</td><td><code>teddi-coder/ballarat-roadworthy-centre</code></td><td><a href="https://teddi-coder.github.io/ballarat-roadworthy-centre/" target="_blank">View ↗</a></td><td><span class="badge badge-temp">Temp</span></td></tr>
-              <tr><td>Ballarat Commercial SC</td><td><code>teddi-coder/ballarat-commercial-service-centre</code></td><td><a href="https://teddi-coder.github.io/ballarat-commercial-service-centre/" target="_blank">View ↗</a></td><td><span class="badge badge-temp">Temp</span></td></tr>
-              <tr><td>Noranda Service Centre</td><td><code>teddi-coder/noranda-service-centre</code></td><td><a href="https://teddi-coder.github.io/noranda-service-centre/" target="_blank">View ↗</a></td><td><span class="badge badge-temp">Temp</span></td></tr>
-              <tr><td>Ultra Tune North Ryde</td><td><code>teddi-coder/ultra-tune-north-ryde</code></td><td><a href="https://northrydeultratune.com.au/" target="_blank">View ↗</a></td><td><span class="badge badge-temp">Temp</span></td></tr>
-              <tr><td>Core Diesel</td><td><code>teddi-coder/core-diesel</code></td><td><a href="https://services.corediesel.com.au/" target="_blank">View ↗</a></td><td><span class="badge badge-live">Cloudways</span></td></tr>
-              <tr><td>Auto Response</td><td><code>teddi-coder/auto-response</code></td><td><a href="https://services.autoresponse.com.au/" target="_blank">View ↗</a></td><td><span class="badge badge-live">Cloudways</span></td></tr>
-              <tr><td>MM Marketing website</td><td><code>teddi-coder/mechanicmarketing-static</code></td><td><a href="https://mechanicmarketing.co/" target="_blank">View ↗</a></td><td><span class="badge badge-live">Cloudflare</span></td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <h3>How hosting works</h3>
-        <p><strong>GitHub Pages (temporary):</strong> Save the file and the preview updates within ~2 minutes. Teddi migrates to Cloudways when a page is ready to go live.</p>
-        <p><strong>Cloudways (all pages eventually):</strong> Core Diesel and Auto Response are already here. Once on Cloudways, edits still happen in GitHub but need Teddi to deploy. Route those through her for now.</p>
-        <p><strong>Cloudflare Pages (MM website):</strong> Auto-deploys from GitHub the same way GitHub Pages does. No difference to your workflow.</p>
-      </section>
-
-      <div class="divider"></div>
-
-      <!-- 3. WHAT TO EDIT -->
-      <section class="section" id="what-to-edit">
-        <div class="section-header">
-          <div class="section-num">3</div>
-          <h2>What you can edit vs what to leave alone</h2>
-        </div>
-
-        <div class="perm-grid">
-          <div class="perm-card green">
-            <div class="perm-title">✓ Safe to edit</div>
-            <ul>
-              <li>Headlines &amp; body copy</li>
-              <li>Phone numbers</li>
-              <li>Addresses &amp; hours</li>
-              <li>Button labels</li>
-              <li>FAQ questions &amp; answers</li>
-              <li>Review quotes &amp; names</li>
-            </ul>
-          </div>
-          <div class="perm-card amber">
-            <div class="perm-title">~ Edit with care</div>
-            <ul>
-              <li>Image src URLs</li>
-              <li>Link href values</li>
-              <li>tel: phone attributes</li>
-            </ul>
-          </div>
-          <div class="perm-card red">
-            <div class="perm-title">× Leave to Teddi</div>
-            <ul>
-              <li>Page structure &amp; layout</li>
-              <li>CSS styling</li>
-              <li>New sections</li>
-              <li>Form handling</li>
-              <li>Any JavaScript</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <div class="divider"></div>
-
-      <!-- 4. HOW TO EDIT -->
-      <section class="section" id="how-to-edit">
-        <div class="section-header">
-          <div class="section-num">4</div>
-          <h2>How to make edits</h2>
-        </div>
-
-        <p>For simple text changes — phone numbers, hours, copy, reviews, FAQ answers — edit directly on GitHub. For anything structural, use Claude Code (see Section 8).</p>
-
-        <h3>Editing directly on GitHub</h3>
-        <div class="steps">
-          <div class="step"><div class="step-num">1</div><div class="step-content">Go to the repo — e.g. <strong>github.com/teddi-coder/performance-plus</strong></div></div>
-          <div class="step"><div class="step-num">2</div><div class="step-content">Click <strong>index.html</strong> in the file list</div></div>
-          <div class="step"><div class="step-num">3</div><div class="step-content">Click the <strong>pencil icon</strong> (Edit this file) in the top-right</div></div>
-          <div class="step"><div class="step-num">4</div><div class="step-content">Use <strong>Ctrl+F</strong> to find the text you want to change</div></div>
-          <div class="step"><div class="step-num">5</div><div class="step-content">Make your edit</div></div>
-          <div class="step"><div class="step-num">6</div><div class="step-content">Scroll to the bottom, add a short note describing what you changed, and click <strong>Commit changes</strong></div></div>
-          <div class="step"><div class="step-num">7</div><div class="step-content">The page updates within ~2 minutes</div></div>
-        </div>
-
-        <div class="code-label">What you're editing looks like</div>
-        <pre><code>&lt;h1&gt;Car Servicing &amp; Repairs in Queanbeyan&lt;/h1&gt;
-&lt;p&gt;Trusted local mechanics keeping Canberra &amp; Queanbeyan
-   drivers safely on the road since 1986&lt;/p&gt;</code></pre>
-
-        <p>Find the words, change them, save. You don't need to understand the tags around them.</p>
-
-        <h3>Tips</h3>
-        <ul class="bullets">
-          <li>Use <strong>Ctrl+F</strong> to find text — search for the exact words on the live page</li>
-          <li>Only change text <strong>between</strong> the <code>&gt;</code> and <code>&lt;</code> characters — not the tags themselves</li>
-          <li>A phone number appears in <strong>two places</strong> — the visible label (<code>Call 02 6324 1091</code>) AND the href attribute (<code>href="tel:+61263241091"</code>). Update both.</li>
-          <li>GitHub keeps full history — if something looks wrong, revert via the History button</li>
-        </ul>
-      </section>
-
-      <div class="divider"></div>
-
-      <!-- 5. GITHUB ACCESS -->
-      <section class="section" id="github-access">
-        <div class="section-header">
-          <div class="section-num">5</div>
-          <h2>Getting access to GitHub</h2>
-        </div>
-
-        <div class="steps">
-          <div class="step"><div class="step-num">1</div><div class="step-content">Create a free account at <strong>github.com</strong> — use your MM Marketing email</div></div>
-          <div class="step"><div class="step-num">2</div><div class="step-content">Send Teddi your GitHub username</div></div>
-          <div class="step"><div class="step-num">3</div><div class="step-content">Teddi adds you as a <strong>Collaborator</strong> on each repo — you'll get an email invitation to accept</div></div>
-          <div class="step"><div class="step-num">4</div><div class="step-content">Once accepted, you can edit files directly</div></div>
-        </div>
-
-        <div class="callout success">
-          <span class="callout-icon">✓</span>
-          <span>You'll have <strong>Write</strong> access — you can edit and publish changes but can't delete the repo or change its settings.</span>
-        </div>
-      </section>
-
-      <div class="divider"></div>
-
-      <!-- 6. CHECKLIST -->
-      <section class="section" id="checklist">
-        <div class="section-header">
-          <div class="section-num">6</div>
-          <h2>Before saving any change — checklist</h2>
-        </div>
-
-        <ul class="checklist">
-          <li>Used Ctrl+F to find the exact text — not scrolled manually looking for it</li>
-          <li>Only changed text between tags, not the tags themselves</li>
-          <li>If changing a phone number, updated <strong>both</strong> the visible label and the <code>tel:</code> href</li>
-          <li>Checked the live URL after ~2 minutes to confirm the change looks right</li>
-          <li>If something broke, reverted via the repo History button</li>
-        </ul>
-      </section>
-
-      <div class="divider"></div>
-
-      <!-- 7. QUICK REF -->
-      <section class="section" id="quick-ref">
-        <div class="section-header">
-          <div class="section-num">7</div>
-          <h2>Common tasks — quick reference</h2>
-        </div>
-
-        <div class="task-grid">
-
-          <div class="task-card">
-            <div class="task-card-title"><span class="icon">📞</span> Change a phone number</div>
-            <p>Search for the old number (e.g. <code>6324 1091</code>). It appears in two places:</p>
-            <ul class="bullets">
-              <li>Visible label: <code>Call 02 6324 1091</code></li>
-              <li>Link attribute: <code>href="tel:+61263241091"</code></li>
-            </ul>
-            <p>Update both. The <code>tel:</code> format uses <code>+61</code> instead of <code>0</code> and has no spaces.</p>
-          </div>
-
-          <div class="task-card">
-            <div class="task-card-title"><span class="icon">🕐</span> Update business hours</div>
-            <p>Search for the current hours text (e.g. <code>7:30 AM</code>). Update wherever it appears — usually in 2–3 places: hero, location section, and footer.</p>
-          </div>
-
-          <div class="task-card">
-            <div class="task-card-title"><span class="icon">⭐</span> Add a review</div>
-            <p>Find the reviews section (search for an existing reviewer name). Copy an existing review block:</p>
-            <pre><code>&lt;div class="review-card"&gt;
-  &lt;p&gt;"Review text here."&lt;/p&gt;
-  &lt;span&gt;— Reviewer Name&lt;/span&gt;
-  &lt;span class="stars"&gt;⭐⭐⭐⭐⭐&lt;/span&gt;
-&lt;/div&gt;</code></pre>
-            <p>Paste a copy, update the text and name, save.</p>
-          </div>
-
-          <div class="task-card">
-            <div class="task-card-title"><span class="icon">❓</span> Update an FAQ answer</div>
-            <p>Search for the question text. The answer is immediately below it. Update the answer text only — don't touch the surrounding tags.</p>
-          </div>
-
-          <div class="task-card">
-            <div class="task-card-title"><span class="icon">🔘</span> Change a button label</div>
-            <p>Search for the current button text (e.g. <code>Get a Quote</code>). Update the text between the <code>&gt;</code> and <code>&lt;/a&gt;</code> tags. Don't change the <code>href</code> unless the destination is also changing.</p>
-          </div>
-
-        </div>
-      </section>
-
-      <div class="divider"></div>
-
-      <!-- 8. CODE BRIEF -->
-      <section class="section" id="code-brief">
-        <div class="section-header">
-          <div class="section-num">8</div>
-          <h2>Larger changes — Claude Code</h2>
-        </div>
-
-        <p>For anything beyond text edits — adding a section, changing a layout, fixing a bug, changing colours or styling — don't edit the HTML directly. Write a code brief and run it through Claude Code instead.</p>
-
-        <h3>What is Claude Code?</h3>
-        <p>Claude Code is an AI coding tool built into the Claude desktop app. You open a repo folder, paste a brief, and it reads the files, makes the changes, and shows you exactly what it did — without you touching the code directly.</p>
-        <p>You already have it installed with the same code brief skill loaded as Teddi, so it knows exactly what format to expect.</p>
-
-        <h3>How to write a brief</h3>
-        <p>You don't write briefs manually. You describe what you want in plain English and <strong>ask Claude to write the brief for you</strong>.</p>
-
-        <div class="quote">"Write me a code brief for the Performance Plus page. The FAQ section shows all answers visible at once. I want clicking a question to toggle the answer open and closed."</div>
-
-        <p>Claude will ask any clarifying questions it needs, then produce a properly formatted brief ready to paste into Claude Code.</p>
-
-        <ul class="bullets">
-          <li>Say which page it's for</li>
-          <li>Describe what currently happens and what you want to happen instead</li>
-          <li>Name the section if you know it (e.g. "the Why Choose Us section")</li>
-          <li>You don't need to know the technical solution — just describe the problem</li>
-        </ul>
-
-        <h3>Running the brief through Claude Code</h3>
-        <div class="steps">
-          <div class="step"><div class="step-num">1</div><div class="step-content">Open the <strong>Claude desktop app</strong> and switch to Claude Code</div></div>
-          <div class="step"><div class="step-num">2</div><div class="step-content">Open the repo folder for the page you want to change</div></div>
-          <div class="step"><div class="step-num">3</div><div class="step-content">Paste the brief into the chat</div></div>
-          <div class="step"><div class="step-num">4</div><div class="step-content">Claude Code explains what it plans to change and asks for confirmation before making any edits</div></div>
-          <div class="step"><div class="step-num">5</div><div class="step-content">Review what it did and open <code>index.html</code> in a browser to verify it looks correct</div></div>
-          <div class="step"><div class="step-num">6</div><div class="step-content"><strong>Tell Claude Code to commit and push</strong> — it handles that for you</div></div>
-          <div class="step"><div class="step-num">7</div><div class="step-content">The live page updates within ~2 minutes</div></div>
-        </div>
-
-        <div class="callout warning">
-          <span class="callout-icon">⚠️</span>
-          <span><strong>If something looks wrong:</strong> don't commit. Tell Claude Code what's wrong and it will fix it before pushing.</span>
-        </div>
-        <div class="callout info">
-          <span class="callout-icon">ℹ️</span>
-          <span><strong>Not sure if it's right?</strong> Send a screenshot to Teddi before telling Claude Code to push.</span>
-        </div>
-      </section>
-
-      <div class="divider"></div>
-
-      <!-- 9. HELP -->
-      <section class="section" id="help">
-        <div class="section-header">
-          <div class="section-num">9</div>
-          <h2>Getting help</h2>
-        </div>
-
-        <div class="task-grid">
-          <div class="task-card">
-            <div class="task-card-title"><span class="icon">🤔</span> Minor uncertainty</div>
-            <p>Make the change, check the live page after 2 minutes. If something looks wrong, revert via the GitHub History button.</p>
-          </div>
-          <div class="task-card">
-            <div class="task-card-title"><span class="icon">🔧</span> Larger or structural changes</div>
-            <p>Describe the problem to Claude, get a brief, run it through Claude Code. Or send it to Teddi.</p>
-          </div>
-          <div class="task-card">
-            <div class="task-card-title"><span class="icon">🚨</span> Something broke and you can't fix it</div>
-            <p>Go to the repo → <code>index.html</code> → click <strong>History</strong> (clock icon) → find the last working version → restore it.</p>
-            <div class="callout success" style="margin-top: 10px;">
-              <span class="callout-icon">✓</span>
-              <span>GitHub keeps every version forever. Nothing can be permanently broken.</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </div>
-  </main>
+<div class="hero">
+  <div class="hero-eyebrow">MM Marketing — Internal</div>
+  <h1>Reference Hub</h1>
+  <p>Guides, references, and checklists for day-to-day account management. Everything in one place.</p>
 </div>
 
-<script>
-  // Active sidebar link on scroll
-  const sections = document.querySelectorAll('.section');
-  const links = document.querySelectorAll('.sidebar a');
+<div class="section-label">Landing Pages</div>
+<div class="grid">
+  <a href="lp-guide.html" class="card">
+    <div class="card-icon">🖥️</div>
+    <div class="card-eyebrow">Guide</div>
+    <div class="card-title">LP Editing Guide</div>
+    <div class="card-desc">How to make text edits in GitHub, use Claude Code for structural changes, and get access to repos.</div>
+  </a>
+  <a href="lp-pipeline.html" class="card">
+    <div class="card-icon">⚡</div>
+    <div class="card-eyebrow">Automation</div>
+    <div class="card-title">LP Automation Pipeline</div>
+    <div class="card-desc">How the brief form works, what happens after you submit, and how to build new client pages.</div>
+    <span class="card-tag testing">In testing</span>
+  </a>
+  <a href="cloudways.html" class="card">
+    <div class="card-icon">☁️</div>
+    <div class="card-eyebrow">Deployment</div>
+    <div class="card-title">Cloudways Deployment</div>
+    <div class="card-desc">How to deploy a finished landing page from GitHub to Cloudways and go live under the client domain.</div>
+  </a>
+</div>
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        links.forEach(l => l.classList.remove('active'));
-        const active = document.querySelector(`.sidebar a[href="#${entry.target.id}"]`);
-        if (active) active.classList.add('active');
-      }
-    });
-  }, { rootMargin: '-20% 0px -70% 0px' });
+<div class="divider"><hr></div>
 
-  sections.forEach(s => observer.observe(s));
-</script>
+<div class="section-label">Tracking & Reporting</div>
+<div class="grid">
+  <a href="tracking-tools.html" class="card">
+    <div class="card-icon">🔗</div>
+    <div class="card-eyebrow">Reference</div>
+    <div class="card-title">Tracking Tools Overview</div>
+    <div class="card-desc">GTag, GA4, WhatConverts, Google Ads conversions, Meta Pixel — what each one does and how they connect.</div>
+  </a>
+  <a href="whatconverts.html" class="card">
+    <div class="card-icon">📞</div>
+    <div class="card-eyebrow">Reference</div>
+    <div class="card-title">WhatConverts Guide</div>
+    <div class="card-desc">How WhatConverts works, how to read the lead export, what WC Calls vs WC Leads means, and common questions.</div>
+  </a>
+  <a href="google-ads.html" class="card">
+    <div class="card-icon">🎯</div>
+    <div class="card-eyebrow">Reference</div>
+    <div class="card-title">Google Ads — Reading the Numbers</div>
+    <div class="card-desc">What to look at, what's normal, what needs attention, and when to flag something to Teddi or Josh.</div>
+  </a>
+  <a href="meta-ads.html" class="card">
+    <div class="card-icon">📘</div>
+    <div class="card-eyebrow">Reference</div>
+    <div class="card-title">Meta Ads — Reading the Numbers</div>
+    <div class="card-desc">Campaign structure, key metrics, what good looks like, and how to diagnose underperformance.</div>
+  </a>
+  <a href="reporting-checklist.html" class="card">
+    <div class="card-icon">✅</div>
+    <div class="card-eyebrow">Checklist</div>
+    <div class="card-title">Monthly Reporting Checklist</div>
+    <div class="card-desc">Step-by-step of what to pull, check, and flag each month across WhatConverts, GA4, Google Ads, and Meta.</div>
+  </a>
+</div>
+
+<div class="divider"><hr></div>
+
+<div class="section-label">Account Management</div>
+<div class="grid">
+  <a href="escalation.html" class="card">
+    <div class="card-icon">🚦</div>
+    <div class="card-eyebrow">Guide</div>
+    <div class="card-title">Client Escalation Guide</div>
+    <div class="card-desc">What to handle yourself, what goes to Josh, what goes to Teddi. Includes common client scenarios.</div>
+  </a>
+</div>
+
+<div class="footer">Mechanic Marketing — Internal use only &nbsp;·&nbsp; Updated May 2026</div>
 
 </body>
 </html>

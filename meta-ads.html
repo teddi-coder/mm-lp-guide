@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meta Ads — Reading the Numbers | MM Internal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--orange:#EA580C;--orange-light:#FFF7ED;--black:#0C0A09;--grey-900:#1C1917;--grey-700:#44403C;--grey-500:#78716C;--grey-200:#E7E5E4;--grey-100:#F5F4F3;--white:#FAFAF9;--blue:#0369A1;--blue-light:#E0F2FE;--green:#15803D;--green-light:#DCFCE7;--red-light:#FEF2F2;--red:#B91C1C;--yellow-light:#FEFCE8;--yellow:#CA8A04;--sidebar-width:240px}
+  *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--grey-900);font-size:16px;line-height:1.7}
+  .topbar{position:fixed;top:0;left:0;right:0;height:52px;background:var(--black);display:flex;align-items:center;padding:0 24px;gap:8px;z-index:100}
+  .topbar a{font-size:13px;color:var(--grey-500);text-decoration:none;transition:color .15s}.topbar a:hover{color:var(--white)}
+  .topbar-logo{font-size:13px;font-weight:600;color:var(--white);letter-spacing:.08em;text-transform:uppercase;text-decoration:none!important}
+  .topbar-sep{color:var(--grey-700)}.topbar-badge{margin-left:auto;background:var(--orange);color:white;font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px}
+  .layout{display:flex;padding-top:52px;min-height:100vh}
+  .sidebar{width:var(--sidebar-width);position:fixed;top:52px;bottom:0;left:0;overflow-y:auto;background:var(--grey-100);border-right:1px solid var(--grey-200);padding:28px 0 40px}
+  .sidebar-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--grey-500);padding:0 20px 10px}
+  .sidebar a{display:block;padding:7px 20px;font-size:13.5px;color:var(--grey-700);text-decoration:none;border-left:3px solid transparent;transition:all .15s;line-height:1.4}
+  .sidebar a:hover,.sidebar a.active{color:var(--orange);background:var(--orange-light);border-left-color:var(--orange);font-weight:500}
+  .sidebar-back{display:flex;align-items:center;gap:6px;padding:10px 20px 16px;font-size:12px;color:var(--grey-500);text-decoration:none;border-bottom:1px solid var(--grey-200);margin-bottom:12px;transition:color .15s}.sidebar-back:hover{color:var(--orange)}
+  .main{margin-left:var(--sidebar-width);flex:1;padding:56px 48px 80px}.content{max-width:720px}
+  .hero{margin-bottom:56px;padding-bottom:40px;border-bottom:1px solid var(--grey-200)}
+  .hero-eyebrow{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:12px}
+  .hero h1{font-size:36px;font-weight:600;line-height:1.15;color:var(--black);margin-bottom:16px}
+  .hero-meta{font-size:13px;color:var(--grey-500)}
+  .section{margin-bottom:64px;scroll-margin-top:80px}.section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+  .section-num{width:28px;height:28px;border-radius:50%;background:var(--orange);color:white;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  h2{font-size:22px;font-weight:600;color:var(--black)}h3{font-size:13px;font-weight:600;color:var(--grey-900);margin:28px 0 10px;text-transform:uppercase;letter-spacing:.08em}
+  p{margin-bottom:14px;color:var(--grey-700);font-size:15px}p:last-child{margin-bottom:0}strong{color:var(--grey-900);font-weight:600}
+  code{font-family:'DM Mono',monospace;font-size:13px;background:var(--grey-100);border:1px solid var(--grey-200);padding:1px 6px;border-radius:4px;color:var(--grey-900)}
+  pre{background:#1C1917;border-radius:8px;padding:16px 20px;margin:14px 0;overflow-x:auto}pre code{background:none;border:none;padding:0;color:#D6D3D1;font-size:13px;line-height:1.6}
+  .callout{border-radius:8px;padding:14px 16px;font-size:14px;margin:16px 0;display:flex;gap:10px;line-height:1.55}.callout-icon{font-size:16px;flex-shrink:0;margin-top:1px}.callout strong{display:block;margin-bottom:2px}
+  .callout.info{background:var(--blue-light);color:#1E40AF}.callout.warning{background:#FFFBEB;color:#92400E}.callout.danger{background:var(--red-light);color:var(--red)}.callout.success{background:var(--green-light);color:#14532D}
+  .table-wrap{overflow-x:auto;margin:16px 0}table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{background:var(--black);color:white;font-weight:600;text-align:left;padding:10px 14px;font-size:12px;letter-spacing:.04em}
+  td{padding:10px 14px;border-bottom:1px solid var(--grey-200);color:var(--grey-700);vertical-align:top;font-size:14px;line-height:1.5}tr:nth-child(even) td{background:var(--grey-100)}
+  .pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap}
+  .pill-ok{background:var(--green-light);color:var(--green)}.pill-normal{background:var(--yellow-light);color:var(--yellow)}.pill-action{background:var(--red-light);color:var(--red)}
+  ul.bullets{list-style:none;margin:10px 0 16px;padding:0}ul.bullets li{padding:5px 0 5px 20px;font-size:15px;color:var(--grey-700);position:relative}ul.bullets li::before{content:'—';position:absolute;left:0;color:var(--orange);font-weight:600}
+  .steps{margin:16px 0}.step{display:flex;gap:14px;margin-bottom:14px}.step-num{width:24px;height:24px;border-radius:50%;background:var(--orange);color:white;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}.step-content{font-size:15px;color:var(--grey-700)}
+  .divider{height:1px;background:var(--grey-200);margin:40px 0}
+  .checklist{list-style:none;padding:0;margin:12px 0}.checklist li{display:flex;gap:10px;padding:8px 0;font-size:15px;color:var(--grey-700);border-bottom:1px solid var(--grey-200)}.checklist li:last-child{border-bottom:none}.checklist li::before{content:'☐';color:var(--orange);font-size:16px;flex-shrink:0;line-height:1.5}
+  @media(max-width:900px){.sidebar{display:none}.main{margin-left:0;padding:32px 24px 60px}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="index.html" class="topbar-logo">MM Marketing</a>
+  <span class="topbar-sep">/</span>
+  <span style="font-size:13px;color:var(--grey-500)">Meta Ads — Reading the Numbers</span>
+  <span class="topbar-badge">Internal</span>
+</div>
+<div class="layout">
+  <nav class="sidebar">
+    <a href="index.html" class="sidebar-back">← All guides</a>
+    <div class="sidebar-label">On this page</div>
+    <a href="#structure">Campaign structure</a>
+    <a href="#key-metrics">Key metrics</a>
+    <a href="#normal-vs-not">Normal vs not normal</a>
+    <a href="#pixel">Meta Pixel checks</a>
+    <a href="#when-to-escalate">When to escalate</a>
+  </nav>
+  <main class="main"><div class="content">
+    <div class="hero">
+      <div class="hero-eyebrow">Tracking & Reporting</div>
+      <h1>Meta Ads — Reading the Numbers</h1>
+      <div class="hero-meta">Campaign structure, key metrics, what good looks like, and how to diagnose underperformance</div>
+    </div>
+
+    <section class="section" id="structure">
+      <div class="section-header"><div class="section-num">1</div><h2>Campaign structure for MM clients</h2></div>
+      <p>MM clients typically run Meta campaigns for brand awareness and lead generation. The structure follows the Meta campaign hierarchy:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Level</th><th>What it controls</th><th>What you'll typically see</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Campaign</strong></td><td>Objective (awareness, leads, traffic)</td><td>One campaign per objective. Most clients have 1–2 active campaigns.</td></tr>
+            <tr><td><strong>Ad Set</strong></td><td>Audience, budget, placement, schedule</td><td>1–3 ad sets per campaign targeting different audiences</td></tr>
+            <tr><td><strong>Ad</strong></td><td>Creative — image/video, copy, CTA</td><td>2–4 ad variations per ad set for testing</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <div class="divider"></div>
+    <section class="section" id="key-metrics">
+      <div class="section-header"><div class="section-num">2</div><h2>Key metrics — what they mean</h2></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Metric</th><th>What it means</th><th>Benchmark</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Reach</strong></td><td>Unique people who saw the ad</td><td>Context-dependent — compare to previous periods</td></tr>
+            <tr><td><strong>Impressions</strong></td><td>Total times the ad was shown (includes repeat views)</td><td>—</td></tr>
+            <tr><td><strong>Frequency</strong></td><td>Average times each person saw the ad</td><td>Above 4–5 on awareness campaigns = audience fatigue. Flag to Josh.</td></tr>
+            <tr><td><strong>CPM</strong></td><td>Cost per 1,000 impressions</td><td>Varies significantly by audience and season. Compare to account history.</td></tr>
+            <tr><td><strong>CTR (Link)</strong></td><td>% of people who clicked the link</td><td>Above 1% is healthy for most automotive clients</td></tr>
+            <tr><td><strong>CPC (Link)</strong></td><td>Cost per link click</td><td>Compare to account history — no universal benchmark</td></tr>
+            <tr><td><strong>Results</strong></td><td>Conversions recorded by Meta (pixel events)</td><td>Compare to WhatConverts. Meta often over-reports due to view-through attribution.</td></tr>
+            <tr><td><strong>Cost per Result</strong></td><td>Spend ÷ Meta-recorded conversions</td><td>Use as a directional signal only — always cross-reference WhatConverts</td></tr>
+            <tr><td><strong>ROAS</strong></td><td>Return on ad spend (only meaningful if values are set)</td><td>N/A for most MM clients who don't pass revenue values</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warning">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>Meta over-reports conversions.</strong> Meta's default attribution window includes view-through conversions (someone saw the ad but never clicked). Always compare to WhatConverts lead count before drawing conclusions about Meta performance.</div>
+      </div>
+    </section>
+    <div class="divider"></div>
+    <section class="section" id="normal-vs-not">
+      <div class="section-header"><div class="section-num">3</div><h2>Normal vs not normal</h2></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>What you see</th><th>Normal?</th><th>What to do</th></tr></thead>
+          <tbody>
+            <tr><td>Meta shows more conversions than WhatConverts</td><td><span class="pill pill-ok">Normal</span></td><td>Meta's view-through attribution inflates numbers. Trust WhatConverts.</td></tr>
+            <tr><td>Frequency above 5 on an awareness campaign</td><td><span class="pill pill-normal">Flag to Josh</span></td><td>Audience may be saturated. May need to expand audience or refresh creative.</td></tr>
+            <tr><td>Zero results for 7+ days</td><td><span class="pill pill-action">Investigate</span></td><td>Check pixel is firing in Events Manager. Check campaign is active and budget is live.</td></tr>
+            <tr><td>Ad account disabled</td><td><span class="pill pill-action">Escalate immediately</span></td><td>Flag to Josh immediately.</td></tr>
+            <tr><td>Ad rejected</td><td><span class="pill pill-action">Check reason</span></td><td>Read the rejection reason. Some are auto-fixable (text amount). Others need Josh.</td></tr>
+            <tr><td>Spend drops significantly with no change made</td><td><span class="pill pill-action">Investigate</span></td><td>Check audience size, bid cap, ad approval status. Flag to Josh if unclear.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <div class="divider"></div>
+    <section class="section" id="pixel">
+      <div class="section-header"><div class="section-num">4</div><h2>Meta Pixel checks</h2></div>
+      <p>The Meta Pixel fires on the client's website and reports events back to Meta Ads Manager. If the pixel breaks, Meta stops recording conversions.</p>
+      <h3>How to check if the pixel is firing</h3>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-content">Go to Meta Ads Manager → <strong>Events Manager</strong></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content">Select the client's pixel</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content">Check <strong>Activity</strong> — recent page view events should be visible if the pixel is firing</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content">If no recent events: the pixel may have been removed by a site update. Flag to Teddi to reinstall.</div></div>
+      </div>
+      <div class="callout danger">
+        <span class="callout-icon">🚨</span>
+        <div>The Meta Pixel is separate from GTag and WhatConverts — it has no connection to Google Ads or GA4. If it breaks, it only affects Meta reporting. But it's worth catching early.</div>
+      </div>
+    </section>
+    <div class="divider"></div>
+    <section class="section" id="when-to-escalate">
+      <div class="section-header"><div class="section-num">5</div><h2>When to escalate</h2></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Situation</th><th>Who to escalate to</th></tr></thead>
+          <tbody>
+            <tr><td>Budget changes (increase / decrease)</td><td>Josh</td></tr>
+            <tr><td>Audience changes or new targeting</td><td>Josh</td></tr>
+            <tr><td>Creative refresh needed</td><td>Josh (strategy) + Teddi (production if needed)</td></tr>
+            <tr><td>Ad account disabled</td><td>Josh immediately</td></tr>
+            <tr><td>Pixel not firing</td><td>Teddi</td></tr>
+            <tr><td>Attribution window questions from client</td><td>Josh</td></tr>
+            <tr><td>Campaign objective change</td><td>Josh</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </div></main>
+</div>
+<script>
+  const sections=document.querySelectorAll('.section'),links=document.querySelectorAll('.sidebar a[href^="#"]');
+  const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){links.forEach(l=>l.classList.remove('active'));const a=document.querySelector(`.sidebar a[href="#${en.target.id}"]`);if(a)a.classList.add('active')}})},{rootMargin:'-20% 0px -70% 0px'});
+  sections.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>

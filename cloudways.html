@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cloudways Deployment | MM Internal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--orange:#EA580C;--orange-light:#FFF7ED;--black:#0C0A09;--grey-900:#1C1917;--grey-700:#44403C;--grey-500:#78716C;--grey-200:#E7E5E4;--grey-100:#F5F4F3;--white:#FAFAF9;--blue:#0369A1;--blue-light:#E0F2FE;--green:#15803D;--green-light:#DCFCE7;--red-light:#FEF2F2;--red:#B91C1C;--yellow-light:#FEFCE8;--yellow:#CA8A04;--sidebar-width:240px}
+  *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--grey-900);font-size:16px;line-height:1.7}
+  .topbar{position:fixed;top:0;left:0;right:0;height:52px;background:var(--black);display:flex;align-items:center;padding:0 24px;gap:8px;z-index:100}
+  .topbar a{font-size:13px;color:var(--grey-500);text-decoration:none;transition:color .15s}.topbar a:hover{color:var(--white)}
+  .topbar-logo{font-size:13px;font-weight:600;color:var(--white);letter-spacing:.08em;text-transform:uppercase;text-decoration:none!important}
+  .topbar-sep{color:var(--grey-700)}.topbar-badge{margin-left:auto;background:var(--orange);color:white;font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px}
+  .layout{display:flex;padding-top:52px;min-height:100vh}
+  .sidebar{width:var(--sidebar-width);position:fixed;top:52px;bottom:0;left:0;overflow-y:auto;background:var(--grey-100);border-right:1px solid var(--grey-200);padding:28px 0 40px}
+  .sidebar-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--grey-500);padding:0 20px 10px}
+  .sidebar a{display:block;padding:7px 20px;font-size:13.5px;color:var(--grey-700);text-decoration:none;border-left:3px solid transparent;transition:all .15s;line-height:1.4}
+  .sidebar a:hover,.sidebar a.active{color:var(--orange);background:var(--orange-light);border-left-color:var(--orange);font-weight:500}
+  .sidebar-back{display:flex;align-items:center;gap:6px;padding:10px 20px 16px;font-size:12px;color:var(--grey-500);text-decoration:none;border-bottom:1px solid var(--grey-200);margin-bottom:12px;transition:color .15s}.sidebar-back:hover{color:var(--orange)}
+  .main{margin-left:var(--sidebar-width);flex:1;padding:56px 48px 80px}.content{max-width:720px}
+  .hero{margin-bottom:56px;padding-bottom:40px;border-bottom:1px solid var(--grey-200)}
+  .hero-eyebrow{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:12px}
+  .hero h1{font-size:36px;font-weight:600;line-height:1.15;color:var(--black);margin-bottom:16px}
+  .hero-meta{font-size:13px;color:var(--grey-500)}
+  .section{margin-bottom:64px;scroll-margin-top:80px}.section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+  .section-num{width:28px;height:28px;border-radius:50%;background:var(--orange);color:white;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  h2{font-size:22px;font-weight:600;color:var(--black)}h3{font-size:13px;font-weight:600;color:var(--grey-900);margin:28px 0 10px;text-transform:uppercase;letter-spacing:.08em}
+  p{margin-bottom:14px;color:var(--grey-700);font-size:15px}p:last-child{margin-bottom:0}strong{color:var(--grey-900);font-weight:600}
+  code{font-family:'DM Mono',monospace;font-size:13px;background:var(--grey-100);border:1px solid var(--grey-200);padding:1px 6px;border-radius:4px;color:var(--grey-900)}
+  pre{background:#1C1917;border-radius:8px;padding:16px 20px;margin:14px 0;overflow-x:auto}pre code{background:none;border:none;padding:0;color:#D6D3D1;font-size:13px;line-height:1.6}
+  .callout{border-radius:8px;padding:14px 16px;font-size:14px;margin:16px 0;display:flex;gap:10px;line-height:1.55}.callout-icon{font-size:16px;flex-shrink:0;margin-top:1px}.callout strong{display:block;margin-bottom:2px}
+  .callout.info{background:var(--blue-light);color:#1E40AF}.callout.warning{background:#FFFBEB;color:#92400E}.callout.danger{background:var(--red-light);color:var(--red)}.callout.success{background:var(--green-light);color:#14532D}
+  .table-wrap{overflow-x:auto;margin:16px 0}table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{background:var(--black);color:white;font-weight:600;text-align:left;padding:10px 14px;font-size:12px;letter-spacing:.04em}
+  td{padding:10px 14px;border-bottom:1px solid var(--grey-200);color:var(--grey-700);vertical-align:top;font-size:14px;line-height:1.5}tr:nth-child(even) td{background:var(--grey-100)}
+  .pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap}
+  .pill-ok{background:var(--green-light);color:var(--green)}.pill-normal{background:var(--yellow-light);color:var(--yellow)}.pill-action{background:var(--red-light);color:var(--red)}
+  ul.bullets{list-style:none;margin:10px 0 16px;padding:0}ul.bullets li{padding:5px 0 5px 20px;font-size:15px;color:var(--grey-700);position:relative}ul.bullets li::before{content:'—';position:absolute;left:0;color:var(--orange);font-weight:600}
+  .steps{margin:16px 0}.step{display:flex;gap:14px;margin-bottom:14px}.step-num{width:24px;height:24px;border-radius:50%;background:var(--orange);color:white;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}.step-content{font-size:15px;color:var(--grey-700)}
+  .divider{height:1px;background:var(--grey-200);margin:40px 0}
+  .checklist{list-style:none;padding:0;margin:12px 0}.checklist li{display:flex;gap:10px;padding:8px 0;font-size:15px;color:var(--grey-700);border-bottom:1px solid var(--grey-200)}.checklist li:last-child{border-bottom:none}.checklist li::before{content:'☐';color:var(--orange);font-size:16px;flex-shrink:0;line-height:1.5}
+  @media(max-width:900px){.sidebar{display:none}.main{margin-left:0;padding:32px 24px 60px}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="index.html" class="topbar-logo">MM Marketing</a>
+  <span class="topbar-sep">/</span>
+  <span style="font-size:13px;color:var(--grey-500)">Cloudways Deployment</span>
+  <span class="topbar-badge">Internal</span>
+</div>
+<div class="layout">
+  <nav class="sidebar">
+    <a href="index.html" class="sidebar-back">← All guides</a>
+    <div class="sidebar-label">On this page</div>
+    <a href="#overview">Overview</a>
+    <a href="#before-deploy">Before you deploy</a>
+    <a href="#deploy-steps">Deployment steps</a>
+    <a href="#domain">Pointing the domain</a>
+    <a href="#after-deploy">After deployment</a>
+    <a href="#troubleshooting">Troubleshooting</a>
+  </nav>
+  <main class="main"><div class="content">
+    <div class="hero">
+      <div class="hero-eyebrow">Landing Pages — Deployment</div>
+      <h1>Cloudways Deployment Guide</h1>
+      <div class="hero-meta">How to deploy a finished LP from GitHub to Cloudways under the client's domain</div>
+    </div>
+
+    <section class="section" id="overview">
+      <div class="section-header"><div class="section-num">1</div><h2>Overview</h2></div>
+      <p>All MM client landing pages will eventually live on Cloudways under a client subdomain (e.g. <code>services.corediesel.com.au</code>). GitHub Pages is used as a temporary preview environment while the page is being built and reviewed.</p>
+      <p>Once a page is ready to go live, Teddi handles the Cloudways deployment. This guide documents the process so Guy can understand what happens — and eventually do it himself.</p>
+      <div class="callout warning">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>Route Cloudways deployments through Teddi for now.</strong> Once you're comfortable with the process and have Cloudways access, you can deploy yourself.</div>
+      </div>
+    </section>
+    <div class="divider"></div>
+    <section class="section" id="before-deploy">
+      <div class="section-header"><div class="section-num">2</div><h2>Before you deploy</h2></div>
+      <p>Confirm all of these before touching Cloudways:</p>
+      <ul class="checklist">
+        <li>Copy reviewed and approved</li>
+        <li>Logo and hero image uploaded to the repo</li>
+        <li>GA4 tag in the &lt;head&gt;</li>
+        <li>Google Ads conversion tag added</li>
+        <li>Phone number correct and showing in all button labels</li>
+        <li>Map zoom level correct (z=14–15)</li>
+        <li>All "Read More Reviews" links point to real Google URLs (not #)</li>
+        <li>Form submission handler confirmed working</li>
+        <li>No broken images (no placehold.co placeholders visible)</li>
+        <li>PR merged to main on GitHub</li>
+      </ul>
+    </section>
+    <div class="divider"></div>
+    <section class="section" id="deploy-steps">
+      <div class="section-header"><div class="section-num">3</div><h2>Deployment steps</h2></div>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-content">Log into Cloudways dashboard. Go to the client's application (or create a new one if this is a first deployment).</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content">In the application settings, navigate to <strong>Application Management → Application Files</strong>.</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content">Upload the <code>index.html</code> from the GitHub repo (download it from GitHub first — go to the file, click Raw, Save As). Also upload any images in the <code>assets/</code> folder.</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content">Confirm <strong>Varnish Cache is disabled</strong> and <strong>HTTPS Redirection is disabled</strong> in the Cloudways app settings. Both cause infinite redirect loops on static HTML sites if left on from a previous WordPress install.</div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-content">Visit the Cloudways staging URL to confirm the page loads correctly.</div></div>
+      </div>
+      <div class="callout danger">
+        <span class="callout-icon">🚨</span>
+        <div><strong>Varnish and HTTPS Redirection must be OFF.</strong> These are WordPress-era settings that break static HTML pages. If the site shows an infinite redirect or a blank page, this is almost always the cause. Disable both in the Cloudways app settings.</div>
+      </div>
+    </section>
+    <div class="divider"></div>
+    <section class="section" id="domain">
+      <div class="section-header"><div class="section-num">4</div><h2>Pointing the domain</h2></div>
+      <p>Once the page is confirmed working on the Cloudways staging URL:</p>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-content">In Cloudways, go to <strong>Application Settings → Domain Management</strong> and add the client subdomain (e.g. <code>services.corediesel.com.au</code>).</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content">In the client's DNS settings (usually their registrar or Cloudflare), add a CNAME record pointing the subdomain to the Cloudways server address.</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content">Enable the SSL certificate in Cloudways — use Let's Encrypt, it's free.</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content">Wait for DNS propagation (usually 5–30 minutes). Test by visiting the subdomain in a browser.</div></div>
+      </div>
+    </section>
+    <div class="divider"></div>
+    <section class="section" id="after-deploy">
+      <div class="section-header"><div class="section-num">5</div><h2>After deployment</h2></div>
+      <ul class="bullets">
+        <li>Update the client table in the <a href="lp-guide.html" style="color:var(--blue)">LP Editing Guide</a> with the live Cloudways URL</li>
+        <li>Update the canonical tag in <code>index.html</code> to point to the Cloudways URL (not the GitHub Pages URL)</li>
+        <li>Confirm GA4 is receiving data — check GA4 Realtime while loading the live page</li>
+        <li>Submit the URL to Google Search Console if the client has an account</li>
+      </ul>
+    </section>
+    <div class="divider"></div>
+    <section class="section" id="troubleshooting">
+      <div class="section-header"><div class="section-num">6</div><h2>Troubleshooting</h2></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Problem</th><th>Cause</th><th>Fix</th></tr></thead>
+          <tbody>
+            <tr><td>Infinite redirect loop</td><td>Varnish or HTTPS Redirection still on</td><td>Disable both in Cloudways app settings</td></tr>
+            <tr><td>Blank white page</td><td>Same as above, or a file path error</td><td>Check Varnish/HTTPS first, then check file paths</td></tr>
+            <tr><td>CSS or images not loading</td><td>File paths are relative and the root directory is wrong</td><td>Check the Cloudways webroot — should be <code>/public_html/</code></td></tr>
+            <tr><td>SSL certificate error</td><td>DNS hasn't propagated yet</td><td>Wait 30 minutes and try again</td></tr>
+            <tr><td>Old WordPress site showing instead of LP</td><td>WordPress files still in <code>/public_html/</code></td><td>Remove WP files before uploading the static HTML</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </div></main>
+</div>
+<script>
+  const sections=document.querySelectorAll('.section'),links=document.querySelectorAll('.sidebar a[href^="#"]');
+  const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){links.forEach(l=>l.classList.remove('active'));const a=document.querySelector(`.sidebar a[href="#${en.target.id}"]`);if(a)a.classList.add('active')}})},{rootMargin:'-20% 0px -70% 0px'});
+  sections.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>
