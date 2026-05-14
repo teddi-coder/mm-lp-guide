@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MM Ads Autopilot — User Guide | MM Internal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--orange:#EA580C;--orange-light:#FFF7ED;--black:#0C0A09;--grey-900:#1C1917;--grey-700:#44403C;--grey-500:#78716C;--grey-200:#E7E5E4;--grey-100:#F5F4F3;--white:#FAFAF9;--blue:#0369A1;--blue-light:#E0F2FE;--green:#15803D;--green-light:#DCFCE7;--red-light:#FEF2F2;--red:#B91C1C;--yellow-light:#FEFCE8;--yellow:#CA8A04;--sidebar-width:240px}
+  *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--grey-900);font-size:16px;line-height:1.7}
+  .topbar{position:fixed;top:0;left:0;right:0;height:52px;background:var(--black);display:flex;align-items:center;padding:0 24px;gap:8px;z-index:100}
+  .topbar a{font-size:13px;color:var(--grey-500);text-decoration:none;transition:color .15s}.topbar a:hover{color:var(--white)}
+  .topbar-logo{font-size:13px;font-weight:600;color:var(--white);letter-spacing:.08em;text-transform:uppercase;text-decoration:none!important}
+  .topbar-sep{color:var(--grey-700)}.topbar-badge{margin-left:auto;background:var(--orange);color:white;font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px}
+  .layout{display:flex;padding-top:52px;min-height:100vh}
+  .sidebar{width:var(--sidebar-width);position:fixed;top:52px;bottom:0;left:0;overflow-y:auto;background:var(--grey-100);border-right:1px solid var(--grey-200);padding:28px 0 40px}
+  .sidebar-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--grey-500);padding:0 20px 10px}
+  .sidebar a{display:block;padding:7px 20px;font-size:13.5px;color:var(--grey-700);text-decoration:none;border-left:3px solid transparent;transition:all .15s;line-height:1.4}
+  .sidebar a:hover,.sidebar a.active{color:var(--orange);background:var(--orange-light);border-left-color:var(--orange);font-weight:500}
+  .sidebar-back{display:flex;align-items:center;gap:6px;padding:10px 20px 16px;font-size:12px;color:var(--grey-500);text-decoration:none;border-bottom:1px solid var(--grey-200);margin-bottom:12px;transition:color .15s}.sidebar-back:hover{color:var(--orange)}
+  .main{margin-left:var(--sidebar-width);flex:1;padding:56px 48px 80px}.content{max-width:760px}
+  .hero{margin-bottom:56px;padding-bottom:40px;border-bottom:1px solid var(--grey-200)}
+  .hero-eyebrow{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:12px}
+  .hero h1{font-size:36px;font-weight:600;line-height:1.15;color:var(--black);margin-bottom:16px}
+  .hero-meta{font-size:13px;color:var(--grey-500)}
+  .section{margin-bottom:64px;scroll-margin-top:80px}.section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+  .section-num{width:28px;height:28px;border-radius:50%;background:var(--orange);color:white;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  h2{font-size:22px;font-weight:600;color:var(--black)}h3{font-size:13px;font-weight:600;color:var(--grey-900);margin:28px 0 10px;text-transform:uppercase;letter-spacing:.08em}
+  p{margin-bottom:14px;color:var(--grey-700);font-size:15px}p:last-child{margin-bottom:0}strong{color:var(--grey-900);font-weight:600}
+  code{font-family:'DM Mono',monospace;font-size:13px;background:var(--grey-100);border:1px solid var(--grey-200);padding:1px 6px;border-radius:4px;color:var(--grey-900)}
+  pre{background:#1C1917;border-radius:8px;padding:16px 20px;margin:14px 0;overflow-x:auto}pre code{background:none;border:none;padding:0;color:#D6D3D1;font-size:13px;line-height:1.6}
+  .callout{border-radius:8px;padding:14px 16px;font-size:14px;margin:16px 0;display:flex;gap:10px;line-height:1.55}.callout-icon{font-size:16px;flex-shrink:0;margin-top:1px}.callout strong{display:block;margin-bottom:2px}
+  .callout.info{background:var(--blue-light);color:#1E40AF}.callout.warning{background:#FFFBEB;color:#92400E}.callout.danger{background:var(--red-light);color:var(--red)}.callout.success{background:var(--green-light);color:#14532D}
+  .table-wrap{overflow-x:auto;margin:16px 0}table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{background:var(--black);color:white;font-weight:600;text-align:left;padding:10px 14px;font-size:12px;letter-spacing:.04em}
+  td{padding:10px 14px;border-bottom:1px solid var(--grey-200);color:var(--grey-700);vertical-align:top;font-size:14px;line-height:1.5}tr:nth-child(even) td{background:var(--grey-100)}
+  .pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap}
+  .pill-ok{background:var(--green-light);color:var(--green)}.pill-warn{background:var(--yellow-light);color:var(--yellow)}.pill-bad{background:var(--red-light);color:var(--red)}
+  .pill-t1{background:var(--green-light);color:var(--green)}.pill-t15{background:var(--yellow-light);color:var(--yellow)}.pill-t2{background:var(--red-light);color:var(--red)}
+  ul.bullets{list-style:none;margin:10px 0 16px;padding:0}ul.bullets li{padding:5px 0 5px 20px;font-size:15px;color:var(--grey-700);position:relative}ul.bullets li::before{content:'—';position:absolute;left:0;color:var(--orange);font-weight:600}
+  .steps{margin:16px 0}.step{display:flex;gap:14px;margin-bottom:14px}.step-num{width:24px;height:24px;border-radius:50%;background:var(--orange);color:white;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}.step-content{font-size:15px;color:var(--grey-700)}
+  .checklist{list-style:none;padding:0;margin:12px 0}.checklist li{display:flex;gap:10px;padding:8px 0;font-size:15px;color:var(--grey-700);border-bottom:1px solid var(--grey-200)}.checklist li:last-child{border-bottom:none}.checklist li::before{content:'☐';color:var(--orange);font-size:16px;flex-shrink:0;line-height:1.5}
+  .divider{height:1px;background:var(--grey-200);margin:40px 0}
+  .chat-wrap{background:var(--grey-100);border-radius:10px;padding:16px 20px;margin:16px 0}
+  .chat-row{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start}.chat-row:last-child{margin-bottom:0}
+  .chat-who{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;margin-top:2px;min-width:40px}
+  .chat-who.you{color:var(--orange)}.chat-who.bot{color:var(--blue)}
+  .chat-msg{font-size:14px;color:var(--grey-700);line-height:1.5}
+  .phase-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:16px 0}
+  .phase{border-radius:8px;padding:16px;border:2px solid var(--grey-200)}.phase.now{border-color:var(--orange);background:var(--orange-light)}
+  .phase-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}.phase.now .phase-label{color:var(--orange)}.phase:not(.now) .phase-label{color:var(--grey-500)}
+  .phase-title{font-size:14px;font-weight:600;color:var(--grey-900);margin-bottom:6px}.phase-body{font-size:13px;color:var(--grey-700);line-height:1.5}
+  .diag-table td:first-child{font-weight:600;white-space:nowrap;min-width:120px}
+  @media(max-width:900px){.sidebar{display:none}.main{margin-left:0;padding:32px 24px 60px}.phase-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="index.html" class="topbar-logo">MM Marketing</a>
+  <span class="topbar-sep">/</span>
+  <span style="font-size:13px;color:var(--grey-500)">MM Ads Autopilot — User Guide</span>
+  <span class="topbar-badge">Internal</span>
+</div>
+<div class="layout">
+  <nav class="sidebar">
+    <a href="index.html" class="sidebar-back">← All guides</a>
+    <div class="sidebar-label">On this page</div>
+    <a href="#what-is">What is it?</a>
+    <a href="#how-it-works">How it works</a>
+    <a href="#slack">What you see in Slack</a>
+    <a href="#talking">Talking to the bot</a>
+    <a href="#weekly">Your weekly tasks</a>
+    <a href="#feedback">The feedback loop</a>
+    <a href="#intelligence">Data sources</a>
+    <a href="#can-cannot">Can / cannot do</a>
+    <a href="#tiers">Tier system</a>
+    <a href="#phases">Transition plan</a>
+    <a href="#where">Where things live</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+  <main class="main"><div class="content">
+    <div class="hero">
+      <div class="hero-eyebrow">MM Ads Autopilot</div>
+      <h1>MM Ads Autopilot<br>User Guide</h1>
+      <div class="hero-meta">Version 3.0 &nbsp;·&nbsp; For troubleshooting see <a href="autopilot-runbook.html" style="color:var(--blue)">the runbook ↗</a></div>
+    </div>
+
+    <section class="section" id="what-is">
+      <div class="section-header"><div class="section-num">1</div><h2>What is MM Ads Autopilot?</h2></div>
+      <p>MM Ads Autopilot is an internal tool that automatically reviews Google Ads performance for all Mechanic Marketing clients every week and recommends changes to improve results.</p>
+      <p>Think of it as a junior PPC manager that never sleeps. It checks keywords, search terms, ad copy, quality scores, competitor positioning, and organic search data — then tells you what it thinks should change. You decide whether to approve or reject each recommendation.</p>
+      <div class="callout success"><span class="callout-icon">✓</span><div><strong>It does NOT make changes on its own.</strong> Every single recommendation goes to you for approval before anything happens in Google Ads.</div></div>
+      <p>You can also talk to it. Ask questions about client performance in Slack, get explanations of its recommendations, or request ad-hoc analysis — all in natural language.</p>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="how-it-works">
+      <div class="section-header"><div class="section-num">2</div><h2>How it works</h2></div>
+      <p>Every Monday morning, the Autopilot runs through this process for each MM client:</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Step</th><th>What happens</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1 — Pull data</strong></td><td>Connects to Google Ads, Google Search Console, and GA4. Pulls keyword performance, search terms, quality scores, campaign metrics, competitor positioning, organic rankings, and landing page performance.</td></tr>
+          <tr><td><strong>2 — Run the rules</strong></td><td>Checks data against best-practice thresholds — e.g. "has this keyword spent $50+ with zero conversions?" or "are we ranking #1 organically for a keyword we're also paying for?"</td></tr>
+          <tr><td><strong>3 — AI analysis</strong></td><td>Six specialised AI agents review the output. One handles keywords, one handles search terms, one evaluates ads, one writes headlines, one writes descriptions, and one does a final safety review.</td></tr>
+          <tr><td><strong>4 — Post to Slack</strong></td><td>Every proposed action is posted to #mm-ads-autopilot with Approve and Reject buttons, grouped by client.</td></tr>
+          <tr><td><strong>5 — Log to ClickUp</strong></td><td>A "Weekly Optimisations" task is created per client with subtasks for each action. This is your permanent record.</td></tr>
+          <tr><td><strong>6 — Wait for you</strong></td><td>Nothing happens until you click Approve or Reject.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="slack">
+      <div class="section-header"><div class="section-num">3</div><h2>What you see in Slack</h2></div>
+      <p>You will see three types of messages in <strong>#mm-ads-autopilot</strong>:</p>
+
+      <h3>1 — Weekly approval messages (every Monday)</h3>
+      <p>Each message covers one client and groups proposed actions by type.</p>
+      <ul class="bullets">
+        <li><strong>Approve all X pauses</strong> — approves every action in that group with one click</li>
+        <li><strong>Reject all</strong> — rejects them all and opens a popup asking why (this teaches the system)</li>
+        <li><strong>Review individually</strong> — opens a thread where each action has its own buttons</li>
+        <li><strong>View in ClickUp</strong> — opens the ClickUp task with all the detail</li>
+      </ul>
+      <p>Ad copy rewrites show current vs proposed headlines and descriptions with character counts, so you can review copy inline without leaving Slack.</p>
+
+      <h3>2 — Anomaly alerts (any day, Mon–Fri)</h3>
+      <p>If something goes wrong between Monday runs — a CPA spike, conversions dropping to zero, runaway spend — the system alerts you immediately. These are informational only.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Alert type</th><th>Threshold</th></tr></thead>
+        <tbody>
+          <tr><td>CPA spike</td><td>CPA more than 50% above rolling average <span class="pill pill-bad">Critical</span></td></tr>
+          <tr><td>Conversions at zero</td><td>Zero conversions for 2+ days <span class="pill pill-bad">Critical</span></td></tr>
+          <tr><td>Runaway spend</td><td>Spend more than 40% above daily average <span class="pill pill-bad">Critical</span></td></tr>
+          <tr><td>CTR drop</td><td>CTR dropped more than 50% <span class="pill pill-warn">Warning</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>3 — Monday portfolio digest</h3>
+      <p>One summary message covering all MM clients with a traffic light system:</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Status</th><th>What it means</th></tr></thead>
+        <tbody>
+          <tr><td>🔴 <strong>Red</strong></td><td>CPA up &gt;25% or conversions down &gt;30%. Needs attention.</td></tr>
+          <tr><td>🟡 <strong>Yellow</strong></td><td>CPA up 10–25% or conversions down 10–30%. Worth watching.</td></tr>
+          <tr><td>🟢 <strong>Green</strong></td><td>Metrics stable or improving. No action needed.</td></tr>
+        </tbody>
+      </table></div>
+      <p>Also shows portfolio totals (spend, conversions, average CPA) with week-over-week changes and pending approval count.</p>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="talking">
+      <div class="section-header"><div class="section-num">4</div><h2>Talking to the bot</h2></div>
+      <p>@mention the bot in <strong>#mm-ads-autopilot</strong> and ask questions in plain English. You can also comment on any Autopilot-created ClickUp task to get contextual answers.</p>
+
+      <h3>Example conversation</h3>
+      <div class="chat-wrap">
+        <div class="chat-row"><span class="chat-who you">You</span><span class="chat-msg">How is Ultra Tune performing this week?</span></div>
+        <div class="chat-row"><span class="chat-who bot">Bot</span><span class="chat-msg">Pulls live data, replies with spend, clicks, conversions, CPA, and any red flags.</span></div>
+        <div class="chat-row"><span class="chat-who you">You</span><span class="chat-msg">What about their search terms?</span></div>
+        <div class="chat-row"><span class="chat-who bot">Bot</span><span class="chat-msg">Responds with Ultra Tune search terms — remembers the client from the previous message.</span></div>
+        <div class="chat-row"><span class="chat-who you">You</span><span class="chat-msg">Any keywords wasting budget?</span></div>
+        <div class="chat-row"><span class="chat-who bot">Bot</span><span class="chat-msg">Responds with Ultra Tune keyword waste analysis.</span></div>
+      </div>
+      <p>You don't need to re-specify the client in every message once a thread is started.</p>
+
+      <h3>What to type — quick reference</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>What you want</th><th>What to type</th></tr></thead>
+        <tbody>
+          <tr><td>Performance snapshot</td><td>"How is Ultra Tune North Ryde performing?" / "Give me a snapshot of Core Diesel"</td></tr>
+          <tr><td>Keyword waste</td><td>"What keywords are wasting budget for Auto Response?"</td></tr>
+          <tr><td>Search terms</td><td>"Show me search terms for Noranda Service Centre"</td></tr>
+          <tr><td>Quality Scores</td><td>"What's the Quality Score situation for Ballarat Service Centre?"</td></tr>
+          <tr><td>Run full analysis</td><td>"Run analysis for Ultra Tune North Ryde" — triggers full pipeline, takes 2–3 minutes</td></tr>
+          <tr><td>Add a negative keyword</td><td>"Add 'diesel engine diagram' as a negative for Core Diesel" — bot confirms before executing</td></tr>
+          <tr><td>Pause a keyword</td><td>"Pause the keyword 'car repairs' for Performance Plus" — bot confirms before executing</td></tr>
+          <tr><td>Explain a recommendation</td><td>"Why did you recommend pausing volkswagen maintenance?"</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Client names — use these exactly</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th colspan="2">Exact client names for the bot</th></tr></thead>
+        <tbody>
+          <tr><td>Auto Response</td><td>Noranda Service Centre</td></tr>
+          <tr><td>Automotive Insight</td><td>Performance Plus</td></tr>
+          <tr><td>Ballarat Roadworthy Centre</td><td>Ultra Tune North Ryde</td></tr>
+          <tr><td>Ballarat Service Centre</td><td>Core Diesel</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="weekly">
+      <div class="section-header"><div class="section-num">5</div><h2>Your weekly tasks</h2></div>
+
+      <h3>Monday morning (5–10 minutes)</h3>
+      <ul class="checklist">
+        <li>Open #mm-ads-autopilot in Slack</li>
+        <li>Read the portfolio digest — check which clients are red or yellow</li>
+        <li>Review the proposed actions for each client</li>
+        <li>For each group: Approve, Reject, or Review individually</li>
+        <li>If rejecting, explain why in the popup — this teaches the system</li>
+      </ul>
+
+      <h3>During the week (as needed)</h3>
+      <ul class="checklist">
+        <li>Check Slack for anomaly alerts — these mean something needs attention now</li>
+        <li>Ask the bot questions about any client at any time</li>
+        <li>Comment on ClickUp tasks if you want more context on a specific action</li>
+      </ul>
+
+      <div class="callout success"><span class="callout-icon">✓</span><div>That's it. The system handles everything else — pulling data, analysing it, proposing changes, monitoring for anomalies, logging to ClickUp, and executing approved changes.</div></div>
+
+      <h3>Tips for reviewing</h3>
+      <ul class="bullets">
+        <li><strong>Keyword pauses</strong> — the system explains why (high CPA, zero conversions). If strategically important despite bad numbers, reject and say why.</li>
+        <li><strong>Negative keywords</strong> — check the search term makes sense as a negative. "mechanic apprenticeship" is clearly irrelevant. "cheap mechanic" might be debatable.</li>
+        <li><strong>New keyword suggestions</strong> — come from organic search data (GSC). If the client ranks 8–20 for a query, the system suggests paying for that traffic while SEO catches up.</li>
+        <li><strong>Paid/organic overlap</strong> — flags keywords where the client ranks #1–3 organically AND is paying. Consider competitor pressure before approving the pause.</li>
+        <li><strong>Ad copy rewrites</strong> — you see current vs proposed with character counts. New copy is informed by winning ads, competitor copy, and landing page messaging.</li>
+        <li><strong>Budget changes</strong> — always need approval. The system explains why it thinks the budget should change.</li>
+      </ul>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="feedback">
+      <div class="section-header"><div class="section-num">6</div><h2>The feedback loop</h2></div>
+      <p>When you reject an action, the system asks you why. Your feedback actively changes how the system thinks about that client going forward.</p>
+
+      <div class="chat-wrap">
+        <div class="chat-row"><span class="chat-who bot">Bot</span><span class="chat-msg">Proposes: "Pause volkswagen servicing — CPA is 3.6x above average"</span></div>
+        <div class="chat-row"><span class="chat-who you">You</span><span class="chat-msg">Reject: "Still want this audience — VW owners are high-value customers even at higher CPA"</span></div>
+        <div class="chat-row"><span class="chat-who bot">Bot</span><span class="chat-msg">Next week: will not propose pausing that keyword or similar European car brand keywords for this client.</span></div>
+      </div>
+
+      <h3>Scope options when rejecting</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Scope</th><th>What it blocks</th></tr></thead>
+        <tbody>
+          <tr><td>Just this keyword</td><td>Only this exact entity from being proposed again</td></tr>
+          <tr><td>Similar keywords in this campaign</td><td>A pattern — e.g. all European car brand keywords</td></tr>
+          <tr><td>The whole account</td><td>A general principle for this client</td></tr>
+        </tbody>
+      </table></div>
+      <p>You can set an expiry (1 month, 3 months, 6 months, or never). View and deactivate active rules at any time on the dashboard at <a href="https://mm-google-ads-autopilot.vercel.app" target="_blank" style="color:var(--blue)">mm-google-ads-autopilot.vercel.app ↗</a></p>
+      <div class="callout info"><span class="callout-icon">ℹ️</span><div><strong>The compounding effect:</strong> after a few months, each client has a growing set of strategic rules. The system stops proposing things you keep rejecting and starts thinking like someone who actually knows the account. This is the most valuable part of the whole system.</div></div>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="intelligence">
+      <div class="section-header"><div class="section-num">7</div><h2>Where it gets its intelligence</h2></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Source</th><th>What it pulls</th><th>How it uses it</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Google Ads</strong></td><td>Campaigns, keywords, search terms, quality scores, ad performance, bids</td><td>Core analysis — identifies waste, opportunities, underperformance</td></tr>
+          <tr><td><strong>Auction Insights</strong></td><td>Competitor impression share, overlap rate, position above rate</td><td>Explains competitive pressure, detects new competitors, informs bids</td></tr>
+          <tr><td><strong>Search Console</strong></td><td>Organic queries, positions, impressions, CTR</td><td>Finds keyword opportunities (ranking 8–20), flags paid/organic overlaps (ranking 1–3)</td></tr>
+          <tr><td><strong>GA4</strong></td><td>Landing page sessions, conversions, conversion rates</td><td>Informs ad copy with proven messaging, recommends best final URLs</td></tr>
+          <tr><td><strong>SemRush</strong></td><td>Competitor ad copy on the same keywords</td><td>Ensures new ad copy differentiates from competitors</td></tr>
+          <tr><td><strong>Your feedback</strong></td><td>Rejection reasons, strategic rules, scope, expiry</td><td>Prevents repeating mistakes, aligns with business strategy</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="can-cannot">
+      <div class="section-header"><div class="section-num">8</div><h2>What it can and cannot do</h2></div>
+      <h3>It CAN propose (and execute when approved)</h3>
+      <ul class="bullets">
+        <li>Pause underperforming keywords</li>
+        <li>Re-enable keywords it previously paused</li>
+        <li>Add negative keywords based on search term analysis</li>
+        <li>Add new phrase or exact match keywords from GSC organic data</li>
+        <li>Rewrite underperforming RSA ad copy (headlines and descriptions)</li>
+        <li>Pause underperforming ads</li>
+        <li>Change keyword bids and campaign budgets</li>
+        <li>Pause or enable campaigns and ad groups</li>
+        <li>Create new campaigns, ad groups, and keywords</li>
+        <li>Flag paid/organic overlaps where you might save budget</li>
+        <li>Alert you to mid-week anomalies (CPA spikes, conversion drops)</li>
+        <li>Answer questions about any client in natural language</li>
+      </ul>
+      <h3>Hard limits — it CANNOT</h3>
+      <ul class="bullets">
+        <li>Add broad match keywords — only phrase and exact match allowed, enforced at code level</li>
+        <li>Execute anything without human approval (in current Phase 1 mode)</li>
+        <li>Pause the last 2 active ads in an ad group</li>
+        <li>Ignore your feedback rules — if you said "don't pause this", it won't</li>
+        <li>Exceed the 15% spend impact circuit breaker without escalating to you</li>
+      </ul>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="tiers">
+      <div class="section-header"><div class="section-num">9</div><h2>Tier system</h2></div>
+      <p>Every proposed action has a tier label. Right now, all actions go to you for approval. The labels tell you what <em>would</em> happen in automated mode.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Tier</th><th>Actions</th><th>Risk level</th></tr></thead>
+        <tbody>
+          <tr><td><span class="pill pill-t1">Tier 1</span></td><td>Keyword pauses, negative keywords, new keywords (phrase/exact)</td><td>Low — would auto-execute in automated mode</td></tr>
+          <tr><td><span class="pill pill-t15">Tier 1.5</span></td><td>Ad copy rewrites</td><td>Medium — always shows copy preview before execution</td></tr>
+          <tr><td><span class="pill pill-t2">Tier 2</span></td><td>Budgets, campaigns, bids, structure, paid/organic overlap pauses</td><td>High — always requires approval, even in automated mode</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="phases">
+      <div class="section-header"><div class="section-num">10</div><h2>Transition plan</h2></div>
+      <p>The system has three modes. We start safest and gradually loosen as you build trust.</p>
+      <div class="phase-grid">
+        <div class="phase now">
+          <div class="phase-label">Phase 1 — NOW</div>
+          <div class="phase-title">Full approval required</div>
+          <div class="phase-body">Everything needs approval. You review every action in Slack. Nothing fires without you clicking Approve.</div>
+        </div>
+        <div class="phase">
+          <div class="phase-label">Phase 2 — When ready</div>
+          <div class="phase-title">Tier 1 auto-executes</div>
+          <div class="phase-body">Keyword pauses and negatives auto-execute. You'll notice you've been rubber-stamping these weekly — that's your signal. Tier 1.5 and 2 still need approval.</div>
+        </div>
+        <div class="phase">
+          <div class="phase-label">Phase 3 — Future</div>
+          <div class="phase-title">Full autonomous mode</div>
+          <div class="phase-body">Tier 1 auto-executes. Tier 1.5 shows copy for approval. Tier 2 always needs full approval. The system is trained on your feedback by this point.</div>
+        </div>
+      </div>
+      <div class="callout info"><span class="callout-icon">ℹ️</span><div><strong>You control the transition.</strong> We change one setting when you tell us you are ready. No pressure, no timeline.</div></div>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="where">
+      <div class="section-header"><div class="section-num">11</div><h2>Where things live</h2></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>What</th><th>Where</th></tr></thead>
+        <tbody>
+          <tr><td>Weekly approvals</td><td>Slack — #mm-ads-autopilot</td></tr>
+          <tr><td>Anomaly alerts</td><td>Slack — #mm-ads-autopilot (Mon–Fri, as needed)</td></tr>
+          <tr><td>Portfolio digest</td><td>Slack — #mm-ads-autopilot (every Monday)</td></tr>
+          <tr><td>Ask questions</td><td>Slack — @mention the bot, or comment on a ClickUp task</td></tr>
+          <tr><td>Permanent action log</td><td>ClickUp — "Weekly Optimisations" task per client with subtasks</td></tr>
+          <tr><td>Dashboard + feedback rules</td><td><a href="https://mm-google-ads-autopilot.vercel.app" target="_blank" style="color:var(--blue)">mm-google-ads-autopilot.vercel.app ↗</a></td></tr>
+          <tr><td>Monthly reports</td><td>Google Drive — auto-generated on the 1st of each month</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="faq">
+      <div class="section-header"><div class="section-num">12</div><h2>FAQ</h2></div>
+      <h3>What if I forget to check Slack on Monday?</h3>
+      <p>Nothing bad happens. Proposed actions sit in Slack until you review them. They expire after 7 days. The system proposes fresh actions on the next run.</p>
+      <h3>What if I approve something and it breaks something?</h3>
+      <p>Every action is logged with full before/after state. Teddi can reverse any change. The circuit breaker also prevents combined spend impact exceeding 15% without escalation.</p>
+      <h3>Can I run it for a specific client on demand?</h3>
+      <p>Yes. Ask the bot in Slack: "run analysis for Noranda" — or trigger it from the dashboard. You don't have to wait for Monday.</p>
+      <h3>What if it keeps proposing the same thing I keep rejecting?</h3>
+      <p>It shouldn't. When you reject with feedback, that creates a rule the system respects. If it still proposes the same thing, check the feedback rules on the dashboard — the rule may have expired or the scope may be too narrow.</p>
+      <h3>Does this replace what I do in Google Ads?</h3>
+      <p>No. This handles routine optimisation — the stuff you would do every week if you had time. You still own the strategy, campaign structure, client relationships, and creative direction. This catches waste and keeps things tidy between your deeper reviews.</p>
+    </section>
+
+  </div></main>
+</div>
+<script>
+  const sections=document.querySelectorAll('.section'),links=document.querySelectorAll('.sidebar a[href^="#"]');
+  const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){links.forEach(l=>l.classList.remove('active'));const a=document.querySelector(`.sidebar a[href="#${en.target.id}"]`);if(a)a.classList.add('active')}})},{rootMargin:'-20% 0px -70% 0px'});
+  sections.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>

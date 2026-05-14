@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MM Ads Autopilot — Troubleshooting Runbook | MM Internal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--orange:#EA580C;--orange-light:#FFF7ED;--black:#0C0A09;--grey-900:#1C1917;--grey-700:#44403C;--grey-500:#78716C;--grey-200:#E7E5E4;--grey-100:#F5F4F3;--white:#FAFAF9;--blue:#0369A1;--blue-light:#E0F2FE;--green:#15803D;--green-light:#DCFCE7;--red-light:#FEF2F2;--red:#B91C1C;--yellow-light:#FEFCE8;--yellow:#CA8A04;--sidebar-width:240px}
+  *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--grey-900);font-size:16px;line-height:1.7}
+  .topbar{position:fixed;top:0;left:0;right:0;height:52px;background:var(--black);display:flex;align-items:center;padding:0 24px;gap:8px;z-index:100}
+  .topbar a{font-size:13px;color:var(--grey-500);text-decoration:none;transition:color .15s}.topbar a:hover{color:var(--white)}
+  .topbar-logo{font-size:13px;font-weight:600;color:var(--white);letter-spacing:.08em;text-transform:uppercase;text-decoration:none!important}
+  .topbar-sep{color:var(--grey-700)}.topbar-badge{margin-left:auto;background:var(--orange);color:white;font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px}
+  .layout{display:flex;padding-top:52px;min-height:100vh}
+  .sidebar{width:var(--sidebar-width);position:fixed;top:52px;bottom:0;left:0;overflow-y:auto;background:var(--grey-100);border-right:1px solid var(--grey-200);padding:28px 0 40px}
+  .sidebar-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--grey-500);padding:0 20px 10px}
+  .sidebar a{display:block;padding:7px 20px;font-size:13.5px;color:var(--grey-700);text-decoration:none;border-left:3px solid transparent;transition:all .15s;line-height:1.4}
+  .sidebar a:hover,.sidebar a.active{color:var(--orange);background:var(--orange-light);border-left-color:var(--orange);font-weight:500}
+  .sidebar-back{display:flex;align-items:center;gap:6px;padding:10px 20px 16px;font-size:12px;color:var(--grey-500);text-decoration:none;border-bottom:1px solid var(--grey-200);margin-bottom:12px;transition:color .15s}.sidebar-back:hover{color:var(--orange)}
+  .main{margin-left:var(--sidebar-width);flex:1;padding:56px 48px 80px}.content{max-width:760px}
+  .hero{margin-bottom:56px;padding-bottom:40px;border-bottom:1px solid var(--grey-200)}
+  .hero-eyebrow{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:12px}
+  .hero h1{font-size:36px;font-weight:600;line-height:1.15;color:var(--black);margin-bottom:16px}
+  .hero-meta{font-size:13px;color:var(--grey-500)}
+  .section{margin-bottom:64px;scroll-margin-top:80px}.section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+  .section-num{width:28px;height:28px;border-radius:50%;background:var(--orange);color:white;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  h2{font-size:22px;font-weight:600;color:var(--black)}h3{font-size:13px;font-weight:600;color:var(--grey-900);margin:28px 0 10px;text-transform:uppercase;letter-spacing:.08em}
+  p{margin-bottom:14px;color:var(--grey-700);font-size:15px}p:last-child{margin-bottom:0}strong{color:var(--grey-900);font-weight:600}
+  code{font-family:'DM Mono',monospace;font-size:13px;background:var(--grey-100);border:1px solid var(--grey-200);padding:1px 6px;border-radius:4px;color:var(--grey-900)}
+  pre{background:#1C1917;border-radius:8px;padding:16px 20px;margin:14px 0;overflow-x:auto}pre code{background:none;border:none;padding:0;color:#D6D3D1;font-size:13px;line-height:1.6}
+  .callout{border-radius:8px;padding:14px 16px;font-size:14px;margin:16px 0;display:flex;gap:10px;line-height:1.55}.callout-icon{font-size:16px;flex-shrink:0;margin-top:1px}.callout strong{display:block;margin-bottom:2px}
+  .callout.info{background:var(--blue-light);color:#1E40AF}.callout.warning{background:#FFFBEB;color:#92400E}.callout.danger{background:var(--red-light);color:var(--red)}.callout.success{background:var(--green-light);color:#14532D}
+  .table-wrap{overflow-x:auto;margin:16px 0}table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{background:var(--black);color:white;font-weight:600;text-align:left;padding:10px 14px;font-size:12px;letter-spacing:.04em}
+  td{padding:10px 14px;border-bottom:1px solid var(--grey-200);color:var(--grey-700);vertical-align:top;font-size:14px;line-height:1.5}tr:nth-child(even) td{background:var(--grey-100)}
+  .pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap}
+  .pill-ok{background:var(--green-light);color:var(--green)}.pill-warn{background:var(--yellow-light);color:var(--yellow)}.pill-bad{background:var(--red-light);color:var(--red)}
+  .pill-t1{background:var(--green-light);color:var(--green)}.pill-t15{background:var(--yellow-light);color:var(--yellow)}.pill-t2{background:var(--red-light);color:var(--red)}
+  ul.bullets{list-style:none;margin:10px 0 16px;padding:0}ul.bullets li{padding:5px 0 5px 20px;font-size:15px;color:var(--grey-700);position:relative}ul.bullets li::before{content:'—';position:absolute;left:0;color:var(--orange);font-weight:600}
+  .steps{margin:16px 0}.step{display:flex;gap:14px;margin-bottom:14px}.step-num{width:24px;height:24px;border-radius:50%;background:var(--orange);color:white;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}.step-content{font-size:15px;color:var(--grey-700)}
+  .checklist{list-style:none;padding:0;margin:12px 0}.checklist li{display:flex;gap:10px;padding:8px 0;font-size:15px;color:var(--grey-700);border-bottom:1px solid var(--grey-200)}.checklist li:last-child{border-bottom:none}.checklist li::before{content:'☐';color:var(--orange);font-size:16px;flex-shrink:0;line-height:1.5}
+  .divider{height:1px;background:var(--grey-200);margin:40px 0}
+  .chat-wrap{background:var(--grey-100);border-radius:10px;padding:16px 20px;margin:16px 0}
+  .chat-row{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start}.chat-row:last-child{margin-bottom:0}
+  .chat-who{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;margin-top:2px;min-width:40px}
+  .chat-who.you{color:var(--orange)}.chat-who.bot{color:var(--blue)}
+  .chat-msg{font-size:14px;color:var(--grey-700);line-height:1.5}
+  .phase-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:16px 0}
+  .phase{border-radius:8px;padding:16px;border:2px solid var(--grey-200)}.phase.now{border-color:var(--orange);background:var(--orange-light)}
+  .phase-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}.phase.now .phase-label{color:var(--orange)}.phase:not(.now) .phase-label{color:var(--grey-500)}
+  .phase-title{font-size:14px;font-weight:600;color:var(--grey-900);margin-bottom:6px}.phase-body{font-size:13px;color:var(--grey-700);line-height:1.5}
+  .diag-table td:first-child{font-weight:600;white-space:nowrap;min-width:120px}
+  @media(max-width:900px){.sidebar{display:none}.main{margin-left:0;padding:32px 24px 60px}.phase-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="index.html" class="topbar-logo">MM Marketing</a>
+  <span class="topbar-sep">/</span>
+  <span style="font-size:13px;color:var(--grey-500)">MM Ads Autopilot — Troubleshooting Runbook</span>
+  <span class="topbar-badge">Internal</span>
+</div>
+<div class="layout">
+  <nav class="sidebar">
+    <a href="index.html" class="sidebar-back">← All guides</a>
+    <div class="sidebar-label">On this page</div>
+    <a href="#diagnosis">Quick diagnosis</a>
+    <a href="#s1">1 — No Slack messages</a>
+    <a href="#s2">2 — Zero actions proposed</a>
+    <a href="#s3">3 — Approve did nothing</a>
+    <a href="#s4">4 — No ClickUp tasks</a>
+    <a href="#s5">5 — Bot not responding</a>
+    <a href="#s6">6 — No anomaly alerts</a>
+    <a href="#s7">7 — One client fails</a>
+    <a href="#s8">8 — Poor recommendations</a>
+    <a href="#quickref">Quick reference</a>
+  </nav>
+  <main class="main"><div class="content">
+    <div class="hero">
+      <div class="hero-eyebrow">MM Ads Autopilot</div>
+      <h1>Autopilot Troubleshooting<br>Runbook</h1>
+      <div class="hero-meta">Version 1.0 &nbsp;·&nbsp; For day-to-day usage see <a href="autopilot.html" style="color:var(--blue)">the user guide ↗</a></div>
+    </div>
+
+    <div class="callout warning"><span class="callout-icon">⚠️</span><div><strong>This runbook is for Teddi.</strong> If something is broken, describe the symptom to Teddi and reference the section number — don't attempt infrastructure fixes yourself.</div></div>
+
+    <section class="section" id="diagnosis">
+      <div class="section-header"><div class="section-num">→</div><h2>Quick diagnosis — start here</h2></div>
+      <div class="table-wrap"><table class="diag-table">
+        <thead><tr><th>Symptom</th><th>Section</th><th>Most likely cause</th></tr></thead>
+        <tbody>
+          <tr><td>No Slack messages on Monday morning</td><td><a href="#s1" style="color:var(--blue)">Section 1</a></td><td>Cron didn't fire, or Vercel function timed out</td></tr>
+          <tr><td>Slack messages appeared but all say "0 actions"</td><td><a href="#s2" style="color:var(--blue)">Section 2</a></td><td>MCP data returned empty — auth or parsing issue</td></tr>
+          <tr><td>Clicked Approve but nothing changed in Google Ads</td><td><a href="#s3" style="color:var(--blue)">Section 3</a></td><td>Writer MCP auth, API access, or SIMULATION_MODE still true</td></tr>
+          <tr><td>ClickUp tasks not created</td><td><a href="#s4" style="color:var(--blue)">Section 4</a></td><td>ClickUp API token expired or list ID wrong</td></tr>
+          <tr><td>Bot not responding to @mentions in Slack</td><td><a href="#s5" style="color:var(--blue)">Section 5</a></td><td>Event subscription not configured or app not in channel</td></tr>
+          <tr><td>Anomaly alerts not firing</td><td><a href="#s6" style="color:var(--blue)">Section 6</a></td><td>Daily cron not set up, or daily_snapshots table empty</td></tr>
+          <tr><td>One specific client fails, others work</td><td><a href="#s7" style="color:var(--blue)">Section 7</a></td><td>Client config — missing customer ID, GSC URL, or GA4 property</td></tr>
+          <tr><td>Everything worked but recommendations are poor</td><td><a href="#s8" style="color:var(--blue)">Section 8</a></td><td>Rules engine thresholds or sub-agent prompts need tuning</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="s1">
+      <div class="section-header"><div class="section-num">1</div><h2>No Slack messages on Monday morning</h2></div>
+      <h3>Check the Vercel function logs</h3>
+      <p>Go to: <a href="https://vercel.com/teddi-coder/mm-google-ads-autopilot/logs" target="_blank" style="color:var(--blue)">vercel.com/teddi-coder/mm-google-ads-autopilot/logs ↗</a></p>
+      <p>Filter by the cron time (Sunday 20:00 UTC = Monday 7:00am AEST). Look for:</p>
+      <ul class="bullets">
+        <li><strong>No log entries at all</strong> — the cron didn't fire. Check <code>vercel.json</code> has the correct schedule.</li>
+        <li><strong>Log entries with errors</strong> — the function started but crashed. Read the error message.</li>
+        <li><strong>FUNCTION_INVOCATION_TIMEOUT</strong> — hit Vercel's 300 second limit. A single client should take 90–130 seconds. The MCP server may be slow or unresponsive.</li>
+      </ul>
+      <h3>Check Vercel cron configuration</h3>
+      <p>In <code>vercel.json</code>, each client should have its own cron entry staggered 3 minutes apart. If all clients run at once, they will all timeout.</p>
+      <h3>Check the Supabase runs table</h3>
+      <p>Go to Supabase → Table Editor → <code>runs</code>. Filter by today's date. If there are run records with status "error", the function ran but failed mid-pipeline.</p>
+      <h3>Manual trigger to test</h3>
+      <pre><code>curl -X POST https://mm-google-ads-autopilot.vercel.app/api/run-client   -H "Authorization: Bearer YOUR_API_KEY"   -H "Content-Type: application/json"   -d '{"client_name": "Ultra Tune North Ryde"}'</code></pre>
+      <p>If this returns a response, the app is working and the issue is with the cron schedule.</p>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="s2">
+      <div class="section-header"><div class="section-num">2</div><h2>Slack messages appeared but 0 actions proposed</h2></div>
+      <p>The pipeline ran but the rules engine and AI agents found nothing to recommend. This is either correct (healthy accounts) or a data problem.</p>
+      <h3>Check if data actually came through</h3>
+      <p>In Vercel logs, look for lines like:</p>
+      <pre><code>[fetchAllClientData] Results for Ultra Tune North Ryde:
+campaigns: 814 chars
+keywords: 3002 chars</code></pre>
+      <p>If all values show "0 chars" or are missing, the MCP server returned empty data.</p>
+      <h3>MCP server returning empty data</h3>
+      <p>Test the MCP server directly:</p>
+      <pre><code>python3 -c "
+import asyncio
+from fastmcp import Client
+async def main():
+  async with Client('https://mechanic-mcp-server.fly.dev/mcp') as c:
+    r = await c.call_tool('account_snapshot', {'customer_id': '2106714025'})
+    print(r)
+asyncio.run(main())
+"</code></pre>
+      <p>If this returns data but the app doesn't, check <code>MCP_MM_SERVER_TOKEN</code> in Vercel env vars matches the bearer token on the MCP server. Token: <code>748e3cc9c5a1bba9</code> (rotate if compromised).</p>
+      <h3>MCP server itself is down</h3>
+      <pre><code>flyctl status -a mechanic-mcp-server
+# If stopped or crashed:
+flyctl deploy -a mechanic-mcp-server</code></pre>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="s3">
+      <div class="section-header"><div class="section-num">3</div><h2>Clicked Approve but nothing changed in Google Ads</h2></div>
+      <h3>Check SIMULATION_MODE</h3>
+      <p>In Vercel environment variables, check <code>SIMULATION_MODE=false</code>. If this is "true" or not set, the app logs actions as "simulated" but never calls the writer.</p>
+      <div class="callout danger"><span class="callout-icon">🚨</span><div><strong>This was the issue during initial testing.</strong> SIMULATION_MODE=true is the most common reason approved actions don't appear in Google Ads.</div></div>
+      <h3>Check the writer MCP</h3>
+      <pre><code>flyctl status -a hedgehog-ads-writer</code></pre>
+      <p>Check <code>MCP_ADS_WRITER_TOKEN</code> in Vercel matches the token on the writer server.</p>
+      <h3>Check the audit log</h3>
+      <p>In Supabase → <code>audit_log</code>, find the action you approved. Check:</p>
+      <ul class="bullets">
+        <li><code>status</code> — should be "executed" or "failed", not "simulated" or "pending"</li>
+        <li><code>error_message</code> — if status is "failed", the error will tell you what went wrong</li>
+      </ul>
+      <div class="callout info"><span class="callout-icon">ℹ️</span><div>Changes made via the API take 30 seconds to 5 minutes to appear in the Google Ads UI. Change History can take up to 3 hours. Wait before concluding it didn't work.</div></div>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="s4">
+      <div class="section-header"><div class="section-num">4</div><h2>ClickUp tasks not being created</h2></div>
+      <ul class="bullets">
+        <li><strong>Check CLICKUP_API_TOKEN</strong> in Vercel env vars. ClickUp personal API tokens can expire or be revoked. Generate a new one at Settings → Apps → API Token in ClickUp.</li>
+        <li><strong>Check the client's <code>clickup_list_id</code></strong> in Supabase → clients table. If it's null, the app doesn't know where to create the task.</li>
+        <li><strong>Check Vercel logs for ClickUp errors</strong> — look for HTTP 401 (auth), 404 (list not found), or 429 (rate limited).</li>
+      </ul>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="s5">
+      <div class="section-header"><div class="section-num">5</div><h2>Bot not responding to @mentions</h2></div>
+      <h3>Check Slack app event subscriptions</h3>
+      <p>In <a href="https://api.slack.com/apps" target="_blank" style="color:var(--blue)">api.slack.com/apps ↗</a> → Your App → Event Subscriptions:</p>
+      <ul class="bullets">
+        <li>Events must be enabled</li>
+        <li>"app_mention" event must be subscribed</li>
+        <li>Request URL must be: <code>https://mm-google-ads-autopilot.vercel.app/api/slack/events</code></li>
+        <li>The URL must be verified (green checkmark)</li>
+      </ul>
+      <h3>Check bot is in the channel</h3>
+      <p>The bot must be a member of #mm-ads-autopilot. Invite it with <code>/invite @autopilot</code> if needed.</p>
+      <div class="callout warning"><span class="callout-icon">⚠️</span><div>The bot has a rate limit of 20 questions per hour. If it's been asked many questions, it may be silently rate-limited. Check the Vercel logs for rate limit messages.</div></div>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="s6">
+      <div class="section-header"><div class="section-num">6</div><h2>Anomaly alerts not firing</h2></div>
+      <h3>Check the daily cron</h3>
+      <p>In <code>vercel.json</code>, the anomaly check should be:</p>
+      <pre><code>{ "path": "/api/anomaly-check", "schedule": "0 21 * * 1-5" }</code></pre>
+      <p>This is 8:00am AEST Tuesday through Saturday.</p>
+      <h3>Check daily_snapshots table</h3>
+      <p>The anomaly check compares today's snapshot against a 7-day rolling average. If there are fewer than 7 days of snapshots, the check has no baseline to compare against.</p>
+      <h3>Thresholds may be too high</h3>
+      <p>The default thresholds are conservative (CPA 50% above average = critical). If client accounts are volatile, these thresholds may never trigger. Check <code>src/lib/analysis/anomaly-detection.ts</code>.</p>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="s7">
+      <div class="section-header"><div class="section-num">7</div><h2>One client fails, others work fine</h2></div>
+      <h3>Check the clients table in Supabase</h3>
+      <p>The failing client may have:</p>
+      <ul class="bullets">
+        <li>Missing <code>googleAdsCustomerId</code> — MCP server can't pull data without it</li>
+        <li>Missing <code>gscSiteUrl</code> — GSC calls will fail (but shouldn't block the rest)</li>
+        <li>Missing <code>ga4PropertyId</code> — GA4 calls will fail (but shouldn't block the rest)</li>
+        <li>Missing <code>clickupListId</code> — ClickUp tasks won't be created for this client</li>
+        <li><code>is_active = false</code> — client is disabled and will be skipped</li>
+      </ul>
+      <h3>Check the cron for that client</h3>
+      <p>Each client has its own cron entry in <code>vercel.json</code>. If the entry is missing or has a typo, that client won't run.</p>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="s8">
+      <div class="section-header"><div class="section-num">8</div><h2>Recommendations are poor quality</h2></div>
+      <h3>Rules engine thresholds</h3>
+      <p>Key thresholds to check in <code>src/lib/analysis/rules-engine.ts</code>:</p>
+      <ul class="bullets">
+        <li>Keyword pause: $50+ spend with 0 conversions in 14 days</li>
+        <li>CPA threshold: 3x above ad group average</li>
+        <li>CTR threshold: below 1% after 1000+ impressions</li>
+        <li>Quality Score: QS 3 or below with $50+ spend</li>
+      </ul>
+      <h3>Sub-agent prompt quality</h3>
+      <p>Each sub-agent has a system prompt in <code>src/lib/analysis/sub-agents/</code>. If recommendations are consistently off:</p>
+      <ul class="bullets">
+        <li>Too aggressive — add more conservative guardrails to the system prompt</li>
+        <li>Missing context — check feedback rules, top-performing copy, and competitor data are being passed through</li>
+        <li>Wrong tone in ad copy — check the MM brand context is being injected into Agents 4 and 5</li>
+      </ul>
+      <h3>Feedback rules not applying</h3>
+      <p>Check the <code>feedback_rules</code> table in Supabase. Active rules should be filtering out previously-rejected actions. If not:</p>
+      <ul class="bullets">
+        <li>Check <code>is_active = true</code></li>
+        <li>Check <code>expires_at</code> hasn't passed</li>
+        <li>Check the scope matches (entity vs pattern vs global)</li>
+        <li>For entity-level rules, check the <code>entity_id</code> matches exactly</li>
+      </ul>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="quickref">
+      <div class="section-header"><div class="section-num">→</div><h2>Quick reference — key URLs</h2></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>What</th><th>Where</th></tr></thead>
+        <tbody>
+          <tr><td>Vercel dashboard</td><td><a href="https://vercel.com/teddi-coder/mm-google-ads-autopilot" target="_blank" style="color:var(--blue)">vercel.com/teddi-coder/mm-google-ads-autopilot ↗</a></td></tr>
+          <tr><td>Vercel function logs</td><td><a href="https://vercel.com/teddi-coder/mm-google-ads-autopilot/logs" target="_blank" style="color:var(--blue)">/logs ↗</a></td></tr>
+          <tr><td>Supabase dashboard</td><td>Check <code>NEXT_PUBLIC_SUPABASE_URL</code> in Vercel env vars</td></tr>
+          <tr><td>Fly.io MCP servers</td><td><code>flyctl status -a mechanic-mcp-server</code> / <code>flyctl status -a hedgehog-ads-writer</code></td></tr>
+          <tr><td>Slack app config</td><td><a href="https://api.slack.com/apps" target="_blank" style="color:var(--blue)">api.slack.com/apps ↗</a> — MM Ads Autopilot app</td></tr>
+          <tr><td>Google Ads API</td><td>console.cloud.google.com → APIs &amp; Services → Google Ads API</td></tr>
+          <tr><td>App URL</td><td><a href="https://mm-google-ads-autopilot.vercel.app" target="_blank" style="color:var(--blue)">mm-google-ads-autopilot.vercel.app ↗</a></td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Restarting everything from scratch</h3>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-content">Check Fly.io MCP servers are running: <code>flyctl status -a mechanic-mcp-server</code> and <code>flyctl status -a hedgehog-ads-writer</code></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content">Check all Vercel env vars are set</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content">Trigger a manual test run for one client (Ultra Tune is safest)</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content">Check Vercel logs — should see MCP calls, data returned, rules engine, sub-agents</div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-content">If the test works, Monday crons will work. If it fails, the logs will tell you exactly where.</div></div>
+      </div>
+      <div class="callout info"><span class="callout-icon">ℹ️</span><div>Always include the Vercel function logs and the specific error message when escalating to Teddi or Josh.</div></div>
+    </section>
+
+  </div></main>
+</div>
+<script>
+  const sections=document.querySelectorAll('.section'),links=document.querySelectorAll('.sidebar a[href^="#"]');
+  const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){links.forEach(l=>l.classList.remove('active'));const a=document.querySelector(`.sidebar a[href="#${en.target.id}"]`);if(a)a.classList.add('active')}})},{rootMargin:'-20% 0px -70% 0px'});
+  sections.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>
