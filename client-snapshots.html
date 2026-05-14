@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Snapshots | MM Internal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--orange:#EA580C;--orange-light:#FFF7ED;--black:#0C0A09;--grey-900:#1C1917;--grey-700:#44403C;--grey-500:#78716C;--grey-200:#E7E5E4;--grey-100:#F5F4F3;--white:#FAFAF9;--blue:#0369A1;--blue-light:#E0F2FE;--green:#15803D;--green-light:#DCFCE7;--red-light:#FEF2F2;--red:#B91C1C;--yellow-light:#FEFCE8;--yellow:#CA8A04;--sidebar-width:240px}
+  *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--grey-900);font-size:16px;line-height:1.7}
+  .topbar{position:fixed;top:0;left:0;right:0;height:52px;background:var(--black);display:flex;align-items:center;padding:0 24px;gap:8px;z-index:100}
+  .topbar a{font-size:13px;color:var(--grey-500);text-decoration:none;transition:color .15s}.topbar a:hover{color:var(--white)}
+  .topbar-logo{font-size:13px;font-weight:600;color:var(--white);letter-spacing:.08em;text-transform:uppercase;text-decoration:none!important}
+  .topbar-sep{color:var(--grey-700)}.topbar-badge{margin-left:auto;background:var(--orange);color:white;font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px}
+  .layout{display:flex;padding-top:52px;min-height:100vh}
+  .sidebar{width:var(--sidebar-width);position:fixed;top:52px;bottom:0;left:0;overflow-y:auto;background:var(--grey-100);border-right:1px solid var(--grey-200);padding:28px 0 40px}
+  .sidebar-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--grey-500);padding:0 20px 10px}
+  .sidebar a{display:block;padding:7px 20px;font-size:13.5px;color:var(--grey-700);text-decoration:none;border-left:3px solid transparent;transition:all .15s;line-height:1.4}
+  .sidebar a:hover,.sidebar a.active{color:var(--orange);background:var(--orange-light);border-left-color:var(--orange);font-weight:500}
+  .sidebar-back{display:flex;align-items:center;gap:6px;padding:10px 20px 16px;font-size:12px;color:var(--grey-500);text-decoration:none;border-bottom:1px solid var(--grey-200);margin-bottom:12px;transition:color .15s}.sidebar-back:hover{color:var(--orange)}
+  .main{margin-left:var(--sidebar-width);flex:1;padding:56px 48px 80px}.content{max-width:820px}
+  .hero{margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid var(--grey-200)}
+  .hero-eyebrow{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:12px}
+  .hero h1{font-size:36px;font-weight:600;line-height:1.15;color:var(--black);margin-bottom:12px}
+  .hero-meta{font-size:13px;color:var(--grey-500);display:flex;align-items:center;gap:12px}
+  .refresh-btn{font-size:12px;color:var(--blue);background:none;border:1px solid var(--blue-light);padding:2px 10px;border-radius:20px;cursor:pointer;font-family:inherit;transition:all .15s}.refresh-btn:hover{background:var(--blue-light)}
+  .loading{text-align:center;padding:80px 0;color:var(--grey-500)}
+  .loading-spinner{width:32px;height:32px;border:3px solid var(--grey-200);border-top-color:var(--orange);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .error-box{background:var(--red-light);border:1px solid #FECACA;border-radius:8px;padding:20px;color:var(--red);font-size:14px}
+  .client-card{background:var(--white);border:1px solid var(--grey-200);border-radius:12px;margin-bottom:24px;overflow:hidden;scroll-margin-top:80px}
+  .client-card-header{padding:20px 24px;border-bottom:1px solid var(--grey-200);display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+  .client-card-header-left h2{font-size:20px;font-weight:600;color:var(--black);margin-bottom:4px}
+  .client-meta{font-size:13px;color:var(--grey-500);margin-bottom:8px}
+  .client-meta a{color:var(--blue);text-decoration:none}.client-meta a:hover{text-decoration:underline}
+  .client-meta-sep{color:var(--grey-300);margin:0 4px}
+  .channel-badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+  .badge{font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;background:var(--grey-100);color:var(--grey-700);border:1px solid var(--grey-200)}
+  .task-counter{text-align:right;flex-shrink:0}
+  .task-count-num{font-size:28px;font-weight:600;color:var(--orange);line-height:1}
+  .task-count-label{font-size:11px;color:var(--grey-500);margin-top:2px}
+  .profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--grey-200)}
+  .profile-cell{padding:14px 24px;border-right:1px solid var(--grey-200);border-bottom:1px solid var(--grey-200)}
+  .profile-cell:nth-child(even){border-right:none}
+  .profile-cell:nth-last-child(-n+2){border-bottom:none}
+  .profile-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--grey-500);margin-bottom:4px}
+  .profile-value{font-size:14px;color:var(--grey-900);line-height:1.5}
+  .profile-value a{color:var(--blue);text-decoration:none}.profile-value a:hover{text-decoration:underline}
+  .profile-value.empty{color:var(--grey-300);font-style:italic}
+  .links-row{padding:12px 24px;display:flex;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--grey-200);background:var(--grey-100)}
+  .link-btn{font-size:12px;font-weight:500;color:var(--grey-700);text-decoration:none;padding:4px 10px;border-radius:6px;background:var(--white);border:1px solid var(--grey-200);transition:all .15s;white-space:nowrap}
+  .link-btn:hover{border-color:var(--orange);color:var(--orange)}
+  .tasks-section{padding:0}
+  .tasks-header{padding:12px 24px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--grey-500);background:var(--grey-100);border-bottom:1px solid var(--grey-200)}
+  .task-row{display:grid;grid-template-columns:110px 1fr 120px 80px;gap:0;border-bottom:1px solid var(--grey-200);padding:0}
+  .task-row:last-child{border-bottom:none}
+  .task-cell{padding:10px 14px;font-size:13.5px;color:var(--grey-700);display:flex;align-items:center}
+  .task-cell a{color:inherit;text-decoration:none}.task-cell a:hover{color:var(--blue);text-decoration:underline}
+  .task-priority{font-size:12px;white-space:nowrap}
+  .status-pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap}
+  .s-queue{background:var(--grey-100);color:var(--grey-700)}
+  .s-progress{background:var(--blue-light);color:var(--blue)}
+  .s-hold{background:var(--yellow-light);color:var(--yellow)}
+  .s-other{background:var(--grey-100);color:var(--grey-500)}
+  .no-tasks{padding:20px 24px;font-size:14px;color:var(--grey-500);font-style:italic}
+  .divider{height:1px;background:var(--grey-200);margin:0 0 24px}
+  @media(max-width:900px){.sidebar{display:none}.main{margin-left:0;padding:32px 24px 60px}.profile-grid{grid-template-columns:1fr}.task-row{grid-template-columns:90px 1fr;}.task-cell:nth-child(3),.task-cell:nth-child(4){display:none}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="index.html" class="topbar-logo">MM Marketing</a>
+  <span class="topbar-sep">/</span>
+  <span style="font-size:13px;color:var(--grey-500)">Client Snapshots</span>
+  <span class="topbar-badge">Live</span>
+</div>
+<div class="layout">
+  <nav class="sidebar" id="sidebar">
+    <a href="index.html" class="sidebar-back">← All guides</a>
+    <div class="sidebar-label">Clients</div>
+    <div id="sidebar-links"></div>
+  </nav>
+  <main class="main">
+    <div class="content">
+      <div class="hero">
+        <div class="hero-eyebrow">MM Marketing — Client Overview</div>
+        <h1>Client Snapshots</h1>
+        <div class="hero-meta">
+          <span id="last-updated">Loading…</span>
+          <button class="refresh-btn" onclick="loadClients()">↻ Refresh</button>
+        </div>
+      </div>
+      <div id="clients-container">
+        <div class="loading">
+          <div class="loading-spinner"></div>
+          <div>Pulling from ClickUp…</div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+function statusClass(s) {
+  if (!s) return 's-other';
+  const l = s.toLowerCase();
+  if (l.includes('progress')) return 's-progress';
+  if (l.includes('hold')) return 's-hold';
+  if (l === 'queue') return 's-queue';
+  return 's-other';
+}
+
+function statusLabel(s) {
+  if (!s) return '—';
+  const map = {'in progress':'In Progress','queue':'Queue','on hold':'On Hold','needs publishing':'Needs Publishing','needs higher review - jb':'Needs JB Review'};
+  return map[s.toLowerCase()] || s;
+}
+
+function val(v, fallback = '') {
+  return (v && v.trim && v.trim()) ? v.trim() : fallback;
+}
+
+function linkBtn(label, url) {
+  if (!url) return '';
+  return `<a href="${url}" target="_blank" class="link-btn">${label} ↗</a>`;
+}
+
+function renderClient(c) {
+  const tasks = c.activeTasks || [];
+  const taskRows = tasks.length === 0
+    ? `<div class="no-tasks">No active tasks right now ✓</div>`
+    : tasks.map(t => `
+      <div class="task-row">
+        <div class="task-cell task-priority">${t.priority || '—'}</div>
+        <div class="task-cell"><a href="${t.url}" target="_blank">${t.name}</a></div>
+        <div class="task-cell"><span class="status-pill ${statusClass(t.status)}">${statusLabel(t.status)}</span></div>
+        <div class="task-cell" style="font-size:12px;color:var(--grey-500)">${t.dueDate || ''}</div>
+      </div>`).join('');
+
+  const niche = val(c.niche, '<em class="empty">—</em>');
+  const goal = val(c.goal, '<em class="empty">—</em>');
+  const contact = val(c.contact) ? `${c.contact}${c.contactEmail ? ` &lt;${c.contactEmail}&gt;` : ''}` : `<em class="empty">—</em>`;
+  const location = val(c.location, '—');
+  const targetLocation = val(c.targetLocation);
+
+  const links = [
+    linkBtn('Live page', c.liveUrl || c.website),
+    linkBtn('ClickUp', c.clickupUrl),
+    linkBtn('Google Ads', c.googleAdsUrl),
+    linkBtn('GA4', c.ga4Url),
+    linkBtn('GSC', c.gscUrl),
+    linkBtn('Drive', c.driveUrl),
+  ].filter(Boolean).join('');
+
+  const channels = (c.channels || []).map(ch => `<span class="badge">${ch}</span>`).join('');
+  const urgentFlag = c.urgentCount > 0 ? ` 🚨` : c.highCount > 0 ? ` 🔴` : '';
+
+  return `
+    <div class="client-card" id="${c.id}">
+      <div class="client-card-header">
+        <div class="client-card-header-left">
+          <h2>${c.name}${urgentFlag}</h2>
+          <div class="client-meta">${location} &nbsp;·&nbsp; ${c.plan || 'Accelerate'}</div>
+          <div class="channel-badges">${channels}</div>
+        </div>
+        <div class="task-counter">
+          <div class="task-count-num">${c.taskCount}</div>
+          <div class="task-count-label">active tasks</div>
+        </div>
+      </div>
+      <div class="profile-grid">
+        <div class="profile-cell"><div class="profile-label">Niche</div><div class="profile-value">${niche}</div></div>
+        <div class="profile-cell"><div class="profile-label">Goal</div><div class="profile-value">${goal}</div></div>
+        <div class="profile-cell"><div class="profile-label">Contact</div><div class="profile-value">${contact}</div></div>
+        <div class="profile-cell"><div class="profile-label">Target area</div><div class="profile-value">${targetLocation || location}</div></div>
+      </div>
+      <div class="links-row">${links}</div>
+      <div class="tasks-section">
+        <div class="tasks-header">Active tasks</div>
+        ${taskRows}
+      </div>
+    </div>`;
+}
+
+async function loadClients() {
+  const container = document.getElementById('clients-container');
+  const meta = document.getElementById('last-updated');
+  container.innerHTML = '<div class="loading"><div class="loading-spinner"></div><div>Pulling from ClickUp…</div></div>';
+
+  try {
+    const res = await fetch('/api/clients');
+    if (!res.ok) throw new Error(`API returned ${res.status}`);
+    const clients = await res.json();
+
+    const sidebarLinks = document.getElementById('sidebar-links');
+    sidebarLinks.innerHTML = clients.map(c =>
+      `<a href="#${c.id}">${c.shortName || c.name}</a>`
+    ).join('');
+
+    container.innerHTML = clients.map(renderClient).join('');
+
+    const now = new Date().toLocaleString('en-AU', {hour:'2-digit',minute:'2-digit',day:'numeric',month:'short'});
+    meta.textContent = `Live from ClickUp · ${now}`;
+
+    const sections = document.querySelectorAll('.client-card');
+    const links = document.querySelectorAll('#sidebar-links a');
+    const obs = new IntersectionObserver(e => {
+      e.forEach(en => {
+        if (en.isIntersecting) {
+          links.forEach(l => l.classList.remove('active'));
+          const a = document.querySelector(`#sidebar-links a[href="#${en.target.id}"]`);
+          if (a) a.classList.add('active');
+        }
+      });
+    }, {rootMargin: '-20% 0px -70% 0px'});
+    sections.forEach(s => obs.observe(s));
+
+  } catch (err) {
+    container.innerHTML = `<div class="error-box"><strong>Failed to load client data.</strong><br>${err.message}<br><br>Check that <code>CLICKUP_API_TOKEN</code> is set in Vercel project settings.</div>`;
+    meta.textContent = 'Error loading data';
+  }
+}
+
+loadClients();
+</script>
+</body>
+</html>
