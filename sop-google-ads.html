@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Ads SOP | MM Internal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--orange:#EA580C;--orange-light:#FFF7ED;--black:#0C0A09;--grey-900:#1C1917;--grey-700:#44403C;--grey-500:#78716C;--grey-200:#E7E5E4;--grey-100:#F5F4F3;--white:#FAFAF9;--blue:#0369A1;--blue-light:#E0F2FE;--green:#15803D;--green-light:#DCFCE7;--red-light:#FEF2F2;--red:#B91C1C;--yellow-light:#FEFCE8;--yellow:#CA8A04;--sidebar-width:240px}
+  *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--grey-900);font-size:16px;line-height:1.7}
+  .topbar{position:fixed;top:0;left:0;right:0;height:52px;background:var(--black);display:flex;align-items:center;padding:0 24px;gap:8px;z-index:100}
+  .topbar a{font-size:13px;color:var(--grey-500);text-decoration:none;transition:color .15s}.topbar a:hover{color:var(--white)}
+  .topbar-logo{font-size:13px;font-weight:600;color:var(--white);letter-spacing:.08em;text-transform:uppercase;text-decoration:none!important}
+  .topbar-sep{color:var(--grey-700)}.topbar-badge{margin-left:auto;background:var(--orange);color:white;font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px}
+  .layout{display:flex;padding-top:52px;min-height:100vh}
+  .sidebar{width:var(--sidebar-width);position:fixed;top:52px;bottom:0;left:0;overflow-y:auto;background:var(--grey-100);border-right:1px solid var(--grey-200);padding:28px 0 40px}
+  .sidebar-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--grey-500);padding:0 20px 10px}
+  .sidebar a{display:block;padding:7px 20px;font-size:13.5px;color:var(--grey-700);text-decoration:none;border-left:3px solid transparent;transition:all .15s;line-height:1.4}
+  .sidebar a:hover,.sidebar a.active{color:var(--orange);background:var(--orange-light);border-left-color:var(--orange);font-weight:500}
+  .sidebar-back{display:flex;align-items:center;gap:6px;padding:10px 20px 16px;font-size:12px;color:var(--grey-500);text-decoration:none;border-bottom:1px solid var(--grey-200);margin-bottom:12px;transition:color .15s}.sidebar-back:hover{color:var(--orange)}
+  .main{margin-left:var(--sidebar-width);flex:1;padding:56px 48px 80px}.content{max-width:760px}
+  .hero{margin-bottom:56px;padding-bottom:40px;border-bottom:1px solid var(--grey-200)}
+  .hero-eyebrow{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:12px}
+  .hero h1{font-size:36px;font-weight:600;line-height:1.15;color:var(--black);margin-bottom:16px}
+  .hero-meta{font-size:13px;color:var(--grey-500)}
+  .section{margin-bottom:64px;scroll-margin-top:80px}.section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+  .section-num{width:28px;height:28px;border-radius:50%;background:var(--orange);color:white;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  h2{font-size:22px;font-weight:600;color:var(--black)}h3{font-size:13px;font-weight:600;color:var(--grey-900);margin:28px 0 10px;text-transform:uppercase;letter-spacing:.08em}
+  p{margin-bottom:14px;color:var(--grey-700);font-size:15px}p:last-child{margin-bottom:0}strong{color:var(--grey-900);font-weight:600}
+  code{font-family:'DM Mono',monospace;font-size:13px;background:var(--grey-100);border:1px solid var(--grey-200);padding:1px 6px;border-radius:4px;color:var(--grey-900)}
+  pre{background:#1C1917;border-radius:8px;padding:16px 20px;margin:14px 0;overflow-x:auto}pre code{background:none;border:none;padding:0;color:#D6D3D1;font-size:13px;line-height:1.6}
+  .callout{border-radius:8px;padding:14px 16px;font-size:14px;margin:16px 0;display:flex;gap:10px;line-height:1.55}.callout-icon{font-size:16px;flex-shrink:0;margin-top:1px}.callout strong{display:block;margin-bottom:2px}
+  .callout.info{background:var(--blue-light);color:#1E40AF}.callout.warning{background:#FFFBEB;color:#92400E}.callout.danger{background:var(--red-light);color:var(--red)}.callout.success{background:var(--green-light);color:#14532D}
+  .table-wrap{overflow-x:auto;margin:16px 0}table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{background:var(--black);color:white;font-weight:600;text-align:left;padding:10px 14px;font-size:12px;letter-spacing:.04em}
+  td{padding:10px 14px;border-bottom:1px solid var(--grey-200);color:var(--grey-700);vertical-align:top;font-size:14px;line-height:1.5}tr:nth-child(even) td{background:var(--grey-100)}
+  .pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap}
+  .pill-ok{background:var(--green-light);color:var(--green)}.pill-warn{background:var(--yellow-light);color:var(--yellow)}.pill-bad{background:var(--red-light);color:var(--red)}
+  ul.bullets{list-style:none;margin:10px 0 16px;padding:0}ul.bullets li{padding:5px 0 5px 20px;font-size:15px;color:var(--grey-700);position:relative}ul.bullets li::before{content:'—';position:absolute;left:0;color:var(--orange);font-weight:600}
+  .steps{margin:16px 0}.step{display:flex;gap:14px;margin-bottom:14px}.step-num{width:24px;height:24px;border-radius:50%;background:var(--orange);color:white;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}.step-content{font-size:15px;color:var(--grey-700)}
+  .checklist{list-style:none;padding:0;margin:12px 0}.checklist li{display:flex;gap:10px;padding:8px 0;font-size:15px;color:var(--grey-700);border-bottom:1px solid var(--grey-200)}.checklist li:last-child{border-bottom:none}.checklist li::before{content:'☐';color:var(--orange);font-size:16px;flex-shrink:0;line-height:1.5}
+  .divider{height:1px;background:var(--grey-200);margin:40px 0}
+  .owner-tag{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;background:var(--grey-100);color:var(--grey-500);margin-left:8px;vertical-align:middle}
+  .week-grid{display:grid;grid-template-columns:120px 1fr 1fr 1fr 1fr;gap:1px;background:var(--grey-200);border-radius:8px;overflow:hidden;margin:16px 0}
+  .wg-cell{background:var(--white);padding:10px 12px;font-size:13px}.wg-header{background:var(--black);color:white;font-weight:600;font-size:12px;padding:10px 12px}
+  .wg-label{background:var(--grey-100);font-weight:600;font-size:12px;color:var(--grey-700);padding:10px 12px}
+  @media(max-width:900px){.sidebar{display:none}.main{margin-left:0;padding:32px 24px 60px}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="index.html" class="topbar-logo">MM Marketing</a>
+  <span class="topbar-sep">/</span>
+  <span style="font-size:13px;color:var(--grey-500)">Google Ads SOP</span>
+  <span class="topbar-badge">Internal</span>
+</div>
+<div class="layout">
+  <nav class="sidebar">
+    <a href="index.html" class="sidebar-back">← All guides</a>
+    <div class="sidebar-label">On this page</div>
+    <a href="#setup">Setup</a>
+    <a href="#optimisation">Optimisation</a>
+    <a href="#lead-quality">Improve lead quality</a>
+    <a href="#autopilot-workflow">Autopilot workflow</a>
+  </nav>
+  <main class="main"><div class="content">
+    <div class="hero">
+      <div class="hero-eyebrow">SOPs — Google Ads</div>
+      <h1>Google Ads SOP</h1>
+      <div class="hero-meta">Setup, optimisation, lead quality, and the Autopilot workflow</div>
+    </div>
+
+    <section class="section" id="setup">
+      <div class="section-header"><div class="section-num">1</div><h2>Setup</h2></div>
+
+      <h3>Step 1 — Keyword research</h3>
+      <p>Use Google Ads Keyword Planner (Tools &amp; Settings → Planning → Keyword Planner) or the <a href="https://chatgpt.com/g/g-67d9f74c4d988191b9a4870c54e90ba1-keyword-research" target="_blank" style="color:var(--blue)">Keyword Research GPT ↗</a>. Analyse by monthly searches, competition, and suggested bids. Export and organise into themed groups.</p>
+
+      <h3>Step 2 — Match types</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Match type</th><th>Format</th><th>When to use</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Phrase match</strong></td><td><code>"running shoes"</code></td><td>Default starting point — shows for phrases containing the keyword</td></tr>
+          <tr><td><strong>Exact match</strong></td><td><code>[running shoes]</code></td><td>High-intent terms where you want tight control</td></tr>
+          <tr><td><strong>Broad match</strong></td><td><code>running shoes</code></td><td>Limit to specific use cases or audience discovery only</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout danger"><span class="callout-icon">🚨</span><div><strong>Never add broad match keywords.</strong> The MM Ads Autopilot enforces this at code level — it will never propose or add broad match keywords. Always use phrase or exact match.</div></div>
+
+      <h3>Step 3 — Campaign naming</h3>
+      <p>Follow this convention: <code>MM - [Objective] - [Service] - [Geo] - [Network]</code></p>
+      <p>Example: <code>MM - LeadGen - Logbook Servicing - NSW - Search</code></p>
+
+      <h3>Step 4 — Write ad copy</h3>
+      <p>Use the client's dedicated GPT if one exists (see <a href="sop-gpts.html" style="color:var(--blue)">GPT Reference ↗</a>). Otherwise use:</p>
+      <ul class="bullets">
+        <li>Search ads: <a href="https://chatgpt.com/g/g-67d768528ac08191a1cc9b6f9f38792a-mm-gads-copy-creator" target="_blank" style="color:var(--blue)">MM GAds Copy Creator ↗</a></li>
+        <li>Performance Max: <a href="https://chatgpt.com/g/g-67d77b76db1c8191aabda50b5697d83e-mm-pmax-copy-creator" target="_blank" style="color:var(--blue)">MM PMax Copy Creator ↗</a></li>
+      </ul>
+
+      <h3>Step 5 — Extensions</h3>
+      <p>Navigate to Ads &amp; Extensions → Extensions. Add: Sitelink, Callout, Structured Snippet. Keep copy short and focused on selling points or CTAs.</p>
+
+      <h3>Step 6 — Buddy review before launch</h3>
+      <p>Complete setup and <strong>pause</strong> the campaigns. Assign task to "Needs Review" in ClickUp. Do not launch until reviewed.</p>
+
+      <h3>Step 7 — Budget estimation</h3>
+      <p>Use Keyword Planner to view estimated costs and clicks for target keywords. Multiply average CPC by desired clicks to estimate daily/monthly budget. Add 10–20% buffer for initial testing.</p>
+
+      <h3>Step 8 — Turn off automatic broad match</h3>
+      <p>Google Ads defaults new campaigns to broad match. Add quotation marks or brackets to all keywords immediately after creation. Check match type settings under Keywords → Match Types regularly.</p>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="optimisation">
+      <div class="section-header"><div class="section-num">2</div><h2>Optimisation</h2></div>
+
+      <div class="callout info"><span class="callout-icon">ℹ️</span><div><strong>Autopilot handles weekly optimisation.</strong> The MM Ads Autopilot runs every Monday and proposes keyword pauses, negative keywords, new keywords, ad copy rewrites, and more. Review and approve in Slack. Manual optimisation below is for tasks outside the Autopilot's scope or for on-demand analysis.</div></div>
+
+      <h3>Find and replace winning ad combos</h3>
+      <p>Go to Ads → check CTR, conversions, ROI. Identify top-performing headlines or descriptions. Copy these to lower-performing ad groups. <a href="https://youtu.be/ZR4l-nzR3E4?si=gwM59HEB7TCt9vtq" target="_blank" style="color:var(--blue)">Video walkthrough ↗</a></p>
+
+      <h3>Exclude age and device</h3>
+      <p>Go to campaign Demographics (for age) or Devices section. Exclude low-performing segments. Adjust bids down (-100%) to exclude poor-performing devices. <a href="https://www.loom.com/share/d09ed8393a1e4894b92442edaf3c3862" target="_blank" style="color:var(--blue)">Video ↗</a></p>
+
+      <h3>Account-level negative keywords</h3>
+      <p>Navigate to Tools &amp; Settings → Shared Library → Negative Keyword Lists. Add common irrelevant terms that apply across multiple campaigns. Assign to all relevant campaigns. <a href="https://www.loom.com/share/afdb276498c84ccd9c3497a0bac61dab" target="_blank" style="color:var(--blue)">Video ↗</a></p>
+
+      <h3>Create experiments</h3>
+      <p>Click Drafts &amp; Experiments → + New Experiment. Select original campaign, set your split (e.g. 50% traffic) and duration. Use for testing bidding strategies, creatives, or targeting changes. <a href="https://www.loom.com/share/6d834f1a16cc44389e653a5e7535e647" target="_blank" style="color:var(--blue)">Video ↗</a></p>
+
+      <h3>Exclude URLs from campaigns</h3>
+      <p>For Display or PMax: navigate to Content → Exclusions. Add specific URLs or placements to exclude. <a href="https://www.loom.com/share/e53d45c25a4f4bc58ceb110a1055abfd" target="_blank" style="color:var(--blue)">Video ↗</a></p>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="lead-quality">
+      <div class="section-header"><div class="section-num">3</div><h2>Improve lead quality</h2></div>
+      <p>If leads are coming through but quality is poor (high non-quotable rate in WhatConverts), tighten spend using manual CPC bidding:</p>
+
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-content">Go to campaign Settings → Bidding → Change bid strategy → select <strong>Manual CPC</strong></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content">Review keywords tab — identify keywords producing low-quality leads or high-cost clicks</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content">Lower bids for poor-quality keywords. Increase slightly for high-quality converters.</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content">Check Placements, Devices, and Locations reports — adjust bids down for poor performers</div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-content">Add irrelevant search terms as negative keywords regularly</div></div>
+        <div class="step"><div class="step-num">6</div><div class="step-content">Review and adjust bids weekly, especially in the first month of manual bidding</div></div>
+      </div>
+
+      <div class="callout warning"><span class="callout-icon">⚠️</span><div>Always check WhatConverts lead quality before blaming campaign performance. High non-quotable rate may mean the client isn't answering calls or is marking real leads as spam. Confirm with the client before making significant bid changes.</div></div>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="autopilot-workflow">
+      <div class="section-header"><div class="section-num">4</div><h2>Autopilot workflow</h2></div>
+      <p>Once a client's account has 14+ days of data, MM Ads Autopilot begins monitoring and proposing optimisations every Monday. This replaces the bulk of manual weekly optimisation.</p>
+
+      <h3>Your Monday routine</h3>
+      <ul class="checklist">
+        <li>Open #mm-ads-autopilot in Slack</li>
+        <li>Read the portfolio digest — check which clients are red or yellow</li>
+        <li>Review proposed actions for each client — Approve, Reject, or Review individually</li>
+        <li>If rejecting, explain why — this trains the system for future weeks</li>
+      </ul>
+
+      <h3>On-demand analysis</h3>
+      <p>Ask the Autopilot bot in Slack at any time:</p>
+      <ul class="bullets">
+        <li>"How is [client] performing this week?"</li>
+        <li>"What keywords are wasting budget for [client]?"</li>
+        <li>"Run analysis for [client]" — triggers a full pipeline run (2–3 minutes)</li>
+      </ul>
+
+      <h3>What the Autopilot proposes vs what needs human decision</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Autopilot handles</th><th>Always escalate to Josh</th></tr></thead>
+        <tbody>
+          <tr><td>Keyword pauses (high CPA / zero conversions)</td><td>Budget increases or decreases</td></tr>
+          <tr><td>Negative keyword additions</td><td>Campaign structure changes</td></tr>
+          <tr><td>New keyword suggestions from GSC data</td><td>Bidding strategy changes</td></tr>
+          <tr><td>Ad copy rewrites with preview</td><td>Ad account suspended</td></tr>
+          <tr><td>Paid/organic overlap flags</td><td>Policy violations</td></tr>
+          <tr><td>Anomaly alerts (CPA spike, zero conversions)</td><td>Campaign pauses/enables</td></tr>
+        </tbody>
+      </table></div>
+      <p>For full Autopilot documentation see the <a href="autopilot.html" style="color:var(--blue)">Autopilot User Guide ↗</a>.</p>
+    </section>
+
+  </div></main>
+</div>
+<script>
+  const sections=document.querySelectorAll('.section'),links=document.querySelectorAll('.sidebar a[href^="#"]');
+  const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){links.forEach(l=>l.classList.remove('active'));const a=document.querySelector(`.sidebar a[href="#${en.target.id}"]`);if(a)a.classList.add('active')}})},{rootMargin:'-20% 0px -70% 0px'});
+  sections.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>

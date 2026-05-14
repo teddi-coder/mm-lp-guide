@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monthly Reporting SOP | MM Internal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--orange:#EA580C;--orange-light:#FFF7ED;--black:#0C0A09;--grey-900:#1C1917;--grey-700:#44403C;--grey-500:#78716C;--grey-200:#E7E5E4;--grey-100:#F5F4F3;--white:#FAFAF9;--blue:#0369A1;--blue-light:#E0F2FE;--green:#15803D;--green-light:#DCFCE7;--red-light:#FEF2F2;--red:#B91C1C;--yellow-light:#FEFCE8;--yellow:#CA8A04;--sidebar-width:240px}
+  *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--grey-900);font-size:16px;line-height:1.7}
+  .topbar{position:fixed;top:0;left:0;right:0;height:52px;background:var(--black);display:flex;align-items:center;padding:0 24px;gap:8px;z-index:100}
+  .topbar a{font-size:13px;color:var(--grey-500);text-decoration:none;transition:color .15s}.topbar a:hover{color:var(--white)}
+  .topbar-logo{font-size:13px;font-weight:600;color:var(--white);letter-spacing:.08em;text-transform:uppercase;text-decoration:none!important}
+  .topbar-sep{color:var(--grey-700)}.topbar-badge{margin-left:auto;background:var(--orange);color:white;font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px}
+  .layout{display:flex;padding-top:52px;min-height:100vh}
+  .sidebar{width:var(--sidebar-width);position:fixed;top:52px;bottom:0;left:0;overflow-y:auto;background:var(--grey-100);border-right:1px solid var(--grey-200);padding:28px 0 40px}
+  .sidebar-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--grey-500);padding:0 20px 10px}
+  .sidebar a{display:block;padding:7px 20px;font-size:13.5px;color:var(--grey-700);text-decoration:none;border-left:3px solid transparent;transition:all .15s;line-height:1.4}
+  .sidebar a:hover,.sidebar a.active{color:var(--orange);background:var(--orange-light);border-left-color:var(--orange);font-weight:500}
+  .sidebar-back{display:flex;align-items:center;gap:6px;padding:10px 20px 16px;font-size:12px;color:var(--grey-500);text-decoration:none;border-bottom:1px solid var(--grey-200);margin-bottom:12px;transition:color .15s}.sidebar-back:hover{color:var(--orange)}
+  .main{margin-left:var(--sidebar-width);flex:1;padding:56px 48px 80px}.content{max-width:760px}
+  .hero{margin-bottom:56px;padding-bottom:40px;border-bottom:1px solid var(--grey-200)}
+  .hero-eyebrow{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:12px}
+  .hero h1{font-size:36px;font-weight:600;line-height:1.15;color:var(--black);margin-bottom:16px}
+  .hero-meta{font-size:13px;color:var(--grey-500)}
+  .section{margin-bottom:64px;scroll-margin-top:80px}.section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+  .section-num{width:28px;height:28px;border-radius:50%;background:var(--orange);color:white;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  h2{font-size:22px;font-weight:600;color:var(--black)}h3{font-size:13px;font-weight:600;color:var(--grey-900);margin:28px 0 10px;text-transform:uppercase;letter-spacing:.08em}
+  p{margin-bottom:14px;color:var(--grey-700);font-size:15px}p:last-child{margin-bottom:0}strong{color:var(--grey-900);font-weight:600}
+  code{font-family:'DM Mono',monospace;font-size:13px;background:var(--grey-100);border:1px solid var(--grey-200);padding:1px 6px;border-radius:4px;color:var(--grey-900)}
+  pre{background:#1C1917;border-radius:8px;padding:16px 20px;margin:14px 0;overflow-x:auto}pre code{background:none;border:none;padding:0;color:#D6D3D1;font-size:13px;line-height:1.6}
+  .callout{border-radius:8px;padding:14px 16px;font-size:14px;margin:16px 0;display:flex;gap:10px;line-height:1.55}.callout-icon{font-size:16px;flex-shrink:0;margin-top:1px}.callout strong{display:block;margin-bottom:2px}
+  .callout.info{background:var(--blue-light);color:#1E40AF}.callout.warning{background:#FFFBEB;color:#92400E}.callout.danger{background:var(--red-light);color:var(--red)}.callout.success{background:var(--green-light);color:#14532D}
+  .table-wrap{overflow-x:auto;margin:16px 0}table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{background:var(--black);color:white;font-weight:600;text-align:left;padding:10px 14px;font-size:12px;letter-spacing:.04em}
+  td{padding:10px 14px;border-bottom:1px solid var(--grey-200);color:var(--grey-700);vertical-align:top;font-size:14px;line-height:1.5}tr:nth-child(even) td{background:var(--grey-100)}
+  .pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap}
+  .pill-ok{background:var(--green-light);color:var(--green)}.pill-warn{background:var(--yellow-light);color:var(--yellow)}.pill-bad{background:var(--red-light);color:var(--red)}
+  ul.bullets{list-style:none;margin:10px 0 16px;padding:0}ul.bullets li{padding:5px 0 5px 20px;font-size:15px;color:var(--grey-700);position:relative}ul.bullets li::before{content:'—';position:absolute;left:0;color:var(--orange);font-weight:600}
+  .steps{margin:16px 0}.step{display:flex;gap:14px;margin-bottom:14px}.step-num{width:24px;height:24px;border-radius:50%;background:var(--orange);color:white;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}.step-content{font-size:15px;color:var(--grey-700)}
+  .checklist{list-style:none;padding:0;margin:12px 0}.checklist li{display:flex;gap:10px;padding:8px 0;font-size:15px;color:var(--grey-700);border-bottom:1px solid var(--grey-200)}.checklist li:last-child{border-bottom:none}.checklist li::before{content:'☐';color:var(--orange);font-size:16px;flex-shrink:0;line-height:1.5}
+  .divider{height:1px;background:var(--grey-200);margin:40px 0}
+  .owner-tag{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;background:var(--grey-100);color:var(--grey-500);margin-left:8px;vertical-align:middle}
+  .week-grid{display:grid;grid-template-columns:120px 1fr 1fr 1fr 1fr;gap:1px;background:var(--grey-200);border-radius:8px;overflow:hidden;margin:16px 0}
+  .wg-cell{background:var(--white);padding:10px 12px;font-size:13px}.wg-header{background:var(--black);color:white;font-weight:600;font-size:12px;padding:10px 12px}
+  .wg-label{background:var(--grey-100);font-weight:600;font-size:12px;color:var(--grey-700);padding:10px 12px}
+  @media(max-width:900px){.sidebar{display:none}.main{margin-left:0;padding:32px 24px 60px}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="index.html" class="topbar-logo">MM Marketing</a>
+  <span class="topbar-sep">/</span>
+  <span style="font-size:13px;color:var(--grey-500)">Monthly Reporting SOP</span>
+  <span class="topbar-badge">Internal</span>
+</div>
+<div class="layout">
+  <nav class="sidebar">
+    <a href="index.html" class="sidebar-back">← All guides</a>
+    <div class="sidebar-label">On this page</div>
+    <a href="#overview">Overview</a>
+    <a href="#weekly">Weekly report (Mon/Fri)</a>
+    <a href="#monthly">Monthly report</a>
+    <a href="#autopilot-report">Autopilot monthly report</a>
+    <a href="#client-delivery">Client delivery</a>
+  </nav>
+  <main class="main"><div class="content">
+    <div class="hero">
+      <div class="hero-eyebrow">SOPs — Reporting</div>
+      <h1>Monthly Reporting SOP</h1>
+      <div class="hero-meta">What to pull, review, and deliver every month</div>
+    </div>
+
+    <section class="section" id="overview">
+      <div class="section-header"><div class="section-num">1</div><h2>Overview</h2></div>
+      <p>MM clients receive two types of regular reporting:</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Report</th><th>Frequency</th><th>How it's generated</th><th>What it covers</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Weekly report</strong></td><td>Monday + Friday</td><td>MM weekly report automation</td><td>WhatConverts lead count, Google Ads spend/conversions, key flags</td></tr>
+          <tr><td><strong>Monthly planning report</strong></td><td>1st of each month</td><td>Hilda (Hedgehog internal tool) + Guy review</td><td>Full month performance, channel breakdown, recommendations</td></tr>
+          <tr><td><strong>Autopilot monthly report</strong></td><td>1st of each month</td><td>MM Ads Autopilot (auto-generated to Google Drive)</td><td>All Autopilot actions, feedback rules, trends, next-month recommendations</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="weekly">
+      <div class="section-header"><div class="section-num">2</div><h2>Weekly report (Mon &amp; Fri)</h2></div>
+      <p>The MM weekly report pulls WhatConverts, GA4, Google Ads, and Meta data automatically. Your job is to review the output and flag anything that needs attention before it goes to the client.</p>
+
+      <h3>Monday check</h3>
+      <ul class="checklist">
+        <li>Open #mm-ads-autopilot — read the portfolio digest (red/yellow/green per client)</li>
+        <li>Review and approve/reject Autopilot proposals for each client</li>
+        <li>Check WhatConverts weekly report section — is lead count consistent with last week?</li>
+        <li>Check for any anomaly alerts from the Autopilot — these need same-day attention</li>
+        <li>Flag any issues to Josh (performance) or Teddi (tracking) before touching campaigns</li>
+      </ul>
+
+      <h3>Friday check</h3>
+      <ul class="checklist">
+        <li>WhatConverts lead count for the week vs last week</li>
+        <li>Quotable lead percentage — flag if under 60%</li>
+        <li>Any unanswered calls — flag to client if pattern is emerging</li>
+        <li>Google Ads spend vs budget — any days with $0 spend?</li>
+        <li>Any campaigns paused or ads disapproved this week?</li>
+      </ul>
+      <p>Full weekly data review checklist: see the <a href="reporting-checklist.html" style="color:var(--blue)">Monthly Reporting Checklist ↗</a> for the complete list of what to check across each platform.</p>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="monthly">
+      <div class="section-header"><div class="section-num">3</div><h2>Monthly report</h2></div>
+      <p>The monthly report is a structured performance summary delivered to the client at the start of each month. It covers the previous month's results and sets priorities for the coming month.</p>
+
+      <h3>Structure</h3>
+      <ul class="bullets">
+        <li><strong>High-level summary</strong> — are we improving, declining, or stable? 3–4 sentences.</li>
+        <li><strong>Channel breakdown</strong> — WhatConverts leads, Google Ads spend/conversions/CPA, Meta results, GA4 sessions and engagement</li>
+        <li><strong>ROAS / lead value</strong> — if the client has quote/sales values in WhatConverts, include ROI. If not, use cost-per-lead.</li>
+        <li><strong>What we did this month</strong> — list key optimisations made (reference the Autopilot ClickUp tasks for Google Ads actions)</li>
+        <li><strong>What we need from the client</strong> — outstanding approvals, content, access issues, etc.</li>
+        <li><strong>Key activities next month</strong> — create these as ClickUp tasks to schedule your calendar</li>
+      </ul>
+
+      <h3>Before sending</h3>
+      <ul class="checklist">
+        <li>All data verified against WhatConverts (primary source for lead count)</li>
+        <li>Google Ads numbers cross-referenced — any discrepancies vs WhatConverts flagged to Teddi</li>
+        <li>No tracking issues outstanding that would affect the numbers</li>
+        <li>Josh has reviewed before it goes to the client</li>
+        <li>Next-month tasks created in ClickUp</li>
+      </ul>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="autopilot-report">
+      <div class="section-header"><div class="section-num">4</div><h2>Autopilot monthly report</h2></div>
+      <p>On the 1st of each month, MM Ads Autopilot auto-generates a comprehensive Google Ads report per client and uploads it to Google Drive. This is separate from the main monthly report.</p>
+
+      <h3>What it contains</h3>
+      <ul class="bullets">
+        <li>Monthly Google Ads metrics with month-over-month comparison</li>
+        <li>Every action the Autopilot proposed, approved, rejected, and executed</li>
+        <li>Your feedback rules that shaped decisions this month</li>
+        <li>Trend data from daily monitoring</li>
+        <li>Recommendations for next month</li>
+      </ul>
+
+      <h3>How to use it</h3>
+      <p>Pull this report before monthly client calls — it gives you a complete picture of everything that happened in Google Ads and why. Use the "actions executed" section to populate the "What we did this month" section of the main monthly report.</p>
+      <p>Find the reports in Google Drive — auto-uploaded on the 1st of each month per client.</p>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="client-delivery">
+      <div class="section-header"><div class="section-num">5</div><h2>Client delivery</h2></div>
+      <p>The Looker Studio dashboard is the always-on, self-serve view for clients. The monthly report is the narrative layer on top — it explains the numbers, not just shows them.</p>
+      <ul class="bullets">
+        <li>Share the Looker Studio dashboard link at onboarding — clients can check live data anytime</li>
+        <li>Monthly report delivered via email — keep it concise, lead with the headline number (leads this month vs last month)</li>
+        <li>If performance is down, always confirm tracking is working before the call — a drop in WhatConverts leads could be a tracking issue, not a performance issue</li>
+        <li>If the client asks questions the report doesn't answer — ask the Autopilot bot: "How is [client] performing?" for a live data pull</li>
+      </ul>
+    </section>
+
+  </div></main>
+</div>
+<script>
+  const sections=document.querySelectorAll('.section'),links=document.querySelectorAll('.sidebar a[href^="#"]');
+  const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){links.forEach(l=>l.classList.remove('active'));const a=document.querySelector(`.sidebar a[href="#${en.target.id}"]`);if(a)a.classList.add('active')}})},{rootMargin:'-20% 0px -70% 0px'});
+  sections.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>

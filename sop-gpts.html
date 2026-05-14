@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GPT Reference | MM Internal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--orange:#EA580C;--orange-light:#FFF7ED;--black:#0C0A09;--grey-900:#1C1917;--grey-700:#44403C;--grey-500:#78716C;--grey-200:#E7E5E4;--grey-100:#F5F4F3;--white:#FAFAF9;--blue:#0369A1;--blue-light:#E0F2FE;--green:#15803D;--green-light:#DCFCE7;--red-light:#FEF2F2;--red:#B91C1C;--yellow-light:#FEFCE8;--yellow:#CA8A04;--sidebar-width:240px}
+  *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--grey-900);font-size:16px;line-height:1.7}
+  .topbar{position:fixed;top:0;left:0;right:0;height:52px;background:var(--black);display:flex;align-items:center;padding:0 24px;gap:8px;z-index:100}
+  .topbar a{font-size:13px;color:var(--grey-500);text-decoration:none;transition:color .15s}.topbar a:hover{color:var(--white)}
+  .topbar-logo{font-size:13px;font-weight:600;color:var(--white);letter-spacing:.08em;text-transform:uppercase;text-decoration:none!important}
+  .topbar-sep{color:var(--grey-700)}.topbar-badge{margin-left:auto;background:var(--orange);color:white;font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px}
+  .layout{display:flex;padding-top:52px;min-height:100vh}
+  .sidebar{width:var(--sidebar-width);position:fixed;top:52px;bottom:0;left:0;overflow-y:auto;background:var(--grey-100);border-right:1px solid var(--grey-200);padding:28px 0 40px}
+  .sidebar-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--grey-500);padding:0 20px 10px}
+  .sidebar a{display:block;padding:7px 20px;font-size:13.5px;color:var(--grey-700);text-decoration:none;border-left:3px solid transparent;transition:all .15s;line-height:1.4}
+  .sidebar a:hover,.sidebar a.active{color:var(--orange);background:var(--orange-light);border-left-color:var(--orange);font-weight:500}
+  .sidebar-back{display:flex;align-items:center;gap:6px;padding:10px 20px 16px;font-size:12px;color:var(--grey-500);text-decoration:none;border-bottom:1px solid var(--grey-200);margin-bottom:12px;transition:color .15s}.sidebar-back:hover{color:var(--orange)}
+  .main{margin-left:var(--sidebar-width);flex:1;padding:56px 48px 80px}.content{max-width:760px}
+  .hero{margin-bottom:56px;padding-bottom:40px;border-bottom:1px solid var(--grey-200)}
+  .hero-eyebrow{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:12px}
+  .hero h1{font-size:36px;font-weight:600;line-height:1.15;color:var(--black);margin-bottom:16px}
+  .hero-meta{font-size:13px;color:var(--grey-500)}
+  .section{margin-bottom:64px;scroll-margin-top:80px}.section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+  .section-num{width:28px;height:28px;border-radius:50%;background:var(--orange);color:white;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  h2{font-size:22px;font-weight:600;color:var(--black)}h3{font-size:13px;font-weight:600;color:var(--grey-900);margin:28px 0 10px;text-transform:uppercase;letter-spacing:.08em}
+  p{margin-bottom:14px;color:var(--grey-700);font-size:15px}p:last-child{margin-bottom:0}strong{color:var(--grey-900);font-weight:600}
+  code{font-family:'DM Mono',monospace;font-size:13px;background:var(--grey-100);border:1px solid var(--grey-200);padding:1px 6px;border-radius:4px;color:var(--grey-900)}
+  pre{background:#1C1917;border-radius:8px;padding:16px 20px;margin:14px 0;overflow-x:auto}pre code{background:none;border:none;padding:0;color:#D6D3D1;font-size:13px;line-height:1.6}
+  .callout{border-radius:8px;padding:14px 16px;font-size:14px;margin:16px 0;display:flex;gap:10px;line-height:1.55}.callout-icon{font-size:16px;flex-shrink:0;margin-top:1px}.callout strong{display:block;margin-bottom:2px}
+  .callout.info{background:var(--blue-light);color:#1E40AF}.callout.warning{background:#FFFBEB;color:#92400E}.callout.danger{background:var(--red-light);color:var(--red)}.callout.success{background:var(--green-light);color:#14532D}
+  .table-wrap{overflow-x:auto;margin:16px 0}table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{background:var(--black);color:white;font-weight:600;text-align:left;padding:10px 14px;font-size:12px;letter-spacing:.04em}
+  td{padding:10px 14px;border-bottom:1px solid var(--grey-200);color:var(--grey-700);vertical-align:top;font-size:14px;line-height:1.5}tr:nth-child(even) td{background:var(--grey-100)}
+  .pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap}
+  .pill-ok{background:var(--green-light);color:var(--green)}.pill-warn{background:var(--yellow-light);color:var(--yellow)}.pill-bad{background:var(--red-light);color:var(--red)}
+  ul.bullets{list-style:none;margin:10px 0 16px;padding:0}ul.bullets li{padding:5px 0 5px 20px;font-size:15px;color:var(--grey-700);position:relative}ul.bullets li::before{content:'—';position:absolute;left:0;color:var(--orange);font-weight:600}
+  .steps{margin:16px 0}.step{display:flex;gap:14px;margin-bottom:14px}.step-num{width:24px;height:24px;border-radius:50%;background:var(--orange);color:white;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}.step-content{font-size:15px;color:var(--grey-700)}
+  .checklist{list-style:none;padding:0;margin:12px 0}.checklist li{display:flex;gap:10px;padding:8px 0;font-size:15px;color:var(--grey-700);border-bottom:1px solid var(--grey-200)}.checklist li:last-child{border-bottom:none}.checklist li::before{content:'☐';color:var(--orange);font-size:16px;flex-shrink:0;line-height:1.5}
+  .divider{height:1px;background:var(--grey-200);margin:40px 0}
+  .owner-tag{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;background:var(--grey-100);color:var(--grey-500);margin-left:8px;vertical-align:middle}
+  .week-grid{display:grid;grid-template-columns:120px 1fr 1fr 1fr 1fr;gap:1px;background:var(--grey-200);border-radius:8px;overflow:hidden;margin:16px 0}
+  .wg-cell{background:var(--white);padding:10px 12px;font-size:13px}.wg-header{background:var(--black);color:white;font-weight:600;font-size:12px;padding:10px 12px}
+  .wg-label{background:var(--grey-100);font-weight:600;font-size:12px;color:var(--grey-700);padding:10px 12px}
+  @media(max-width:900px){.sidebar{display:none}.main{margin-left:0;padding:32px 24px 60px}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="index.html" class="topbar-logo">MM Marketing</a>
+  <span class="topbar-sep">/</span>
+  <span style="font-size:13px;color:var(--grey-500)">GPT Reference</span>
+  <span class="topbar-badge">Internal</span>
+</div>
+<div class="layout">
+  <nav class="sidebar">
+    <a href="index.html" class="sidebar-back">← All guides</a>
+    <div class="sidebar-label">On this page</div>
+    <a href="#client-gpts">Client GPTs</a>
+    <a href="#platform-gpts">Platform GPTs</a>
+    <a href="#notes">Notes on GPT use</a>
+  </nav>
+  <main class="main"><div class="content">
+    <div class="hero">
+      <div class="hero-eyebrow">SOPs — Tools</div>
+      <h1>GPT Reference</h1>
+      <div class="hero-meta">Client-specific and platform GPTs for MM tasks</div>
+    </div>
+
+    <div class="callout info"><span class="callout-icon">ℹ️</span><div><strong>LP pipeline note:</strong> The MM LP pipeline (Claude-powered) is replacing the LP Generator GPTs for new page builds. The GPTs below remain the fallback while the pipeline is in testing, and are still used for blog posts, ad copy, and SEO tasks.</div></div>
+
+    <section class="section" id="client-gpts">
+      <div class="section-header"><div class="section-num">1</div><h2>Client-specific GPTs</h2></div>
+      <p>Use these for copy that needs to match the client's specific voice, services, and location. Always prefer a client GPT over a platform GPT when one exists.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Client</th><th>GPT</th></tr></thead>
+        <tbody>
+          <tr><td>Top Level (all automotive)</td><td><a href="https://chatgpt.com/g/g-690920d27df48191b21687a0be4ca3bc-hedgehog-automotive-content-engine" target="_blank" style="color:var(--blue)">Hedgehog Automotive Content Engine ↗</a></td></tr>
+          <tr><td>Core Diesel</td><td><a href="https://chatgpt.com/g/g-69091ddb15008191b9457bc02e30dfb9" target="_blank" style="color:var(--blue)">Core Diesel GPT ↗</a></td></tr>
+          <tr><td>Ryco</td><td><a href="https://chatgpt.com/g/g-69093f90b0ec81918df68e5bce1160b3-ryco-copywriter-gpt" target="_blank" style="color:var(--blue)">Ryco Copywriter GPT ↗</a></td></tr>
+          <tr><td>Auto Response</td><td><a href="https://chatgpt.com/g/g-69114d532ffc819181e7b84f63ffadc0" target="_blank" style="color:var(--blue)">Auto Response GPT ↗</a></td></tr>
+          <tr><td>BRC</td><td><a href="https://chatgpt.com/g/g-690a72a56ed48191a88d1b4e31401ce4-brc-copywriter" target="_blank" style="color:var(--blue)">BRC Copywriter ↗</a></td></tr>
+          <tr><td>BASC</td><td><a href="https://chatgpt.com/g/g-690a79d6a4848191b4a3aa4f7d81f022-basc-copywriter" target="_blank" style="color:var(--blue)">BASC Copywriter ↗</a></td></tr>
+          <tr><td>BCSC</td><td><a href="https://chatgpt.com/g/g-696863fcdf188191a8edfe8841fa6118-bcsc-master-gpt" target="_blank" style="color:var(--blue)">BCSC Master GPT ↗</a></td></tr>
+          <tr><td>Performance Plus</td><td><a href="https://chatgpt.com/g/g-69114bec226081919b96513b63b5f19d-performance-plus-copywriter" target="_blank" style="color:var(--blue)">Performance Plus Copywriter ↗</a></td></tr>
+          <tr><td>Automotive Insight</td><td><a href="https://chatgpt.com/g/g-69114ea1ca0081919e92a8a1c162171e-automotive-insights-copywriter" target="_blank" style="color:var(--blue)">Automotive Insight Copywriter ↗</a></td></tr>
+          <tr><td>Dons</td><td><a href="https://chatgpt.com/g/g-69114dd7140c8191b6f20205b0c76124-dons-copywriter" target="_blank" style="color:var(--blue)">Dons Copywriter ↗</a></td></tr>
+          <tr><td>Ultra Tune North Ryde</td><td><a href="https://chatgpt.com/g/g-69114c9e590c8191b2fdeb5db7b096df-ultra-tune-north-ryde-copywriter" target="_blank" style="color:var(--blue)">Ultra Tune North Ryde Copywriter ↗</a></td></tr>
+          <tr><td>Noranda</td><td><a href="https://chatgpt.com/g/g-69114f52851881918c56d393285d6f76-noranda-copywriter" target="_blank" style="color:var(--blue)">Noranda Copywriter ↗</a></td></tr>
+          <tr><td>MVM</td><td>No GPT — on Ignition plan</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="platform-gpts">
+      <div class="section-header"><div class="section-num">2</div><h2>Platform GPTs</h2></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Task</th><th>GPT</th></tr></thead>
+        <tbody>
+          <tr><td>SEO — existing pages</td><td><a href="https://chatgpt.com/g/g-67d769517d688191affdd3b65ae5925e-mm-seo-analyser-existing-pages" target="_blank" style="color:var(--blue)">MM SEO Analyser ↗</a></td></tr>
+          <tr><td>Landing page — first page</td><td><a href="https://chatgpt.com/g/g-67d76591d46c8191b4db52a9ec2d2f59-mm-landing-page-generator" target="_blank" style="color:var(--blue)">MM LP Generator (Single Page) ↗</a></td></tr>
+          <tr><td>Landing page — additional pages</td><td><a href="https://chatgpt.com/g/g-67e33257af7081918d17229e64f7685f-mm-landing-page-creator-sub-pages" target="_blank" style="color:var(--blue)">MM LP Creator (Sub Pages) ↗</a></td></tr>
+          <tr><td>MM blog posts</td><td><a href="https://chatgpt.com/g/g-67d76372afe48191b810bee0c1b6a405-mm-blog-post-writer" target="_blank" style="color:var(--blue)">MM Blog Post Writer ↗</a></td></tr>
+          <tr><td>Client blog posts</td><td><a href="https://chatgpt.com/g/g-67da33119af48191aeaf00750bf6684c-mm-blog-writer-client" target="_blank" style="color:var(--blue)">MM Blog Writer (Client) ↗</a></td></tr>
+          <tr><td>Google Ads — Search copy</td><td><a href="https://chatgpt.com/g/g-67d768528ac08191a1cc9b6f9f38792a-mm-gads-copy-creator" target="_blank" style="color:var(--blue)">MM GAds Copy Creator ↗</a></td></tr>
+          <tr><td>Google Ads — PMax copy</td><td><a href="https://chatgpt.com/g/g-67d77b76db1c8191aabda50b5697d83e-mm-pmax-copy-creator" target="_blank" style="color:var(--blue)">MM PMax Copy Creator ↗</a></td></tr>
+          <tr><td>Google Ads — optimisation</td><td><a href="https://chatgpt.com/g/g-67d77c6eb548819194e452ce795db539-google-ads-optimisation" target="_blank" style="color:var(--blue)">Google Ads Optimisation GPT ↗</a></td></tr>
+          <tr><td>Keyword research</td><td><a href="https://chatgpt.com/g/g-67d9f74c4d988191b9a4870c54e90ba1-keyword-research" target="_blank" style="color:var(--blue)">Keyword Research GPT ↗</a></td></tr>
+          <tr><td>Topical authority</td><td><a href="https://chatgpt.com/g/g-67d89532c11881918eac1517b547400c-topical-authority" target="_blank" style="color:var(--blue)">Topical Authority GPT ↗</a></td></tr>
+          <tr><td>Topical authority map</td><td><a href="https://chatgpt.com/g/g-67ecc2fe41908191a0fe6d3f51e1eb68-topical-authority-map" target="_blank" style="color:var(--blue)">Topical Authority Map GPT ↗</a></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="notes">
+      <div class="section-header"><div class="section-num">3</div><h2>Notes on GPT use</h2></div>
+      <ul class="bullets">
+        <li><strong>Always prefer the client GPT</strong> over a platform GPT when one exists — client GPTs have the brand voice, location, and service details pre-loaded</li>
+        <li><strong>LP pipeline replaces LP GPTs</strong> for new page builds — the Claude-powered pipeline generates copy automatically from the brief form. Use GPTs only as fallback or for manual sub-page builds</li>
+        <li><strong>Ad copy GPTs are still in use</strong> — the Autopilot generates ad copy rewrites internally, but for new campaign copy at setup, use the GAds Copy Creator GPT</li>
+        <li><strong>Store all GPT output in Google Drive</strong> — in the client's folder, named clearly with date and page/ad type</li>
+        <li><strong>Human review is mandatory</strong> — all GPT output goes through Guy (initial review) and Teddi (buddy review) before anything goes live</li>
+      </ul>
+    </section>
+
+  </div></main>
+</div>
+<script>
+  const sections=document.querySelectorAll('.section'),links=document.querySelectorAll('.sidebar a[href^="#"]');
+  const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){links.forEach(l=>l.classList.remove('active'));const a=document.querySelector(`.sidebar a[href="#${en.target.id}"]`);if(a)a.classList.add('active')}})},{rootMargin:'-20% 0px -70% 0px'});
+  sections.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Onboarding SOP | MM Internal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--orange:#EA580C;--orange-light:#FFF7ED;--black:#0C0A09;--grey-900:#1C1917;--grey-700:#44403C;--grey-500:#78716C;--grey-200:#E7E5E4;--grey-100:#F5F4F3;--white:#FAFAF9;--blue:#0369A1;--blue-light:#E0F2FE;--green:#15803D;--green-light:#DCFCE7;--red-light:#FEF2F2;--red:#B91C1C;--yellow-light:#FEFCE8;--yellow:#CA8A04;--sidebar-width:240px}
+  *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--grey-900);font-size:16px;line-height:1.7}
+  .topbar{position:fixed;top:0;left:0;right:0;height:52px;background:var(--black);display:flex;align-items:center;padding:0 24px;gap:8px;z-index:100}
+  .topbar a{font-size:13px;color:var(--grey-500);text-decoration:none;transition:color .15s}.topbar a:hover{color:var(--white)}
+  .topbar-logo{font-size:13px;font-weight:600;color:var(--white);letter-spacing:.08em;text-transform:uppercase;text-decoration:none!important}
+  .topbar-sep{color:var(--grey-700)}.topbar-badge{margin-left:auto;background:var(--orange);color:white;font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px}
+  .layout{display:flex;padding-top:52px;min-height:100vh}
+  .sidebar{width:var(--sidebar-width);position:fixed;top:52px;bottom:0;left:0;overflow-y:auto;background:var(--grey-100);border-right:1px solid var(--grey-200);padding:28px 0 40px}
+  .sidebar-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--grey-500);padding:0 20px 10px}
+  .sidebar a{display:block;padding:7px 20px;font-size:13.5px;color:var(--grey-700);text-decoration:none;border-left:3px solid transparent;transition:all .15s;line-height:1.4}
+  .sidebar a:hover,.sidebar a.active{color:var(--orange);background:var(--orange-light);border-left-color:var(--orange);font-weight:500}
+  .sidebar-back{display:flex;align-items:center;gap:6px;padding:10px 20px 16px;font-size:12px;color:var(--grey-500);text-decoration:none;border-bottom:1px solid var(--grey-200);margin-bottom:12px;transition:color .15s}.sidebar-back:hover{color:var(--orange)}
+  .main{margin-left:var(--sidebar-width);flex:1;padding:56px 48px 80px}.content{max-width:760px}
+  .hero{margin-bottom:56px;padding-bottom:40px;border-bottom:1px solid var(--grey-200)}
+  .hero-eyebrow{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:12px}
+  .hero h1{font-size:36px;font-weight:600;line-height:1.15;color:var(--black);margin-bottom:16px}
+  .hero-meta{font-size:13px;color:var(--grey-500)}
+  .section{margin-bottom:64px;scroll-margin-top:80px}.section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+  .section-num{width:28px;height:28px;border-radius:50%;background:var(--orange);color:white;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  h2{font-size:22px;font-weight:600;color:var(--black)}h3{font-size:13px;font-weight:600;color:var(--grey-900);margin:28px 0 10px;text-transform:uppercase;letter-spacing:.08em}
+  p{margin-bottom:14px;color:var(--grey-700);font-size:15px}p:last-child{margin-bottom:0}strong{color:var(--grey-900);font-weight:600}
+  code{font-family:'DM Mono',monospace;font-size:13px;background:var(--grey-100);border:1px solid var(--grey-200);padding:1px 6px;border-radius:4px;color:var(--grey-900)}
+  pre{background:#1C1917;border-radius:8px;padding:16px 20px;margin:14px 0;overflow-x:auto}pre code{background:none;border:none;padding:0;color:#D6D3D1;font-size:13px;line-height:1.6}
+  .callout{border-radius:8px;padding:14px 16px;font-size:14px;margin:16px 0;display:flex;gap:10px;line-height:1.55}.callout-icon{font-size:16px;flex-shrink:0;margin-top:1px}.callout strong{display:block;margin-bottom:2px}
+  .callout.info{background:var(--blue-light);color:#1E40AF}.callout.warning{background:#FFFBEB;color:#92400E}.callout.danger{background:var(--red-light);color:var(--red)}.callout.success{background:var(--green-light);color:#14532D}
+  .table-wrap{overflow-x:auto;margin:16px 0}table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{background:var(--black);color:white;font-weight:600;text-align:left;padding:10px 14px;font-size:12px;letter-spacing:.04em}
+  td{padding:10px 14px;border-bottom:1px solid var(--grey-200);color:var(--grey-700);vertical-align:top;font-size:14px;line-height:1.5}tr:nth-child(even) td{background:var(--grey-100)}
+  .pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap}
+  .pill-ok{background:var(--green-light);color:var(--green)}.pill-warn{background:var(--yellow-light);color:var(--yellow)}.pill-bad{background:var(--red-light);color:var(--red)}
+  ul.bullets{list-style:none;margin:10px 0 16px;padding:0}ul.bullets li{padding:5px 0 5px 20px;font-size:15px;color:var(--grey-700);position:relative}ul.bullets li::before{content:'—';position:absolute;left:0;color:var(--orange);font-weight:600}
+  .steps{margin:16px 0}.step{display:flex;gap:14px;margin-bottom:14px}.step-num{width:24px;height:24px;border-radius:50%;background:var(--orange);color:white;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}.step-content{font-size:15px;color:var(--grey-700)}
+  .checklist{list-style:none;padding:0;margin:12px 0}.checklist li{display:flex;gap:10px;padding:8px 0;font-size:15px;color:var(--grey-700);border-bottom:1px solid var(--grey-200)}.checklist li:last-child{border-bottom:none}.checklist li::before{content:'☐';color:var(--orange);font-size:16px;flex-shrink:0;line-height:1.5}
+  .divider{height:1px;background:var(--grey-200);margin:40px 0}
+  .owner-tag{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;background:var(--grey-100);color:var(--grey-500);margin-left:8px;vertical-align:middle}
+  .week-grid{display:grid;grid-template-columns:120px 1fr 1fr 1fr 1fr;gap:1px;background:var(--grey-200);border-radius:8px;overflow:hidden;margin:16px 0}
+  .wg-cell{background:var(--white);padding:10px 12px;font-size:13px}.wg-header{background:var(--black);color:white;font-weight:600;font-size:12px;padding:10px 12px}
+  .wg-label{background:var(--grey-100);font-weight:600;font-size:12px;color:var(--grey-700);padding:10px 12px}
+  @media(max-width:900px){.sidebar{display:none}.main{margin-left:0;padding:32px 24px 60px}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="index.html" class="topbar-logo">MM Marketing</a>
+  <span class="topbar-sep">/</span>
+  <span style="font-size:13px;color:var(--grey-500)">Client Onboarding SOP</span>
+  <span class="topbar-badge">Internal</span>
+</div>
+<div class="layout">
+  <nav class="sidebar">
+    <a href="index.html" class="sidebar-back">← All guides</a>
+    <div class="sidebar-label">On this page</div>
+    <a href="#comms">Comms & access</a>
+    <a href="#landing-page">Landing page setup</a>
+    <a href="#whatconverts">WhatConverts</a>
+    <a href="#google-ads">Google Ads</a>
+    <a href="#dashboard">Dashboard & reporting</a>
+    <a href="#emails">Email templates</a>
+  </nav>
+  <main class="main"><div class="content">
+    <div class="hero">
+      <div class="hero-eyebrow">SOPs — Onboarding</div>
+      <h1>Client Onboarding SOP</h1>
+      <div class="hero-meta">Everything from welcome email to first campaign launch</div>
+    </div>
+
+    <div class="callout info"><span class="callout-icon">ℹ️</span><div><strong>LP pipeline note:</strong> Steps 21–28 in the old SOP covered WordPress + Elementor setup on Cloudways. That workflow is being replaced by the <a href="lp-pipeline.html" style="color:inherit;text-decoration:underline">LP Automation Pipeline</a>. While the pipeline is in testing, use the GPT-led process below as the fallback. Once the pipeline is confirmed live, this section will be updated.</div></div>
+
+    <section class="section" id="comms">
+      <div class="section-header"><div class="section-num">1</div><h2>Comms &amp; access</h2></div>
+
+      <h3>Step 1 — Send welcome email <span class="owner-tag">Josh / Teddi</span></h3>
+      <p>Send the onboarding welcome email. Template in ClickUp → Entry → Onboarding Email.</p>
+
+      <h3>Step 2 — Create client list in ClickUp <span class="owner-tag">Teddi</span></h3>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-content">Go to ClickUp → Mechanic Marketing Clients folder → click <strong>+ New List</strong></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content">Name it clearly: <code>[Client Name]</code></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content">This auto-creates Google Drive folders and initial onboarding tasks</div></div>
+      </div>
+
+      <h3>Step 3 — Add client details to brief <span class="owner-tag">Teddi / Guy</span></h3>
+      <p>In the ClickUp task description, record:</p>
+      <ul class="bullets">
+        <li>Workshop name, client's full name, email address, website URL</li>
+        <li>1–3 main goals / objectives</li>
+        <li>Top 3–5 competitors</li>
+      </ul>
+
+      <h3>Step 4 — Add credentials to HeyLogin <span class="owner-tag">Teddi / Guy</span></h3>
+      <p>Log into HeyLogin → select client folder → <strong>+ Add New Login</strong>. Add domain registrar credentials. Paste notes/URL into the ClickUp brief.</p>
+
+      <h3>Step 5 — Choose subdomain for landing pages <span class="owner-tag">Teddi / Guy</span></h3>
+      <p>Select naming structure: <code>service.clientdomain.com</code> — e.g. <code>services.corediesel.com.au</code>. Confirm in the client brief.</p>
+
+      <h3>Step 6 — Confirm access to all channels <span class="owner-tag">Teddi / Guy</span></h3>
+      <ul class="bullets">
+        <li>Log into each channel provided (Google Ads, Analytics, WordPress, etc.)</li>
+        <li>Verify access works without 2FA issues</li>
+        <li>If 2FA issues arise, contact client to resolve before proceeding</li>
+      </ul>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="landing-page">
+      <div class="section-header"><div class="section-num">2</div><h2>Landing page setup</h2></div>
+
+      <div class="callout success"><span class="callout-icon">⚡</span><div><strong>Use the LP pipeline first.</strong> Submit the brief form at <a href="https://mm-lp-brief.mechanicmarketing.co" target="_blank" style="color:inherit;text-decoration:underline">mm-lp-brief.mechanicmarketing.co ↗</a> — if the pipeline is live, a Cloudflare Pages preview URL will appear in Slack within 10 minutes. See the <a href="lp-pipeline.html" style="color:inherit;text-decoration:underline">LP Pipeline guide</a> for the full post-submit checklist.<br><br>If the pipeline is not yet live or the brief form fails, use the manual GPT process below.</div></div>
+
+      <h3>Manual process (pipeline fallback)</h3>
+
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-content"><strong>Keyword research</strong> — use the <a href="https://chatgpt.com/g/g-67d9f74c4d988191b9a4870c54e90ba1-keyword-research" target="_blank" style="color:var(--blue)">Keyword Research GPT ↗</a> and the <a href="https://chatgpt.com/g/g-67d89532c11881918eac1517b547400c-topical-authority" target="_blank" style="color:var(--blue)">Topical Authority GPT ↗</a>. Extract highest-value keyword opportunities. Add to the TAM.</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content"><strong>Schema plan</strong> — before drafting copy, document: primary schema type (Service / LocalBusiness+Service / Organization), required fields (business name, URL, phone, service type, location, areas served, SameAs links). Add schema notes to the page brief.</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content"><strong>Generate copy</strong> — use the client-specific GPT if one exists (see <a href="sop-gpts.html" style="color:var(--blue)">GPT Reference ↗</a>). For the first page of any client, use the <a href="https://chatgpt.com/g/g-67d76591d46c8191b4db52a9ec2d2f59-mm-landing-page-generator-single-pages" target="_blank" style="color:var(--blue)">Single Page LP GPT ↗</a>. Store output in Google Drive.</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content"><strong>Review copy</strong> — Guy does initial review and adjustments. Send to Teddi for final buddy review.</div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-content"><strong>Page build</strong> — follow the <a href="lp-guide.html" style="color:var(--blue)">LP Editing Guide ↗</a> for deployment. Add tracking scripts: GA4 (via GTM), Meta Pixel, Google Ads conversion tag.</div></div>
+        <div class="step"><div class="step-num">6</div><div class="step-content"><strong>Deploy to Cloudways</strong> — follow the <a href="cloudways.html" style="color:var(--blue)">Cloudways Deployment guide ↗</a>. Confirm Varnish and HTTPS Redirection are both OFF.</div></div>
+        <div class="step"><div class="step-num">7</div><div class="step-content"><strong>Add staging link to brief</strong> — paste live URL into ClickUp client brief. Add Cloudways credentials to HeyLogin.</div></div>
+      </div>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="whatconverts">
+      <div class="section-header"><div class="section-num">3</div><h2>WhatConverts setup <span class="owner-tag">Teddi / Guy</span></h2></div>
+      <p>Full setup checklist in the <a href="whatconverts.html" style="color:var(--blue)">WhatConverts Reference ↗</a>. Key steps for onboarding:</p>
+      <ul class="checklist">
+        <li>Create client WhatConverts account</li>
+        <li>Install tracking script on client website</li>
+        <li>Purchase and configure tracking phone number/s (forward to client's main number)</li>
+        <li>Activate and test form tracking</li>
+        <li>Link WhatConverts to Google Ads (API integration) — sets up WC Leads conversion action</li>
+        <li>Link to Google Analytics</li>
+        <li>Connect CRM if applicable</li>
+        <li>Invite client email to WhatConverts account</li>
+        <li>Send client the <a href="https://share.zight.com/z8ug2o1E" target="_blank" style="color:var(--blue)">WhatConverts demo video ↗</a></li>
+        <li>Provide the non-quotable leads cheat sheet to client</li>
+        <li>Run full test: submit a form, make a test call, confirm both appear in WhatConverts</li>
+      </ul>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="google-ads">
+      <div class="section-header"><div class="section-num">4</div><h2>Google Ads setup <span class="owner-tag">Teddi / Guy</span></h2></div>
+      <p>Full setup SOP in <a href="sop-google-ads.html" style="color:var(--blue)">Google Ads SOP ↗</a>. Onboarding sequence:</p>
+      <ul class="checklist">
+        <li>Plan first campaign(s) as ClickUp tasks — include objectives, budget, target deadlines</li>
+        <li>Create campaign/ad group for each service (naming: <code>MM - [Objective] - [Service] - [Geo] - [Network]</code>)</li>
+        <li>Write ad copy using client GPT or <a href="https://chatgpt.com/g/g-67d768528ac08191a1cc9b6f9f38792a-mm-gads-copy-creator" target="_blank" style="color:var(--blue)">MM GAds Copy Creator ↗</a></li>
+        <li>Send new campaigns for buddy review (assign to "Needs Review" in ClickUp)</li>
+        <li>Launch ads (or seek client approval if required)</li>
+        <li>Confirm WhatConverts WC Leads conversion action is active in Google Ads</li>
+      </ul>
+      <div class="callout info"><span class="callout-icon">ℹ️</span><div>Once campaigns are live and the account has 14+ days of data, MM Ads Autopilot will begin monitoring and proposing optimisations every Monday. See the <a href="autopilot.html" style="color:inherit;text-decoration:underline">Autopilot guide ↗</a>.</div></div>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="dashboard">
+      <div class="section-header"><div class="section-num">5</div><h2>Dashboard &amp; reporting setup <span class="owner-tag">Teddi</span></h2></div>
+      <ul class="checklist">
+        <li>Set up Looker Studio reporting dashboard — connect Google Ads, Analytics, WhatConverts</li>
+        <li>Customise to show: leads, CTR, CPC, conversions, spend</li>
+        <li>Share dashboard link with client and internal team</li>
+        <li>Confirm client is in the MM weekly report cycle</li>
+      </ul>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="emails">
+      <div class="section-header"><div class="section-num">6</div><h2>Email templates</h2></div>
+      <h3>Welcome email — form enquiry response <span class="owner-tag">Automated</span></h3>
+      <p>Subject: <em>Thanks for Reaching Out! Let's Get Your Marketing in Gear 🚗🔧</em></p>
+      <p>Sent automatically when a prospect submits the MM contact form. Confirms receipt and sets expectations for next steps. Template in ClickUp → Entry → Automated Emails.</p>
+
+      <h3>Onboarding email — new client <span class="owner-tag">Guy</span></h3>
+      <p>Sent once the client has signed. Covers access requests (Google Ads, GSC, GA4, website, GBP, domain, Facebook), WhatConverts tracking number consent, and start date / invoice details.</p>
+      <p>Full template in ClickUp → Entry → Onboarding Email. Replace all <code>&#123;placeholders&#125;</code> before sending.</p>
+    </section>
+
+  </div></main>
+</div>
+<script>
+  const sections=document.querySelectorAll('.section'),links=document.querySelectorAll('.sidebar a[href^="#"]');
+  const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){links.forEach(l=>l.classList.remove('active'));const a=document.querySelector(`.sidebar a[href="#${en.target.id}"]`);if(a)a.classList.add('active')}})},{rootMargin:'-20% 0px -70% 0px'});
+  sections.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>
