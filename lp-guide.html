@@ -58,7 +58,10 @@
     color: var(--white);
     letter-spacing: 0.08em;
     text-transform: uppercase;
+    text-decoration: none !important;
   }
+  .sidebar-back { display: flex; align-items: center; gap: 6px; padding: 10px 20px 16px; font-size: 12px; color: var(--grey-500); text-decoration: none; border-bottom: 1px solid var(--grey-200); margin-bottom: 12px; transition: color .15s; }
+  .sidebar-back:hover { color: var(--orange); }
   .topbar-sep { color: var(--grey-700); font-size: 13px; }
   .topbar-title { font-size: 13px; color: var(--grey-500); }
   .topbar-badge {
@@ -441,7 +444,7 @@
 <body>
 
 <div class="topbar">
-  <span class="topbar-logo">MM Marketing</span>
+  <a href="index.html" class="topbar-logo">MM Marketing</a>
   <span class="topbar-sep">/</span>
   <span class="topbar-title">Landing Pages Guide</span>
   <span class="topbar-badge">For Guy</span>
@@ -451,6 +454,7 @@
 
   <!-- SIDEBAR -->
   <nav class="sidebar">
+    <a href="index.html" class="sidebar-back">← All guides</a>
     <div class="sidebar-label">Contents</div>
     <a href="#how-they-work">1. How these pages work</a>
     <a href="#where-they-live">2. Where the pages live</a>

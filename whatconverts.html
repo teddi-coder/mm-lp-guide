@@ -32,7 +32,9 @@
   body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--grey-900); font-size: 16px; line-height: 1.7; }
 
   .topbar { position: fixed; top: 0; left: 0; right: 0; height: 52px; background: var(--black); display: flex; align-items: center; padding: 0 24px; gap: 12px; z-index: 100; }
-  .topbar-logo { font-size: 13px; font-weight: 600; color: var(--white); letter-spacing: 0.08em; text-transform: uppercase; }
+  .topbar-logo { font-size: 13px; font-weight: 600; color: var(--white); letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none !important; }
+  .sidebar-back { display: flex; align-items: center; gap: 6px; padding: 10px 20px 16px; font-size: 12px; color: var(--grey-500); text-decoration: none; border-bottom: 1px solid var(--grey-200); margin-bottom: 12px; transition: color .15s; }
+  .sidebar-back:hover { color: var(--orange); }
   .topbar-sep { color: var(--grey-700); }
   .topbar-title { font-size: 13px; color: var(--grey-500); }
   .topbar-badge { margin-left: auto; background: var(--orange); color: white; font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 20px; letter-spacing: 0.04em; }
@@ -110,7 +112,7 @@
 <body>
 
 <div class="topbar">
-  <span class="topbar-logo">Mechanic Marketing</span>
+  <a href="index.html" class="topbar-logo">Mechanic Marketing</a>
   <span class="topbar-sep">/</span>
   <span class="topbar-title">WhatConverts Reference Guide</span>
   <span class="topbar-badge">Internal</span>
@@ -118,6 +120,7 @@
 
 <div class="layout">
   <nav class="sidebar">
+    <a href="index.html" class="sidebar-back">← All guides</a>
     <div class="sidebar-label">Contents</div>
     <a href="#what-is">What is WhatConverts?</a>
     <a href="#how-it-works">How it works</a>
