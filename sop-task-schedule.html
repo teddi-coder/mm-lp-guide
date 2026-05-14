@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monthly Task Schedule | MM Internal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--orange:#EA580C;--orange-light:#FFF7ED;--black:#0C0A09;--grey-900:#1C1917;--grey-700:#44403C;--grey-500:#78716C;--grey-200:#E7E5E4;--grey-100:#F5F4F3;--white:#FAFAF9;--blue:#0369A1;--blue-light:#E0F2FE;--green:#15803D;--green-light:#DCFCE7;--red-light:#FEF2F2;--red:#B91C1C;--yellow-light:#FEFCE8;--yellow:#CA8A04;--sidebar-width:240px}
+  *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--grey-900);font-size:16px;line-height:1.7}
+  .topbar{position:fixed;top:0;left:0;right:0;height:52px;background:var(--black);display:flex;align-items:center;padding:0 24px;gap:8px;z-index:100}
+  .topbar a{font-size:13px;color:var(--grey-500);text-decoration:none;transition:color .15s}.topbar a:hover{color:var(--white)}
+  .topbar-logo{font-size:13px;font-weight:600;color:var(--white);letter-spacing:.08em;text-transform:uppercase;text-decoration:none!important}
+  .topbar-sep{color:var(--grey-700)}.topbar-badge{margin-left:auto;background:var(--orange);color:white;font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px}
+  .layout{display:flex;padding-top:52px;min-height:100vh}
+  .sidebar{width:var(--sidebar-width);position:fixed;top:52px;bottom:0;left:0;overflow-y:auto;background:var(--grey-100);border-right:1px solid var(--grey-200);padding:28px 0 40px}
+  .sidebar-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--grey-500);padding:0 20px 10px}
+  .sidebar a{display:block;padding:7px 20px;font-size:13.5px;color:var(--grey-700);text-decoration:none;border-left:3px solid transparent;transition:all .15s;line-height:1.4}
+  .sidebar a:hover,.sidebar a.active{color:var(--orange);background:var(--orange-light);border-left-color:var(--orange);font-weight:500}
+  .sidebar-back{display:flex;align-items:center;gap:6px;padding:10px 20px 16px;font-size:12px;color:var(--grey-500);text-decoration:none;border-bottom:1px solid var(--grey-200);margin-bottom:12px;transition:color .15s}.sidebar-back:hover{color:var(--orange)}
+  .main{margin-left:var(--sidebar-width);flex:1;padding:56px 48px 80px}.content{max-width:760px}
+  .hero{margin-bottom:56px;padding-bottom:40px;border-bottom:1px solid var(--grey-200)}
+  .hero-eyebrow{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:12px}
+  .hero h1{font-size:36px;font-weight:600;line-height:1.15;color:var(--black);margin-bottom:16px}
+  .hero-meta{font-size:13px;color:var(--grey-500)}
+  .section{margin-bottom:64px;scroll-margin-top:80px}.section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+  .section-num{width:28px;height:28px;border-radius:50%;background:var(--orange);color:white;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  h2{font-size:22px;font-weight:600;color:var(--black)}h3{font-size:13px;font-weight:600;color:var(--grey-900);margin:28px 0 10px;text-transform:uppercase;letter-spacing:.08em}
+  p{margin-bottom:14px;color:var(--grey-700);font-size:15px}p:last-child{margin-bottom:0}strong{color:var(--grey-900);font-weight:600}
+  code{font-family:'DM Mono',monospace;font-size:13px;background:var(--grey-100);border:1px solid var(--grey-200);padding:1px 6px;border-radius:4px;color:var(--grey-900)}
+  .callout{border-radius:8px;padding:14px 16px;font-size:14px;margin:16px 0;display:flex;gap:10px;line-height:1.55}.callout-icon{font-size:16px;flex-shrink:0;margin-top:1px}.callout strong{display:block;margin-bottom:2px}
+  .callout.info{background:var(--blue-light);color:#1E40AF}.callout.warning{background:#FFFBEB;color:#92400E}.callout.success{background:var(--green-light);color:#14532D}
+  .table-wrap{overflow-x:auto;margin:16px 0}table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{background:var(--black);color:white;font-weight:600;text-align:left;padding:10px 14px;font-size:12px;letter-spacing:.04em}
+  td{padding:10px 14px;border-bottom:1px solid var(--grey-200);color:var(--grey-700);vertical-align:top;font-size:14px;line-height:1.5}tr:nth-child(even) td{background:var(--grey-100)}
+  ul.bullets{list-style:none;margin:10px 0 16px;padding:0}ul.bullets li{padding:5px 0 5px 20px;font-size:15px;color:var(--grey-700);position:relative}ul.bullets li::before{content:'—';position:absolute;left:0;color:var(--orange);font-weight:600}
+  .checklist-block{background:var(--grey-100);border-radius:10px;padding:18px 20px;margin:16px 0}
+  .checklist-block h4{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--grey-900);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  .checklist-block ul{list-style:none;padding:0}
+  .checklist-block li{padding:6px 0 6px 22px;font-size:14px;color:var(--grey-700);position:relative;border-bottom:1px solid var(--grey-200)}
+  .checklist-block li:last-child{border-bottom:none}
+  .checklist-block li::before{content:'☐';position:absolute;left:0;color:var(--orange);font-size:13px;line-height:1.7}
+  .steps{margin:16px 0}.step{display:flex;gap:14px;margin-bottom:14px}.step-num{width:24px;height:24px;border-radius:50%;background:var(--orange);color:white;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}.step-content{font-size:15px;color:var(--grey-700)}
+  .owner-tag{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;background:var(--grey-100);color:var(--grey-500);margin-left:8px;vertical-align:middle}
+  .divider{height:1px;background:var(--grey-200);margin:40px 0}
+  .week-table th{background:var(--grey-900)}
+  .week-table td:first-child{font-weight:600;white-space:nowrap;background:var(--grey-100)!important}
+  @media(max-width:900px){.sidebar{display:none}.main{margin-left:0;padding:32px 24px 60px}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="index.html" class="topbar-logo">MM Marketing</a>
+  <span class="topbar-sep">/</span>
+  <span style="font-size:13px;color:var(--grey-500)">Monthly Task Schedule</span>
+  <span class="topbar-badge">Internal</span>
+</div>
+<div class="layout">
+  <nav class="sidebar">
+    <a href="index.html" class="sidebar-back">← All guides</a>
+    <div class="sidebar-label">On this page</div>
+    <a href="#ignition">Ignition</a>
+    <a href="#accelerate">Accelerate</a>
+    <a href="#notes">Notes</a>
+  </nav>
+  <main class="main"><div class="content">
+    <div class="hero">
+      <div class="hero-eyebrow">SOPs — Task Planning</div>
+      <h1>Monthly Task Schedule</h1>
+      <div class="hero-meta">Week-by-week delivery structure for Ignition and Accelerate clients</div>
+    </div>
+
+    <div class="callout info">
+      <span class="callout-icon">ℹ️</span>
+      <div>At the start of each month (Week 1), run a report for each active channel. This surfaces the specific tasks for that month and builds out your ClickUp task list. The schedules below are the standard delivery cadence — individual client tasks may vary.</div>
+    </div>
+
+    <section class="section" id="ignition">
+      <div class="section-header"><div class="section-num">1</div><h2>Ignition plan</h2></div>
+      <p>Ignition clients run Google Ads and one landing page. No SEO work included.</p>
+
+      <h3>Month 1 (onboarding)</h3>
+      <div class="table-wrap"><table class="week-table">
+        <thead><tr><th></th><th>Week 1</th><th>Week 2</th><th>Week 3</th><th>Week 4/5</th></tr></thead>
+        <tbody>
+          <tr><td>Google Ads</td><td>Build campaign(s)</td><td>Internal review</td><td>Optimise</td><td>Optimise</td></tr>
+          <tr><td>Landing Page</td><td>Build</td><td>Internal review</td><td>Launch</td><td>—</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Ongoing months</h3>
+      <div class="table-wrap"><table class="week-table">
+        <thead><tr><th></th><th>Week 1</th><th>Week 2</th><th>Week 3</th><th>Week 4/5</th></tr></thead>
+        <tbody>
+          <tr><td>Google Ads</td><td>Optimise / new campaign(s)</td><td>Optimise</td><td>Optimise</td><td>Optimise</td></tr>
+          <tr><td>Landing Page</td><td>Review and optimise</td><td>Review and optimise</td><td>Review and optimise</td><td>Review and optimise</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="accelerate">
+      <div class="section-header"><div class="section-num">2</div><h2>Accelerate plan</h2></div>
+      <p>Accelerate clients run Google Ads, landing pages, and SEO. Target is 2 new landing pages per month ongoing.</p>
+
+      <h3>Month 1 (onboarding)</h3>
+      <div class="table-wrap"><table class="week-table">
+        <thead><tr><th></th><th>Week 1</th><th>Week 2</th><th>Week 3</th><th>Week 4/5</th></tr></thead>
+        <tbody>
+          <tr><td>SEO</td><td>Research + build TAM</td><td>Optimise current website metas / headings</td><td>Optimise current website metas / headings</td><td>Optimise current website metas / headings</td></tr>
+          <tr><td>Google Ads</td><td>Build campaign(s)</td><td>Internal review</td><td>Launch and optimise</td><td>Optimise</td></tr>
+          <tr><td>Landing Page</td><td>—</td><td>Build #1</td><td>Internal review</td><td>Updates from review + launch</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Ongoing months</h3>
+      <div class="table-wrap"><table class="week-table">
+        <thead><tr><th></th><th>Week 1</th><th>Week 2</th><th>Week 3</th><th>Week 4/5</th></tr></thead>
+        <tbody>
+          <tr><td>SEO</td><td colspan="4">Optimise existing and/or create 1 blog or info page per week</td></tr>
+          <tr><td>Google Ads</td><td>Optimise / build new campaign(s)</td><td>Optimise</td><td>Optimise</td><td>Optimise</td></tr>
+          <tr><td>Landing Page</td><td colspan="4">Optimise existing or create 2 new pages per month</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="notes">
+      <div class="section-header"><div class="section-num">3</div><h2>Notes</h2></div>
+      <ul class="bullets">
+        <li><strong>Week 1 report</strong> — always run the channel report in Week 1 to identify specific optimisation tasks for the month. This is what populates your ClickUp task list.</li>
+        <li><strong>Google Ads optimisation</strong> — the MM Ads Autopilot handles routine weekly optimisation automatically. Your Monday task is to review and approve/reject Autopilot proposals in Slack, not manually review every keyword. See the <a href="autopilot.html" style="color:var(--blue)">Autopilot User Guide ↗</a>.</li>
+        <li><strong>Landing page targets</strong> — Accelerate: 2 new pages per month. Ignition: 1 page total (first month), then optimise only. Use the LP pipeline for new builds where possible.</li>
+        <li><strong>SEO (Accelerate)</strong> — TAM built in Month 1 Week 1 is the source of truth for all keyword targeting throughout the engagement. Update it as new opportunities emerge.</li>
+        <li><strong>Internal review before launch</strong> — every new campaign and every new landing page must be reviewed internally before going live. Assign to "Needs Review" in ClickUp.</li>
+      </ul>
+    </section>
+
+  </div></main>
+</div>
+<script>
+  const sections=document.querySelectorAll('.section'),links=document.querySelectorAll('.sidebar a[href^="#"]');
+  const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){links.forEach(l=>l.classList.remove('active'));const a=document.querySelector(`.sidebar a[href="#${en.target.id}"]`);if(a)a.classList.add('active')}})},{rootMargin:'-20% 0px -70% 0px'});
+  sections.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>

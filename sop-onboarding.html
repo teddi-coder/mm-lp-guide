@@ -73,40 +73,52 @@
       <div class="hero-meta">Everything from welcome email to first campaign launch</div>
     </div>
 
-    <div class="callout info"><span class="callout-icon">ℹ️</span><div><strong>LP pipeline note:</strong> Steps 21–28 in the old SOP covered WordPress + Elementor setup on Cloudways. That workflow is being replaced by the <a href="lp-pipeline.html" style="color:inherit;text-decoration:underline">LP Automation Pipeline</a>. While the pipeline is in testing, use the GPT-led process below as the fallback. Once the pipeline is confirmed live, this section will be updated.</div></div>
+    <div class="callout success">
+      <span class="callout-icon">⚡</span>
+      <div><strong>New onboarding process.</strong> The Client Brief Form replaces the Google Doc questionnaire. The brief form creates the ClickUp list and Client Brief task automatically on submission — Steps 2 and 3 below are now verification steps, not manual creation steps. See the <a href="client-brief-form.html" style="color:inherit;text-decoration:underline">Client Brief Form guide ↗</a> for full details.</div>
+    </div>
 
     <section class="section" id="comms">
       <div class="section-header"><div class="section-num">1</div><h2>Comms &amp; access</h2></div>
 
-      <h3>Step 1 — Send welcome email <span class="owner-tag">Josh / Teddi</span></h3>
-      <p>Send the onboarding welcome email. Template in ClickUp → Entry → Onboarding Email.</p>
-
-      <h3>Step 2 — Create client list in ClickUp <span class="owner-tag">Teddi</span></h3>
-      <div class="steps">
-        <div class="step"><div class="step-num">1</div><div class="step-content">Go to ClickUp → Mechanic Marketing Clients folder → click <strong>+ New List</strong></div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-content">Name it clearly: <code>[Client Name]</code></div></div>
-        <div class="step"><div class="step-num">3</div><div class="step-content">This auto-creates Google Drive folders and initial onboarding tasks</div></div>
-      </div>
-
-      <h3>Step 3 — Add client details to brief <span class="owner-tag">Teddi / Guy</span></h3>
-      <p>In the ClickUp task description, record:</p>
+      <h3>Step 1 — Send welcome email with brief form link <span class="owner-tag">Josh / Teddi</span></h3>
+      <p>Send the onboarding welcome email using the template in ClickUp → Entry → Onboarding Email. The email includes the brief form URL — send the correct URL for the client's plan:</p>
       <ul class="bullets">
-        <li>Workshop name, client's full name, email address, website URL</li>
-        <li>1–3 main goals / objectives</li>
-        <li>Top 3–5 competitors</li>
+        <li>Accelerate clients: <code>https://mm-client-brief-form.pages.dev?plan=accelerate</code></li>
+        <li>Ignition clients: <code>https://mm-client-brief-form.pages.dev</code></li>
+      </ul>
+      <p>The client fills in the brief form before the onboarding call. This means you walk into the call already knowing their goal, niche, target area, and budgets.</p>
+
+      <h3>Step 2 — Confirm ClickUp list and brief task were created <span class="owner-tag">Guy</span></h3>
+      <p>Once the client submits the form, check ClickUp → Mechanic Marketing Clients → MM Clients folder. A new list named after their business should exist with a Client Brief task inside it.</p>
+      <ul class="bullets">
+        <li>If the list exists and the brief task is populated — proceed to Step 3</li>
+        <li>If the list is missing — the form submission may have failed. Ask the client to try again, or flag to Teddi to create the list and task manually.</li>
+        <li>If the list exists but fields are blank — the Worker completed Step 1 but failed on Step 2. Flag to Teddi.</li>
+      </ul>
+
+      <h3>Step 3 — Review the client brief <span class="owner-tag">Guy</span></h3>
+      <p>Open the Client Brief task and read through the client's answers before the onboarding call. If anything is unclear or missing, email the client to fill in the gaps — don't wait until the call.</p>
+      <p>Fields to check:</p>
+      <ul class="bullets">
+        <li>Goal — do you understand what success looks like for this client?</li>
+        <li>Niche — any specific vehicle makes, services, or customer types to target?</li>
+        <li>Target location — is the service radius clear?</li>
+        <li>Budgets — are Google Ads and Meta Ads budgets confirmed?</li>
+        <li>Competitors — useful for ad copy and campaign strategy</li>
       </ul>
 
       <h3>Step 4 — Add credentials to HeyLogin <span class="owner-tag">Teddi / Guy</span></h3>
-      <p>Log into HeyLogin → select client folder → <strong>+ Add New Login</strong>. Add domain registrar credentials. Paste notes/URL into the ClickUp brief.</p>
+      <p>Once the client provides access to their accounts, log into HeyLogin → select the client folder → <strong>+ Add New Login</strong>. Add domain registrar credentials and any other platform logins. Paste the HeyLogin URL into the ClickUp Client Brief task.</p>
 
       <h3>Step 5 — Choose subdomain for landing pages <span class="owner-tag">Teddi / Guy</span></h3>
-      <p>Select naming structure: <code>service.clientdomain.com</code> — e.g. <code>services.corediesel.com.au</code>. Confirm in the client brief.</p>
+      <p>Select naming structure: <code>service.clientdomain.com</code> — e.g. <code>services.corediesel.com.au</code>. Confirm in the client brief task.</p>
 
       <h3>Step 6 — Confirm access to all channels <span class="owner-tag">Teddi / Guy</span></h3>
       <ul class="bullets">
-        <li>Log into each channel provided (Google Ads, Analytics, WordPress, etc.)</li>
-        <li>Verify access works without 2FA issues</li>
-        <li>If 2FA issues arise, contact client to resolve before proceeding</li>
+        <li>Log into each channel (Google Ads, Analytics, GSC, Meta, website)</li>
+        <li>Verify access works — check for 2FA issues before the onboarding call</li>
+        <li>If 2FA is blocking access, contact the client to resolve before proceeding</li>
       </ul>
     </section>
     <div class="divider"></div>
@@ -182,8 +194,13 @@
       <p>Sent automatically when a prospect submits the MM contact form. Confirms receipt and sets expectations for next steps. Template in ClickUp → Entry → Automated Emails.</p>
 
       <h3>Onboarding email — new client <span class="owner-tag">Guy</span></h3>
-      <p>Sent once the client has signed. Covers access requests (Google Ads, GSC, GA4, website, GBP, domain, Facebook), WhatConverts tracking number consent, and start date / invoice details.</p>
-      <p>Full template in ClickUp → Entry → Onboarding Email. Replace all <code>&#123;placeholders&#125;</code> before sending.</p>
+      <p>Sent once the client has signed. Includes the brief form URL, access requests (Google Ads, GSC, GA4, website, GBP, domain, Facebook), WhatConverts tracking number consent, and start date / invoice details.</p>
+      <p>Full template in ClickUp → Entry → Onboarding Email. Replace all <code>&#123;placeholders&#125;</code> before sending — including the correct plan URL:</p>
+      <ul class="bullets">
+        <li>Accelerate: <code>https://mm-client-brief-form.pages.dev?plan=accelerate</code></li>
+        <li>Ignition: <code>https://mm-client-brief-form.pages.dev</code></li>
+      </ul>
+      <p>See the <a href="client-brief-form.html" style="color:var(--blue)">Client Brief Form guide ↗</a> for full details on the brief form workflow.</p>
     </section>
 
   </div></main>

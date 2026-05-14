@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Facebook Ads SOP | MM Internal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--orange:#EA580C;--orange-light:#FFF7ED;--black:#0C0A09;--grey-900:#1C1917;--grey-700:#44403C;--grey-500:#78716C;--grey-200:#E7E5E4;--grey-100:#F5F4F3;--white:#FAFAF9;--blue:#0369A1;--blue-light:#E0F2FE;--green:#15803D;--green-light:#DCFCE7;--red-light:#FEF2F2;--red:#B91C1C;--yellow-light:#FEFCE8;--yellow:#CA8A04;--sidebar-width:240px}
+  *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--grey-900);font-size:16px;line-height:1.7}
+  .topbar{position:fixed;top:0;left:0;right:0;height:52px;background:var(--black);display:flex;align-items:center;padding:0 24px;gap:8px;z-index:100}
+  .topbar a{font-size:13px;color:var(--grey-500);text-decoration:none;transition:color .15s}.topbar a:hover{color:var(--white)}
+  .topbar-logo{font-size:13px;font-weight:600;color:var(--white);letter-spacing:.08em;text-transform:uppercase;text-decoration:none!important}
+  .topbar-sep{color:var(--grey-700)}.topbar-badge{margin-left:auto;background:var(--orange);color:white;font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px}
+  .layout{display:flex;padding-top:52px;min-height:100vh}
+  .sidebar{width:var(--sidebar-width);position:fixed;top:52px;bottom:0;left:0;overflow-y:auto;background:var(--grey-100);border-right:1px solid var(--grey-200);padding:28px 0 40px}
+  .sidebar-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--grey-500);padding:0 20px 10px}
+  .sidebar a{display:block;padding:7px 20px;font-size:13.5px;color:var(--grey-700);text-decoration:none;border-left:3px solid transparent;transition:all .15s;line-height:1.4}
+  .sidebar a:hover,.sidebar a.active{color:var(--orange);background:var(--orange-light);border-left-color:var(--orange);font-weight:500}
+  .sidebar-back{display:flex;align-items:center;gap:6px;padding:10px 20px 16px;font-size:12px;color:var(--grey-500);text-decoration:none;border-bottom:1px solid var(--grey-200);margin-bottom:12px;transition:color .15s}.sidebar-back:hover{color:var(--orange)}
+  .main{margin-left:var(--sidebar-width);flex:1;padding:56px 48px 80px}.content{max-width:760px}
+  .hero{margin-bottom:56px;padding-bottom:40px;border-bottom:1px solid var(--grey-200)}
+  .hero-eyebrow{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:12px}
+  .hero h1{font-size:36px;font-weight:600;line-height:1.15;color:var(--black);margin-bottom:16px}
+  .hero-meta{font-size:13px;color:var(--grey-500)}
+  .section{margin-bottom:64px;scroll-margin-top:80px}.section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+  .section-num{width:28px;height:28px;border-radius:50%;background:var(--orange);color:white;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  h2{font-size:22px;font-weight:600;color:var(--black)}h3{font-size:13px;font-weight:600;color:var(--grey-900);margin:28px 0 10px;text-transform:uppercase;letter-spacing:.08em}
+  p{margin-bottom:14px;color:var(--grey-700);font-size:15px}p:last-child{margin-bottom:0}strong{color:var(--grey-900);font-weight:600}
+  code{font-family:'DM Mono',monospace;font-size:13px;background:var(--grey-100);border:1px solid var(--grey-200);padding:1px 6px;border-radius:4px;color:var(--grey-900)}
+  .callout{border-radius:8px;padding:14px 16px;font-size:14px;margin:16px 0;display:flex;gap:10px;line-height:1.55}.callout-icon{font-size:16px;flex-shrink:0;margin-top:1px}.callout strong{display:block;margin-bottom:2px}
+  .callout.info{background:var(--blue-light);color:#1E40AF}.callout.warning{background:#FFFBEB;color:#92400E}.callout.success{background:var(--green-light);color:#14532D}
+  .table-wrap{overflow-x:auto;margin:16px 0}table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{background:var(--black);color:white;font-weight:600;text-align:left;padding:10px 14px;font-size:12px;letter-spacing:.04em}
+  td{padding:10px 14px;border-bottom:1px solid var(--grey-200);color:var(--grey-700);vertical-align:top;font-size:14px;line-height:1.5}tr:nth-child(even) td{background:var(--grey-100)}
+  ul.bullets{list-style:none;margin:10px 0 16px;padding:0}ul.bullets li{padding:5px 0 5px 20px;font-size:15px;color:var(--grey-700);position:relative}ul.bullets li::before{content:'—';position:absolute;left:0;color:var(--orange);font-weight:600}
+  .checklist-block{background:var(--grey-100);border-radius:10px;padding:18px 20px;margin:16px 0}
+  .checklist-block h4{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--grey-900);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  .checklist-block ul{list-style:none;padding:0}
+  .checklist-block li{padding:6px 0 6px 22px;font-size:14px;color:var(--grey-700);position:relative;border-bottom:1px solid var(--grey-200)}
+  .checklist-block li:last-child{border-bottom:none}
+  .checklist-block li::before{content:'☐';position:absolute;left:0;color:var(--orange);font-size:13px;line-height:1.7}
+  .steps{margin:16px 0}.step{display:flex;gap:14px;margin-bottom:14px}.step-num{width:24px;height:24px;border-radius:50%;background:var(--orange);color:white;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}.step-content{font-size:15px;color:var(--grey-700)}
+  .owner-tag{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;background:var(--grey-100);color:var(--grey-500);margin-left:8px;vertical-align:middle}
+  .divider{height:1px;background:var(--grey-200);margin:40px 0}
+  .week-table th{background:var(--grey-900)}
+  .week-table td:first-child{font-weight:600;white-space:nowrap;background:var(--grey-100)!important}
+  @media(max-width:900px){.sidebar{display:none}.main{margin-left:0;padding:32px 24px 60px}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="index.html" class="topbar-logo">MM Marketing</a>
+  <span class="topbar-sep">/</span>
+  <span style="font-size:13px;color:var(--grey-500)">Facebook Ads SOP</span>
+  <span class="topbar-badge">Internal</span>
+</div>
+<div class="layout">
+  <nav class="sidebar">
+    <a href="index.html" class="sidebar-back">← All guides</a>
+    <div class="sidebar-label">On this page</div>
+    <a href="#setup">Setup</a>
+    <a href="#campaign">Campaign structure</a>
+    <a href="#creative">Ad creative</a>
+    <a href="#launch">Launch</a>
+    <a href="#optimise">Monitoring & optimisation</a>
+    <a href="#reporting">Reporting</a>
+  </nav>
+  <main class="main"><div class="content">
+    <div class="hero">
+      <div class="hero-eyebrow">SOPs — Facebook Ads</div>
+      <h1>Facebook Ads SOP</h1>
+      <div class="hero-meta">Setup, campaign structure, creative checklist, and ongoing optimisation</div>
+    </div>
+
+    <section class="section" id="setup">
+      <div class="section-header"><div class="section-num">1</div><h2>Setup</h2></div>
+
+      <h3>Step 1 — Client briefing <span class="owner-tag">Josh</span></h3>
+      <ul class="bullets">
+        <li>Conduct client onboarding call</li>
+        <li>Confirm business details — address, phone, service hours, website</li>
+        <li>Clarify services being advertised (oil change, brakes, tyres, etc.)</li>
+        <li>Define target audience — location, demographics, vehicle type</li>
+        <li>Confirm primary goal and KPI — appointment bookings, form enquiries, calls</li>
+      </ul>
+
+      <h3>Step 2 — Account access &amp; pixel <span class="owner-tag">Teddi / Guy</span></h3>
+      <ul class="bullets">
+        <li>Request access to client's Facebook Business Manager and Ads Account</li>
+        <li>Verify Facebook Pixel is installed correctly on the client's website — check Meta Events Manager for recent page view events</li>
+        <li>Confirm client's Facebook Page is connected and up to date (correct info, profile photo, cover image)</li>
+        <li>If pixel is missing or not firing, flag to Teddi before building campaigns</li>
+      </ul>
+      <div class="callout info">
+        <span class="callout-icon">ℹ️</span>
+        <div>The Meta Pixel is separate from GTag and WhatConverts. If it's not firing, Meta can't record conversions — but it won't affect Google Ads or WhatConverts. See the <a href="tracking-tools.html" style="color:inherit;text-decoration:underline">Tracking Tools guide ↗</a> for context.</div>
+      </div>
+
+      <h3>Step 3 — Audience creation <span class="owner-tag">Teddi / Guy</span></h3>
+      <p>Build these three audience types in Ads Manager before creating campaigns:</p>
+      <ul class="bullets">
+        <li><strong>Local area</strong> — geographic radius around the workshop. Start tight (5–10km), expand if volume is low.</li>
+        <li><strong>Custom audience</strong> — built from existing customer database or website visitors (requires Pixel data)</li>
+        <li><strong>Lookalike audience</strong> — based on website visitors or previous customers. Requires at least 100 people in the seed audience for Meta to build from.</li>
+      </ul>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="campaign">
+      <div class="section-header"><div class="section-num">2</div><h2>Campaign structure</h2></div>
+      <p>Structure campaigns by goal, with separate ad sets for each audience type. This keeps performance data clean and makes it easy to see which audience is driving results.</p>
+
+      <h3>Example structure</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Level</th><th>Name</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Campaign</strong></td><td>Service Appointments — [Client]</td><td>Objective: Leads or Conversions</td></tr>
+          <tr><td><strong>Ad Set 1</strong></td><td>Local Area — 10km radius</td><td>Broad local targeting</td></tr>
+          <tr><td><strong>Ad Set 2</strong></td><td>Retargeting — Website Visitors</td><td>Custom audience — pixel required</td></tr>
+          <tr><td><strong>Ad Set 3</strong></td><td>Lookalike — Past Customers</td><td>Lookalike from customer list</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="checklist-block">
+        <h4>📘 Campaign checklist</h4>
+        <ul>
+          <li>Define clear campaign objective (Conversions, Traffic, Lead Generation, Awareness)</li>
+          <li>Confirm budget type — Daily or Lifetime</li>
+          <li>Set campaign spending limit if applicable</li>
+          <li>Choose bidding strategy — Lowest Cost, Cost Cap, or Bid Cap</li>
+          <li>Configure campaign schedule — start date, end date if applicable</li>
+          <li>Confirm campaign special category if applicable (housing, credit, employment)</li>
+          <li>Enable A/B testing if running creative tests</li>
+          <li>Decide on Campaign Budget Optimisation (CBO) — on or off</li>
+          <li>Review and publish campaign</li>
+        </ul>
+      </div>
+
+      <div class="checklist-block">
+        <h4>🎯 Ad set checklist</h4>
+        <ul>
+          <li>Name ad set clearly — audience type, placements, targeting criteria</li>
+          <li>Set conversion event — confirm pixel/event is set up correctly</li>
+          <li>Define daily or lifetime budget at ad set level (unless using CBO)</li>
+          <li>Schedule ad set — start and end dates, specific times if relevant</li>
+          <li>Define target audience — Custom, Lookalike, or Interest/Demographic-based</li>
+          <li>Set placements — Automatic recommended. Or manually select Facebook Feed, Instagram, Stories, Reels, Messenger</li>
+          <li>Set attribution window — typically 7-day click, 1-day view</li>
+          <li>Add exclusions — existing customers or other segments if applicable</li>
+          <li>Review estimated audience size and potential reach</li>
+          <li>Check for audience overlap if running multiple ad sets</li>
+          <li>Review and save ad set</li>
+        </ul>
+      </div>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="creative">
+      <div class="section-header"><div class="section-num">3</div><h2>Ad creative &amp; copy</h2></div>
+      <h3>Creative direction <span class="owner-tag">Teddi / Guy / Client</span></h3>
+      <ul class="bullets">
+        <li>Use real imagery — mechanics at work, clean facilities, happy customers, or a specific service being performed. Generic stock photos underperform.</li>
+        <li>Write copy focused on the customer's pain point — convenience, reliability, safety, not being ripped off</li>
+        <li>Include a clear, prominent CTA — "Book Now", "Get a Quote", "Call Us Today"</li>
+        <li>Highlight specific offers prominently if applicable — "Free Pink Slip with Logbook Service" beats "Book your service today"</li>
+      </ul>
+
+      <div class="checklist-block">
+        <h4>🎨 Ad creative checklist</h4>
+        <ul>
+          <li>Name ads clearly — creative variation, offer type, service</li>
+          <li>Choose ad format — Image, Video, Carousel, or Instant Experience</li>
+          <li>Add visual assets — high-quality images (1080×1080 recommended), or video ideally under 30 seconds</li>
+          <li>Write primary ad text — compelling hook, clear benefit or offer, concise</li>
+          <li>Write headline — short, clear value proposition (40 chars max for safety)</li>
+          <li>Add description — optional, concise supporting info</li>
+          <li>Confirm destination URL is correct and tracking parameters (UTMs) are set</li>
+          <li>Set CTA button — Book Now, Learn More, Get Quote, Call Now</li>
+          <li>Preview ads across placements and devices before publishing</li>
+          <li>Verify ad copy complies with Meta policies — no prohibited language, no misleading claims</li>
+          <li>Proofread all copy — check phone numbers, URLs, offer details</li>
+          <li>Publish ad creative</li>
+        </ul>
+      </div>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="launch">
+      <div class="section-header"><div class="section-num">4</div><h2>Review &amp; launch</h2></div>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-content"><strong>Internal review</strong> — Teddi and Guy both check campaign structure, audiences, copy, and destination URLs before anything goes live</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content"><strong>Client approval</strong> — send the client a preview of the ad creative if required. Don't launch without sign-off on new creative.</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content"><strong>Schedule and launch</strong> — set start date, confirm all placements and budgets one final time, then publish</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content"><strong>Confirm pixel is firing</strong> — check Meta Events Manager within an hour of launch to confirm page view and lead events are recording</div></div>
+      </div>
+      <div class="callout warning">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>Don't adjust campaigns in the first 48 hours.</strong> Meta's algorithm needs time to exit the learning phase. Changing budgets, audiences, or creative in the first 48 hours resets learning and wastes spend.</div>
+      </div>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="optimise">
+      <div class="section-header"><div class="section-num">5</div><h2>Monitoring &amp; optimisation</h2></div>
+      <p>Check performance at minimum every 48 hours. Don't react to day-to-day noise — look at 7-day and 14-day trends before making changes.</p>
+
+      <h3>Key metrics to watch</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Metric</th><th>What to look for</th></tr></thead>
+        <tbody>
+          <tr><td><strong>CTR (Link)</strong></td><td>Above 1% is healthy for most automotive clients. Declining CTR = creative fatigue.</td></tr>
+          <tr><td><strong>CPM</strong></td><td>Compare to account history. Spikes may indicate audience saturation or competition.</td></tr>
+          <tr><td><strong>Frequency</strong></td><td>Above 4–5 on an awareness campaign = audience is seeing the ad too often. Refresh creative or expand audience.</td></tr>
+          <tr><td><strong>Cost per Result</strong></td><td>Directional signal only — always cross-reference against WhatConverts lead count before drawing conclusions.</td></tr>
+          <tr><td><strong>Results</strong></td><td>Meta often over-reports due to view-through attribution. WhatConverts is the source of truth for actual leads.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Optimisation actions</h3>
+      <ul class="bullets">
+        <li><strong>Creative fatigue</strong> — if CTR drops significantly after a few weeks, refresh the image or headline. Keep the best-performing copy.</li>
+        <li><strong>Audience saturation</strong> — if frequency is high and CPM is rising, expand the geographic radius or add a new audience segment.</li>
+        <li><strong>Poor-performing ad sets</strong> — pause ad sets with high spend and zero results after giving them adequate time (at least 7 days and 5x your cost-per-result threshold in spend)</li>
+        <li><strong>A/B testing</strong> — run creative tests with one variable at a time (image vs video, headline A vs B). Don't change multiple things at once.</li>
+        <li><strong>Budget changes</strong> — always flag to Josh before increasing or decreasing budgets. Don't make unilateral budget decisions.</li>
+      </ul>
+    </section>
+    <div class="divider"></div>
+
+    <section class="section" id="reporting">
+      <div class="section-header"><div class="section-num">6</div><h2>Reporting &amp; client communication</h2></div>
+      <ul class="bullets">
+        <li><strong>Weekly</strong> — brief update in the weekly report covering spend, results, and any flags</li>
+        <li><strong>Monthly</strong> — detailed report including insights, optimisation actions taken, and recommendations for next month. Include in the standard monthly planning report.</li>
+        <li><strong>Client calls</strong> — review performance, discuss creative refresh if needed, align on upcoming promotions or offers to promote</li>
+      </ul>
+      <div class="callout info">
+        <span class="callout-icon">ℹ️</span>
+        <div><strong>Meta over-reports conversions.</strong> Always present WhatConverts lead data alongside Meta results. If the client asks why the numbers differ, explain view-through attribution — Meta counts someone who saw (but didn't click) an ad as a conversion if they enquired within the attribution window.</div>
+      </div>
+      <p>For escalation decisions — budget changes, campaign pauses, new campaigns — see the <a href="escalation.html" style="color:var(--blue)">Client Escalation Guide ↗</a>.</p>
+    </section>
+
+  </div></main>
+</div>
+<script>
+  const sections=document.querySelectorAll('.section'),links=document.querySelectorAll('.sidebar a[href^="#"]');
+  const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){links.forEach(l=>l.classList.remove('active'));const a=document.querySelector(`.sidebar a[href="#${en.target.id}"]`);if(a)a.classList.add('active')}})},{rootMargin:'-20% 0px -70% 0px'});
+  sections.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>

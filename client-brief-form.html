@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Brief Form Guide | MM Internal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--orange:#EA580C;--orange-light:#FFF7ED;--black:#0C0A09;--grey-900:#1C1917;--grey-700:#44403C;--grey-500:#78716C;--grey-200:#E7E5E4;--grey-100:#F5F4F3;--white:#FAFAF9;--blue:#0369A1;--blue-light:#E0F2FE;--green:#15803D;--green-light:#DCFCE7;--red-light:#FEF2F2;--red:#B91C1C;--yellow-light:#FEFCE8;--yellow:#CA8A04;--sidebar-width:240px}
+  *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--grey-900);font-size:16px;line-height:1.7}
+  .topbar{position:fixed;top:0;left:0;right:0;height:52px;background:var(--black);display:flex;align-items:center;padding:0 24px;gap:8px;z-index:100}
+  .topbar a{font-size:13px;color:var(--grey-500);text-decoration:none;transition:color .15s}.topbar a:hover{color:var(--white)}
+  .topbar-logo{font-size:13px;font-weight:600;color:var(--white);letter-spacing:.08em;text-transform:uppercase;text-decoration:none!important}
+  .topbar-sep{color:var(--grey-700)}.topbar-badge{margin-left:auto;background:var(--orange);color:white;font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px}
+  .layout{display:flex;padding-top:52px;min-height:100vh}
+  .sidebar{width:var(--sidebar-width);position:fixed;top:52px;bottom:0;left:0;overflow-y:auto;background:var(--grey-100);border-right:1px solid var(--grey-200);padding:28px 0 40px}
+  .sidebar-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--grey-500);padding:0 20px 10px}
+  .sidebar a{display:block;padding:7px 20px;font-size:13.5px;color:var(--grey-700);text-decoration:none;border-left:3px solid transparent;transition:all .15s;line-height:1.4}
+  .sidebar a:hover,.sidebar a.active{color:var(--orange);background:var(--orange-light);border-left-color:var(--orange);font-weight:500}
+  .sidebar-back{display:flex;align-items:center;gap:6px;padding:10px 20px 16px;font-size:12px;color:var(--grey-500);text-decoration:none;border-bottom:1px solid var(--grey-200);margin-bottom:12px;transition:color .15s}.sidebar-back:hover{color:var(--orange)}
+  .main{margin-left:var(--sidebar-width);flex:1;padding:56px 48px 80px}.content{max-width:760px}
+  .hero{margin-bottom:56px;padding-bottom:40px;border-bottom:1px solid var(--grey-200)}
+  .hero-eyebrow{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:12px}
+  .hero h1{font-size:36px;font-weight:600;line-height:1.15;color:var(--black);margin-bottom:16px}
+  .hero-meta{font-size:13px;color:var(--grey-500)}
+  .section{margin-bottom:64px;scroll-margin-top:80px}.section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+  .section-num{width:28px;height:28px;border-radius:50%;background:var(--orange);color:white;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  h2{font-size:22px;font-weight:600;color:var(--black)}
+  h3{font-size:13px;font-weight:600;color:var(--grey-900);margin:28px 0 10px;text-transform:uppercase;letter-spacing:.08em}
+  p{margin-bottom:14px;color:var(--grey-700);font-size:15px}p:last-child{margin-bottom:0}
+  strong{color:var(--grey-900);font-weight:600}
+  code{font-family:'DM Mono',monospace;font-size:13px;background:var(--grey-100);border:1px solid var(--grey-200);padding:1px 6px;border-radius:4px;color:var(--grey-900)}
+  .callout{border-radius:8px;padding:14px 16px;font-size:14px;margin:16px 0;display:flex;gap:10px;line-height:1.55}.callout-icon{font-size:16px;flex-shrink:0;margin-top:1px}.callout strong{display:block;margin-bottom:2px}
+  .callout.info{background:var(--blue-light);color:#1E40AF}.callout.warning{background:#FFFBEB;color:#92400E}.callout.success{background:var(--green-light);color:#14532D}.callout.danger{background:var(--red-light);color:var(--red)}
+  .table-wrap{overflow-x:auto;margin:16px 0}table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{background:var(--black);color:white;font-weight:600;text-align:left;padding:10px 14px;font-size:12px;letter-spacing:.04em}
+  td{padding:10px 14px;border-bottom:1px solid var(--grey-200);color:var(--grey-700);vertical-align:top;font-size:14px;line-height:1.5}tr:nth-child(even) td{background:var(--grey-100)}
+  td code{font-size:12px}
+  ul.bullets{list-style:none;margin:10px 0 16px;padding:0}ul.bullets li{padding:5px 0 5px 20px;font-size:15px;color:var(--grey-700);position:relative}ul.bullets li::before{content:'—';position:absolute;left:0;color:var(--orange);font-weight:600}
+  .steps{margin:16px 0}.step{display:flex;gap:14px;margin-bottom:14px}.step-num{width:24px;height:24px;border-radius:50%;background:var(--orange);color:white;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}.step-content{font-size:15px;color:var(--grey-700)}
+  .flow-wrap{background:var(--grey-100);border-radius:10px;padding:20px 24px;margin:16px 0}
+  .flow-row{display:flex;gap:12px;align-items:flex-start;margin-bottom:16px}.flow-row:last-child{margin-bottom:0}
+  .flow-icon{width:32px;height:32px;border-radius:8px;background:var(--orange);color:white;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+  .flow-connector{width:2px;height:14px;background:var(--grey-200);margin:0 15px}
+  .flow-title{font-size:14px;font-weight:600;color:var(--grey-900);margin-bottom:3px}
+  .flow-desc{font-size:13.5px;color:var(--grey-700);line-height:1.5}
+  .pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap}
+  .pill-req{background:#FEF2F2;color:#B91C1C}.pill-opt{background:var(--grey-100);color:var(--grey-500)}
+  .divider{height:1px;background:var(--grey-200);margin:40px 0}
+  .ck-card{border:1px solid var(--grey-200);border-radius:8px;padding:16px 18px;margin:12px 0;background:var(--white)}
+  .ck-card-title{font-size:14px;font-weight:600;color:var(--grey-900);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  .ck-card-body{font-size:13.5px;color:var(--grey-700);line-height:1.5}
+  @media(max-width:900px){.sidebar{display:none}.main{margin-left:0;padding:32px 24px 60px}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="index.html" class="topbar-logo">MM Marketing</a>
+  <span class="topbar-sep">/</span>
+  <span style="font-size:13px;color:var(--grey-500)">Client Brief Form</span>
+  <span class="topbar-badge">Internal</span>
+</div>
+<div class="layout">
+  <nav class="sidebar">
+    <a href="index.html" class="sidebar-back">← All guides</a>
+    <div class="sidebar-label">On this page</div>
+    <a href="#what-is">What is it?</a>
+    <a href="#how-it-works">How it works</a>
+    <a href="#sending">Sending it to a client</a>
+    <a href="#what-they-fill-in">What the client fills in</a>
+    <a href="#what-happens-next">What happens in ClickUp</a>
+    <a href="#after-submission">Your next steps</a>
+    <a href="#plan-param">Plan parameter</a>
+    <a href="#troubleshooting">Troubleshooting</a>
+  </nav>
+  <main class="main"><div class="content">
+
+    <div class="hero">
+      <div class="hero-eyebrow">MM Marketing — Onboarding</div>
+      <h1>Client Brief Form</h1>
+      <div class="hero-meta">Replaces the Google Doc questionnaire &nbsp;·&nbsp; Writes directly into ClickUp on submit</div>
+    </div>
+
+    <!-- WHAT IS IT -->
+    <section class="section" id="what-is">
+      <div class="section-header"><div class="section-num">1</div><h2>What is it?</h2></div>
+      <p>The Client Brief Form is a public-facing web form that new MM clients fill in when they onboard. When they hit Submit, their answers are written directly into ClickUp — a new client list is created automatically and a Client Brief task is populated with all their details.</p>
+      <p>It replaces the old process of sending a Google Doc, waiting for the client to fill it in, and then manually copying everything into ClickUp by hand.</p>
+      <div class="callout success">
+        <span class="callout-icon">✓</span>
+        <div><strong>End result:</strong> client submits the form → ClickUp list and Client Brief task exist, pre-filled, within seconds. No manual data entry.</div>
+      </div>
+    </section>
+    <div class="divider"></div>
+
+    <!-- HOW IT WORKS -->
+    <section class="section" id="how-it-works">
+      <div class="section-header"><div class="section-num">2</div><h2>How it works</h2></div>
+      <div class="flow-wrap">
+        <div class="flow-row">
+          <div class="flow-icon">📋</div>
+          <div><div class="flow-title">Client fills in the form</div><div class="flow-desc">At <code>mm-client-brief-form.pages.dev</code> (or the deployed URL). Takes 5–10 minutes. No login required.</div></div>
+        </div>
+        <div class="flow-connector"></div>
+        <div class="flow-row">
+          <div class="flow-icon">⚡</div>
+          <div><div class="flow-title">Cloudflare Worker receives the submission</div><div class="flow-desc">The form POSTs the data to a Worker endpoint. No data is stored anywhere except ClickUp.</div></div>
+        </div>
+        <div class="flow-connector"></div>
+        <div class="flow-row">
+          <div class="flow-icon">📁</div>
+          <div><div class="flow-title">New client list created in ClickUp</div><div class="flow-desc">The Worker creates a new list named <strong>[Brand Name]</strong> inside the MM Clients folder. This is the client's permanent home in ClickUp.</div></div>
+        </div>
+        <div class="flow-connector"></div>
+        <div class="flow-row">
+          <div class="flow-icon">📝</div>
+          <div><div class="flow-title">Client Brief task created</div><div class="flow-desc">A Client Brief task is created inside the new list, with all form answers mapped to the correct ClickUp custom fields — niche, goal, contact email, budgets, target location, competitors, notes.</div></div>
+        </div>
+        <div class="flow-connector"></div>
+        <div class="flow-row">
+          <div class="flow-icon">✅</div>
+          <div><div class="flow-title">Client sees confirmation</div><div class="flow-desc">"Thanks [Name], we've got your brief. Our team will be in touch shortly." Form is replaced by the message — no redirect, no email sent.</div></div>
+        </div>
+      </div>
+    </section>
+    <div class="divider"></div>
+
+    <!-- SENDING TO CLIENT -->
+    <section class="section" id="sending">
+      <div class="section-header"><div class="section-num">3</div><h2>Sending it to a client</h2></div>
+      <p>Send the plain URL in the onboarding email. The form is public — no login, no password.</p>
+
+      <h3>Current URL (temporary — Cloudflare Pages)</h3>
+      <p><code>https://mm-client-brief-form.pages.dev</code></p>
+      <p style="font-size:14px;color:var(--grey-500);margin-top:4px">Will move to <code>brief.mechanicmarketing.co</code> once the custom domain is configured.</p>
+      <p>Defaults to Ignition plan in ClickUp.</p>
+
+      <h3>Accelerate plan clients</h3>
+      <p>Add <code>?plan=accelerate</code> to the URL:</p>
+      <p><code>https://mm-client-brief-form.pages.dev?plan=accelerate</code></p>
+      <p>This sets the MM Plan custom field to Accelerate when the task is created. See <a href="#plan-param" style="color:var(--blue)">Section 7</a> for details.</p>
+
+      <div class="callout warning">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>Use the correct plan URL.</strong> The plan can't be changed after the task is created without manually editing the custom field in ClickUp. Double-check which plan the client signed before sending.</div>
+      </div>
+
+      <h3>Where to put the link</h3>
+      <p>Replace the Google Doc link in the onboarding email template with the brief form URL. The template is in ClickUp → Entry → Onboarding Email. Update it to use the form URL once deployed.</p>
+    </section>
+    <div class="divider"></div>
+
+    <!-- WHAT THEY FILL IN -->
+    <section class="section" id="what-they-fill-in">
+      <div class="section-header"><div class="section-num">4</div><h2>What the client fills in</h2></div>
+      <p>The form has four sections. Required fields are marked — everything else is optional but useful.</p>
+
+      <div class="table-wrap"><table>
+        <thead><tr><th>Section</th><th>Field</th><th>Required?</th><th>Goes into ClickUp as</th></tr></thead>
+        <tbody>
+          <tr><td rowspan="3"><strong>Your business</strong></td><td>Business / Brand Name</td><td><span class="pill pill-req">Required</span></td><td>List name + Brand Name field</td></tr>
+          <tr><td>Website URL</td><td><span class="pill pill-opt">Optional</span></td><td>Live URL field</td></tr>
+          <tr><td>Secondary / Booking URL</td><td><span class="pill pill-opt">Optional</span></td><td>Secondary URL field</td></tr>
+          <tr><td rowspan="3"><strong>Your details</strong></td><td>Your Name</td><td><span class="pill pill-req">Required</span></td><td>Client Full Name field</td></tr>
+          <tr><td>Your Email</td><td><span class="pill pill-req">Required</span></td><td>Primary Contact field</td></tr>
+          <tr><td>English preference</td><td><span class="pill pill-opt">Optional</span></td><td>English to Use (UK/US)</td></tr>
+          <tr><td rowspan="4"><strong>About your marketing</strong></td><td>Main goal</td><td><span class="pill pill-opt">Optional</span></td><td>Goal field</td></tr>
+          <tr><td>Niche / speciality</td><td><span class="pill pill-opt">Optional</span></td><td>Niche field</td></tr>
+          <tr><td>Target location / service area</td><td><span class="pill pill-opt">Optional</span></td><td>Target Location field</td></tr>
+          <tr><td>Monthly Google Ads budget (AUD)</td><td><span class="pill pill-opt">Optional</span></td><td>Google Ads Budget field</td></tr>
+          <tr><td rowspan="3"><strong>Competitors &amp; notes</strong></td><td>Monthly Facebook Ads budget (AUD)</td><td><span class="pill pill-opt">Optional</span></td><td>Facebook Ads Budget field</td></tr>
+          <tr><td>Top competitors</td><td><span class="pill pill-opt">Optional</span></td><td>Top Competitors field</td></tr>
+          <tr><td>Additional notes</td><td><span class="pill pill-opt">Optional</span></td><td>Notes field</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="callout info">
+        <span class="callout-icon">ℹ️</span>
+        <div>Empty optional fields are <strong>not sent to ClickUp at all</strong> — they don't appear as blank fields on the task. Only filled-in values are written.</div>
+      </div>
+    </section>
+    <div class="divider"></div>
+
+    <!-- WHAT HAPPENS IN CLICKUP -->
+    <section class="section" id="what-happens-next">
+      <div class="section-header"><div class="section-num">5</div><h2>What happens in ClickUp</h2></div>
+      <p>After a successful submission, two things are created:</p>
+
+      <div class="ck-card">
+        <div class="ck-card-title">📁 New client list</div>
+        <div class="ck-card-body">Created inside the <strong>MM Clients folder</strong> in the Mechanic Marketing Clients space. Named exactly as the client entered their Brand Name. This is the same structure as all existing clients (BRC, Core Diesel, Ultra Tune, etc.).</div>
+      </div>
+
+      <div class="ck-card">
+        <div class="ck-card-title">📝 Client Brief task</div>
+        <div class="ck-card-body">Named <strong>[Brand Name] — Client Brief</strong>. Created inside the new list. Contains:<br><br>
+          — Task description with the text answers (goal, niche, competitors, notes) formatted cleanly<br>
+          — All custom fields populated: contact name, email, budgets, target location, English preference, MM Plan<br>
+          — Tagged with <code>client brief</code> tag so it's queryable (same as existing brief tasks)
+        </div>
+      </div>
+
+      <h3>Where to find it</h3>
+      <p>ClickUp → Mechanic Marketing Clients space → MM Clients folder → scroll to find <strong>[Brand Name]</strong> as a new list.</p>
+
+      <div class="callout warning">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>Each submission creates a new list.</strong> If the same client submits twice, two lists are created with the same name. ClickUp allows duplicate list names. If this happens, delete the duplicate — keep the one with the most complete data.</div>
+      </div>
+    </section>
+    <div class="divider"></div>
+
+    <!-- AFTER SUBMISSION -->
+    <section class="section" id="after-submission">
+      <div class="section-header"><div class="section-num">6</div><h2>Your next steps after submission</h2></div>
+      <p>The form creates the list and brief task but doesn't do everything. Your onboarding checklist still applies — the brief form just handles the data collection part.</p>
+
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-content">Open the new client list in ClickUp — confirm it exists and the brief task looks correct</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content">Review the brief task — read through the client's answers. If anything is unclear, email them before starting work.</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content">Add the domain registrar credentials to HeyLogin once the client provides them</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content">Add any tool URLs that aren't on the brief (GA4, GSC, Google Ads) once you get access</div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-content">Continue with the full <a href="sop-onboarding.html" style="color:var(--blue)">Onboarding SOP ↗</a> — landing page setup, WhatConverts, Google Ads campaigns</div></div>
+      </div>
+
+      <div class="callout info">
+        <span class="callout-icon">ℹ️</span>
+        <div>The Client Snapshots page will pick up the new client automatically once their brief task exists — it reads from ClickUp live. You may need to add their list ID and brief task ID to <code>clients.json</code> in the mm-lp-guide repo for them to appear on the snapshots page.</div>
+      </div>
+    </section>
+    <div class="divider"></div>
+
+    <!-- PLAN PARAM -->
+    <section class="section" id="plan-param">
+      <div class="section-header"><div class="section-num">7</div><h2>Plan parameter</h2></div>
+      <p>The MM Plan custom field on the Client Brief task is set by a URL query parameter, not by the client. They never see it.</p>
+
+      <div class="table-wrap"><table>
+        <thead><tr><th>URL</th><th>MM Plan set in ClickUp</th></tr></thead>
+        <tbody>
+          <tr><td><code>mm-client-brief-form.pages.dev</code> (no param)</td><td>Ignition</td></tr>
+          <tr><td><code>mm-client-brief-form.pages.dev?plan=ignition</code></td><td>Ignition</td></tr>
+          <tr><td><code>mm-client-brief-form.pages.dev?plan=accelerate</code></td><td>Accelerate</td></tr>
+        </tbody>
+      </table></div>
+
+      <p>Always include <code>?plan=accelerate</code> in the link you send to Accelerate clients. If you forget and the client submits without it, the MM Plan field will default to Ignition — fix it manually in ClickUp on the Client Brief task.</p>
+    </section>
+    <div class="divider"></div>
+
+    <!-- TROUBLESHOOTING -->
+    <section class="section" id="troubleshooting">
+      <div class="section-header"><div class="section-num">8</div><h2>Troubleshooting</h2></div>
+
+      <div class="table-wrap"><table>
+        <thead><tr><th>Problem</th><th>What it means</th><th>What to do</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Client sees "Something went wrong" error</td>
+            <td>The Worker failed — either the ClickUp API call errored or the Worker itself crashed</td>
+            <td>Ask the client to try again once. If it fails again, flag to Teddi with approximate time of submission so she can check Worker logs.</td>
+          </tr>
+          <tr>
+            <td>No new list appears in ClickUp after submission</td>
+            <td>Worker didn't complete Step 1 (list creation)</td>
+            <td>Flag to Teddi — check Worker logs in Cloudflare dashboard. The client will have seen the error message.</td>
+          </tr>
+          <tr>
+            <td>List created but no brief task inside it</td>
+            <td>Step 1 succeeded but Step 2 (task creation) failed</td>
+            <td>Flag to Teddi. The list exists — Teddi can re-run Step 2 manually or create the task by hand from the client's submitted data.</td>
+          </tr>
+          <tr>
+            <td>Client submitted twice — two lists with same name</td>
+            <td>Expected behaviour — the form creates a new list on every submission</td>
+            <td>Open both lists in ClickUp. Keep the one with more complete data. Delete the other via ClickUp list settings → Delete List.</td>
+          </tr>
+          <tr>
+            <td>Required fields show no error and form submits with empty data</td>
+            <td>Frontend validation issue</td>
+            <td>Flag to Teddi with a screenshot. Required fields (Brand Name, Name, Email) should block submission if empty.</td>
+          </tr>
+          <tr>
+            <td>MM Plan shows wrong value in ClickUp</td>
+            <td>Wrong URL was used, or param was omitted</td>
+            <td>Fix manually in ClickUp — open the Client Brief task → MM Plan custom field → select the correct plan.</td>
+          </tr>
+          <tr>
+            <td>Custom fields are blank even though client filled them in</td>
+            <td>Field mapping issue in the Worker</td>
+            <td>Flag to Teddi — the task description should still have the text answers. Custom field population may need a fix in the Worker code.</td>
+          </tr>
+        </tbody>
+      </table></div>
+
+      <div class="callout danger">
+        <span class="callout-icon">🚨</span>
+        <div><strong>Never ask the client to resubmit more than once.</strong> Each submission creates a new ClickUp list. If there's a persistent error, flag to Teddi — she can create the task manually from the client's data rather than asking them to submit again.</div>
+      </div>
+    </section>
+
+  </div></main>
+</div>
+<script>
+  const sections=document.querySelectorAll('.section'),links=document.querySelectorAll('.sidebar a[href^="#"]');
+  const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){links.forEach(l=>l.classList.remove('active'));const a=document.querySelector(`.sidebar a[href="#${en.target.id}"]`);if(a)a.classList.add('active')}})},{rootMargin:'-20% 0px -70% 0px'});
+  sections.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>
