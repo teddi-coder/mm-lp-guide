@@ -780,8 +780,19 @@
           <span><strong>Not sure if it's right?</strong> Send a screenshot to Teddi before telling Claude Code to push.</span>
         </div>
 
-        <h3 id="new-lp">Building a brand-new landing page</h3>
-        <p>New pages aren't built from scratch — every MM landing page starts from the shared template repo, <code>teddi-coder/mm-lp-template</code>. The template already contains the page structure, layout, forms and tracking hooks; branding is controlled by CSS variables at the top of the stylesheet, so a new client's colours drop in without touching the layout. Here's the split of who does what:</p>
+        <h3 id="new-page">Adding a new page to an existing client</h3>
+        <p>This is the common case — the client already has a repo and a live Cloudways site, and they need another landing page (a new service, a new offer, a new location). The new page is just another <code>.html</code> file in their existing repo, built to match the pages already there. No new repo, no new hosting, no DNS.</p>
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-content"><strong>Decide the filename / URL</strong> — e.g. <code>brake-repairs.html</code>. Keep it short, lowercase, hyphenated</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-content">Gather the content for the page — service description, offer, phone number, any reviews specific to that service</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-content">Ask Claude to <strong>write a code brief for a new page in that client's repo</strong>, based on the structure and styling of the pages already in it — copying within the same client's repo is exactly right, it keeps everything consistent</div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-content">Run the brief through <strong>Claude Code</strong> in that client's repo, review the new file in a browser, then tell it to commit and push</div></div>
+          <div class="step"><div class="step-num">5</div><div class="step-content">Once merged to <code>main</code>, do the <a href="#cloudways-deploy">Pull step in Cloudways</a> — the new page goes live at <code>the-client-subdomain/your-filename.html</code></div></div>
+          <div class="step"><div class="step-num">6</div><div class="step-content">If the page needs a <strong>clean URL</strong> (no <code>.html</code> on the end), tell Teddi — that's a one-line rewrite rule she adds in Cloudways</div></div>
+        </div>
+
+        <h3 id="new-lp">Setting up a brand-new client</h3>
+        <p>Different job entirely. New clients don't start from scratch or from another client's repo — every new client build starts from the shared template repo, <code>teddi-coder/mm-lp-template</code>. The template already contains the page structure, layout, forms and tracking hooks; branding is controlled by CSS variables at the top of the stylesheet, so a new client's colours drop in without touching the layout. Here's the split of who does what:</p>
         <div class="steps">
           <div class="step"><div class="step-num">1</div><div class="step-content"><strong>Gather the content</strong> — business name, suburb/location, services to feature, phone number, opening hours, brand colours, logo, and 3–5 real Google reviews</div></div>
           <div class="step"><div class="step-num">2</div><div class="step-content"><strong>Ask Teddi to create the repo</strong> from the template — repo creation, the Cloudways app and the subdomain DNS are her side of the fence</div></div>
@@ -792,7 +803,7 @@
         </div>
         <div class="callout warning">
           <span class="callout-icon">⚠️</span>
-          <span><strong>Don't copy an existing client's repo</strong> to start a new page — always go from <code>mm-lp-template</code>. Copying a live client page drags their phone numbers, tracking IDs and branding along with it.</span>
+          <span><strong>Never start a new client by copying another client's repo</strong> — always go from <code>mm-lp-template</code>. Copying a live client page drags their phone numbers, tracking IDs and branding along with it. (Copying pages <em>within</em> one client's own repo is fine — that's the new-page workflow above.)</span>
         </div>
       </section>
 
