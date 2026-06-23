@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mechanic Marketing — Meta Ads Audit · June 2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1117; color: #e8eaf0; line-height: 1.5; }
+
+  /* ── HEADER ── */
+  .report-header { background: linear-gradient(135deg, #1a1d2e 0%, #0f1117 100%); border-bottom: 3px solid #f07f2a; padding: 48px 40px 40px; }
+  .report-header .logo { font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #f07f2a; margin-bottom: 16px; }
+  .report-header h1 { font-size: 36px; font-weight: 800; color: #fff; line-height: 1.1; margin-bottom: 8px; }
+  .report-header .meta { font-size: 14px; color: #8892a4; }
+  .report-header .meta span { color: #f07f2a; font-weight: 600; }
+
+  /* ── ALERTS ── */
+  .alerts-bar { background: #1e0a0a; border-left: 4px solid #e53935; padding: 16px 40px; display: flex; gap: 32px; align-items: center; flex-wrap: wrap; }
+  .alert-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #ff8a80; font-weight: 600; }
+  .alert-item::before { content: '⚠'; font-size: 16px; }
+  .alerts-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #e53935; font-weight: 700; margin-right: 8px; white-space: nowrap; }
+
+  /* ── SCORECARD ── */
+  .section { padding: 40px; }
+  .section-title { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #f07f2a; font-weight: 700; margin-bottom: 24px; }
+  .scorecard { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 40px; }
+  .score-card { background: #1a1d2e; border: 1px solid #262b3d; border-radius: 12px; padding: 20px; }
+  .score-card.highlight { border-color: #f07f2a; background: #1e1507; }
+  .score-card.danger { border-color: #e53935; background: #1e0a0a; }
+  .score-card.good { border-color: #2e7d32; background: #0a1e0b; }
+  .score-label { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #8892a4; margin-bottom: 8px; }
+  .score-value { font-size: 28px; font-weight: 800; color: #fff; line-height: 1; }
+  .score-value.orange { color: #f07f2a; }
+  .score-value.red { color: #e53935; }
+  .score-value.green { color: #66bb6a; }
+  .score-sub { font-size: 12px; color: #8892a4; margin-top: 4px; }
+
+  /* ── SECTION DIVIDER ── */
+  .section-block { margin: 0 40px 40px; }
+  .block-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #262b3d; }
+  .block-title { font-size: 20px; font-weight: 700; color: #fff; }
+  .block-badge { font-size: 11px; padding: 4px 10px; border-radius: 20px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+  .badge-agency { background: #1a1d2e; color: #8892a4; border: 1px solid #262b3d; }
+  .badge-client { background: #1e1507; color: #f07f2a; border: 1px solid #f07f2a; }
+  .block-spend { font-size: 14px; color: #8892a4; margin-left: auto; }
+  .block-spend strong { color: #fff; }
+
+  /* ── AD CARDS ── */
+  .ads-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 24px; }
+  .ad-card { background: #1a1d2e; border: 1px solid #262b3d; border-radius: 16px; overflow: hidden; transition: transform 0.2s; }
+  .ad-card:hover { transform: translateY(-2px); }
+  .ad-card.flag-danger { border-color: #e53935; }
+  .ad-card.flag-winner { border-color: #f07f2a; }
+  .ad-card.flag-paused { opacity: 0.7; }
+  .ad-card.flag-paused .ad-card-header { background: #0f1117; }
+
+  .ad-card-header { padding: 16px 20px; display: flex; justify-content: space-between; align-items: flex-start; background: #141726; }
+  .ad-name { font-size: 14px; font-weight: 700; color: #fff; line-height: 1.3; max-width: 240px; }
+  .ad-campaign { font-size: 11px; color: #8892a4; margin-top: 3px; }
+  .status-badge { padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; }
+  .status-active { background: #1b5e20; color: #a5d6a7; }
+  .status-paused { background: #1a1d2e; color: #8892a4; border: 1px solid #262b3d; }
+
+  /* ── CREATIVE PREVIEW ── */
+  .creative-container { position: relative; background: #0f1117; border-top: 1px solid #262b3d; border-bottom: 1px solid #262b3d; display: flex; justify-content: center; align-items: center; height: 320px; overflow: hidden; }
+  .creative-container iframe { border: none; width: 335px; height: 450px; transform: scale(0.71); transform-origin: top center; pointer-events: none; }
+  .creative-overlay { position: absolute; bottom: 0; left: 0; right: 0; height: 40px; background: linear-gradient(transparent, #1a1d2e); pointer-events: none; }
+  .creative-type-badge { position: absolute; top: 10px; left: 10px; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; }
+  .type-video { background: #1a237e; color: #90caf9; }
+  .type-image { background: #1b5e20; color: #a5d6a7; }
+  .type-native { background: #4a148c; color: #ce93d8; }
+
+  /* ── METRICS ── */
+  .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #262b3d; border-top: 1px solid #262b3d; }
+  .metric { background: #1a1d2e; padding: 14px 16px; text-align: center; }
+  .metric-label { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: #8892a4; }
+  .metric-value { font-size: 18px; font-weight: 700; color: #fff; margin-top: 2px; }
+  .metric-value.orange { color: #f07f2a; }
+  .metric-value.red { color: #e53935; }
+  .metric-value.green { color: #66bb6a; }
+  .metric-sub { font-size: 10px; color: #8892a4; }
+
+  /* ── RESULTS ROW ── */
+  .results-row { padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #262b3d; }
+  .result-item { text-align: center; }
+  .result-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #8892a4; }
+  .result-val { font-size: 15px; font-weight: 700; color: #fff; }
+  .result-val.big-green { color: #66bb6a; font-size: 20px; }
+  .result-val.zero-red { color: #e53935; }
+
+  /* ── FLAG BANNER ── */
+  .flag-banner { padding: 10px 20px; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+  .flag-banner.danger { background: #1e0a0a; color: #ff8a80; border-top: 1px solid #e5393530; }
+  .flag-banner.winner { background: #1e1507; color: #ffcc80; border-top: 1px solid #f07f2a30; }
+  .flag-banner.info { background: #0a0f1e; color: #90caf9; border-top: 1px solid #1565c030; }
+
+  /* ── VIDEO RETENTION ── */
+  .retention-section { background: #1a1d2e; border: 1px solid #262b3d; border-radius: 16px; padding: 24px; margin-bottom: 40px; }
+  .retention-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .retention-sub { font-size: 13px; color: #8892a4; margin-bottom: 24px; }
+  .retention-bars { display: flex; flex-direction: column; gap: 12px; }
+  .ret-bar-row { display: flex; align-items: center; gap: 12px; }
+  .ret-label { font-size: 12px; color: #8892a4; width: 80px; text-align: right; flex-shrink: 0; }
+  .ret-bar-track { flex: 1; height: 28px; background: #0f1117; border-radius: 6px; overflow: hidden; }
+  .ret-bar-fill { height: 100%; border-radius: 6px; display: flex; align-items: center; padding-left: 10px; font-size: 12px; font-weight: 700; color: #fff; transition: width 0.4s; }
+  .ret-count { font-size: 12px; color: #8892a4; width: 80px; flex-shrink: 0; }
+  .ret-pct { font-size: 11px; color: #8892a4; width: 50px; flex-shrink: 0; }
+
+  /* ── ACTIONS ── */
+  .actions-section { background: #1a1d2e; border: 1px solid #f07f2a; border-radius: 16px; padding: 24px; }
+  .actions-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 20px; }
+  .action-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid #262b3d; }
+  .action-item:last-child { border-bottom: none; }
+  .action-num { width: 28px; height: 28px; border-radius: 50%; background: #f07f2a; color: #0f1117; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .action-num.red { background: #e53935; }
+  .action-num.green { background: #2e7d32; }
+  .action-content h4 { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .action-content p { font-size: 13px; color: #8892a4; }
+  .action-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 2px 7px; border-radius: 4px; margin-bottom: 6px; }
+  .tag-urgent { background: #1e0a0a; color: #e53935; border: 1px solid #e5393530; }
+  .tag-quick { background: #0a1e0b; color: #66bb6a; border: 1px solid #2e7d3230; }
+  .tag-test { background: #1a1d2e; color: #8892a4; border: 1px solid #262b3d; }
+
+  /* ── CAMPAIGN LABEL ── */
+  .campaign-label { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: #8892a4; padding: 16px 0 12px; font-weight: 700; }
+  .campaign-label span { color: #f07f2a; }
+
+  /* ── CLIENT ACCOUNT ── */
+  .client-account-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+
+  /* ── FOOTER ── */
+  .report-footer { padding: 32px 40px; border-top: 1px solid #262b3d; display: flex; justify-content: space-between; align-items: center; }
+  .footer-note { font-size: 12px; color: #8892a4; }
+  .footer-logo { font-size: 12px; font-weight: 700; letter-spacing: 2px; color: #f07f2a; text-transform: uppercase; }
+
+  /* ── DIVIDER ── */
+  hr { border: none; border-top: 1px solid #262b3d; margin: 0 40px; }
+
+  @media (max-width: 700px) {
+    .ads-grid, .client-account-grid { grid-template-columns: 1fr; }
+    .scorecard { grid-template-columns: repeat(2, 1fr); }
+    .section, .section-block { padding: 24px 16px; }
+    hr { margin: 0 16px; }
+    .alerts-bar { padding: 12px 16px; }
+    .report-header { padding: 32px 16px; }
+    .report-footer { padding: 24px 16px; flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="report-header">
+  <div class="logo">Mechanic Marketing</div>
+  <h1>Meta Ads Audit</h1>
+  <div class="meta">24 May – 22 June 2026 &nbsp;·&nbsp; <span>2 accounts</span> &nbsp;·&nbsp; Prepared by Hilda</div>
+</div>
+
+<!-- ALERTS -->
+<div class="alerts-bar">
+  <span class="alerts-label">🚨 Alerts</span>
+  <div class="alert-item">$131 burned on broken appointment scheduling — 0 conversions</div>
+  <div class="alert-item">Video CTA too late — 93% of viewers drop before the end</div>
+  <div class="alert-item">30+ ads competing for too little budget — algorithm can't learn</div>
+</div>
+
+<!-- SCORECARD -->
+<div class="section">
+  <div class="section-title">Account overview · 30 days</div>
+  <div class="scorecard">
+    <div class="score-card">
+      <div class="score-label">Total Spend</div>
+      <div class="score-value orange">$779</div>
+      <div class="score-sub">AUD · both accounts</div>
+    </div>
+    <div class="score-card good">
+      <div class="score-label">Total Leads</div>
+      <div class="score-value green">12</div>
+      <div class="score-sub">All from video ads</div>
+    </div>
+    <div class="score-card">
+      <div class="score-label">Best CPL</div>
+      <div class="score-value green">$8.18</div>
+      <div class="score-sub">Webinar V2</div>
+    </div>
+    <div class="score-card danger">
+      <div class="score-label">Appts Scheduled</div>
+      <div class="score-value red">0</div>
+      <div class="score-sub">$131 wasted</div>
+    </div>
+    <div class="score-card">
+      <div class="score-label">Avg CTR</div>
+      <div class="score-value">2.61%</div>
+      <div class="score-sub">Clicks look fine</div>
+    </div>
+    <div class="score-card">
+      <div class="score-label">Best CPL/LPV</div>
+      <div class="score-value green">$0.22</div>
+      <div class="score-sub">Forum Post creative</div>
+    </div>
+    <div class="score-card">
+      <div class="score-label">Active Ads</div>
+      <div class="score-value">20+</div>
+      <div class="score-sub">Too fragmented</div>
+    </div>
+    <div class="score-card">
+      <div class="score-label">Video Completion</div>
+      <div class="score-value red">7.3%</div>
+      <div class="score-sub">V1 p100 rate</div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ACCOUNT 1: MM AGENCY -->
+<div class="section-block" style="margin-top:40px;">
+  <div class="block-header">
+    <div>
+      <div class="block-title">Mechanic Marketing — Agency Account</div>
+      <div style="font-size:13px; color:#8892a4; margin-top:4px;">B2B lead gen: workshop owners &amp; operators</div>
+    </div>
+    <div class="badge-agency block-badge" style="background:#1a1d2e;color:#8892a4;border:1px solid #262b3d;">Agency</div>
+    <div class="block-spend">Total: <strong>~$732 AUD</strong></div>
+  </div>
+
+  <!-- CAMPAIGN 1: LEAD GEN -->
+  <div class="campaign-label">Campaign 1 — <span>Lead Gen &amp; Conversions</span> · ~$532 AUD · 72.7% of budget</div>
+  <div class="ads-grid">
+
+    <!-- VIDEO WEBINAR V1 - TOP SPEND, WINNER -->
+    <div class="ad-card flag-winner">
+      <div class="ad-card-header">
+        <div>
+          <div class="ad-name">Video — Webinar V1</div>
+          <div class="ad-campaign">Lead Gen Campaign · Leads (form)</div>
+        </div>
+        <span class="status-badge status-active">Active</span>
+      </div>
+      <div class="creative-container">
+        <span class="creative-type-badge type-video">📹 Video</span>
+        <iframe src="https://business.facebook.com/ads/api/preview_iframe.php?d=AQL9OpjtmsT_-EMsORhRC7f5YtnOf0jgu_oSAXJtPACRnUZGfCQEhjdBYqeU6vbfXfBYEiNTXgC0toc6k1PWgIuAUxbQ4y6q1X_nZsmmmKY-d6p85y64V0n5llaLsyONpbhLhMrrK5o1SuQzPjbZqz74iBRUg-75mYMdXupat9NdCSssgBXImn6FRywDlgIfAQ2jag5VN-LPEi7TgxIhEZH7tfBYW1waEHc3-z6I2Nck-Q&amp;t=AQKLePfx-atJLVfGNvU" scrolling="no" allow="autoplay"></iframe>
+        <div class="creative-overlay"></div>
+      </div>
+      <div class="metrics-grid">
+        <div class="metric">
+          <div class="metric-label">Spend</div>
+          <div class="metric-value orange">$242.80</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Impressions</div>
+          <div class="metric-value">7,117</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">CTR</div>
+          <div class="metric-value">1.87%</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">CPM</div>
+          <div class="metric-value">$34.12</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Reach</div>
+          <div class="metric-value">4,125</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Frequency</div>
+          <div class="metric-value">1.73</div>
+        </div>
+      </div>
+      <div class="results-row">
+        <div class="result-item">
+          <div class="result-label">Leads</div>
+          <div class="result-val big-green">10</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Cost per Lead</div>
+          <div class="result-val" style="color:#fff;font-size:20px;">$24.28</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Thruplay</div>
+          <div class="result-val">372</div>
+        </div>
+      </div>
+      <div class="flag-banner winner">⭐ Top lead volume. But V2 is 3× cheaper per lead.</div>
+    </div>
+
+    <!-- VIDEO WEBINAR V2 - BEST CPL -->
+    <div class="ad-card flag-winner">
+      <div class="ad-card-header">
+        <div>
+          <div class="ad-name">Video — Webinar V2</div>
+          <div class="ad-campaign">Lead Gen Campaign · Leads (form)</div>
+        </div>
+        <span class="status-badge status-active">Active</span>
+      </div>
+      <div class="creative-container">
+        <span class="creative-type-badge type-video">📹 Video</span>
+        <iframe src="https://business.facebook.com/ads/api/preview_iframe.php?d=AQKNOF1H6_OfO_F-20Ew25CX0OWF_bIS7-EJ3aX4eQwj9loejI8s7_7q-JNZDzZCFylmRfsHYrf3O6XyN2SMWM00DjQ9-BeaDKWKDnZU4fk_p3WtShIiTEBIIT2Iyvm1KeqpMfIT1DWoMO913sgcMTVvXvC4dKJdn6zcEvRI8lNkklwa0tbsZrs5HnjrMY-fohmZdKqpiUv7lhrrkJz3-TJ3rxxapMYdyola18qo3ELFUw&amp;t=AQKkL8xsea8FP9zWNc8" scrolling="no" allow="autoplay"></iframe>
+        <div class="creative-overlay"></div>
+      </div>
+      <div class="metrics-grid">
+        <div class="metric">
+          <div class="metric-label">Spend</div>
+          <div class="metric-value orange">$16.35</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Impressions</div>
+          <div class="metric-value">591</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">CTR</div>
+          <div class="metric-value">1.86%</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">CPM</div>
+          <div class="metric-value">$27.66</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Reach</div>
+          <div class="metric-value">513</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Frequency</div>
+          <div class="metric-value">1.15</div>
+        </div>
+      </div>
+      <div class="results-row">
+        <div class="result-item">
+          <div class="result-label">Leads</div>
+          <div class="result-val big-green">2</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Cost per Lead</div>
+          <div class="result-val green" style="font-size:20px;">$8.18</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Thruplay</div>
+          <div class="result-val">28</div>
+        </div>
+      </div>
+      <div class="flag-banner winner">🏆 Best CPL in the account. Needs more budget NOW.</div>
+    </div>
+
+    <!-- SPECIALIST AUTO - DANGER -->
+    <div class="ad-card flag-danger">
+      <div class="ad-card-header">
+        <div>
+          <div class="ad-name">Specialist Auto Digital Marketing</div>
+          <div class="ad-campaign">Lead Gen Campaign · Website appts scheduled</div>
+        </div>
+        <span class="status-badge status-active">Active</span>
+      </div>
+      <div class="creative-container">
+        <span class="creative-type-badge type-image">🖼 Static</span>
+        <iframe src="https://business.facebook.com/ads/api/preview_iframe.php?d=AQLGkH6ZnFnuRONMqWp7FV6I3zUCt-LHa2gctWv_2P0GNcfyS92rzGdZaTfANe6a4UTRxTrChSyThACaDPEA2HZaG_4MemNZd4UtAi98h8Ph3L0FrtP4VK-Ugc722366I_plIp4RTb9ABTHkfJaaCW9E1LXkjwE4Cpcu76iKkNKXTPfRF2wBwUQL5KRf-9e4KuciC6H6HDBoM__d21wVJP4G0IZG3Uva43SG09C-1MSXww&amp;t=AQKIxxZBNxGuHiueAJY" scrolling="no" allow="autoplay"></iframe>
+        <div class="creative-overlay"></div>
+      </div>
+      <div class="metrics-grid">
+        <div class="metric">
+          <div class="metric-label">Spend</div>
+          <div class="metric-value red">$92.12</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Impressions</div>
+          <div class="metric-value">2,301</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">CTR</div>
+          <div class="metric-value">3.09%</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">CPM</div>
+          <div class="metric-value red">$40.03</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Reach</div>
+          <div class="metric-value">1,205</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Frequency</div>
+          <div class="metric-value">1.91</div>
+        </div>
+      </div>
+      <div class="results-row">
+        <div class="result-item">
+          <div class="result-label">Appts Booked</div>
+          <div class="result-val zero-red">0</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Cost per Appt</div>
+          <div class="result-val zero-red">∞</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Link Clicks</div>
+          <div class="result-val">34</div>
+        </div>
+      </div>
+      <div class="flag-banner danger">🚨 $92 spent. 34 clicks. Zero bookings. Conversion event likely broken.</div>
+    </div>
+
+    <!-- LET US HANDLE YOUR MARKETING - DANGER -->
+    <div class="ad-card flag-danger">
+      <div class="ad-card-header">
+        <div>
+          <div class="ad-name">Let Us Handle Your Digital Marketing</div>
+          <div class="ad-campaign">Lead Gen Campaign · Website appts scheduled</div>
+        </div>
+        <span class="status-badge status-active">Active</span>
+      </div>
+      <div class="creative-container">
+        <span class="creative-type-badge type-image">🖼 Static</span>
+        <iframe src="https://business.facebook.com/ads/api/preview_iframe.php?d=AQIgbmW8Jxlg9pVvqDQ_jlXW8_Y8TFxK-DXw-bLo6wJCwyJrLZ1c6oVVetDzrJo8t0fh2u76afX5fnn3aVGJZa7FF24B1vr6cnIQ1HBRbXgThcO2_FOmKewLnhfZjtbELNBDyexQu9rmTzEHSe3FCiOrxhUDUFhqu7ne3SXUWBoqW4PU599YjnTBhKGCcqytBdQ7bTXz8L1tkQbwj45v4thU4Bl22WpzGM1j1laOXHXSaQ&amp;t=AQIdkYh6sMfliMWttic" scrolling="no" allow="autoplay"></iframe>
+        <div class="creative-overlay"></div>
+      </div>
+      <div class="metrics-grid">
+        <div class="metric">
+          <div class="metric-label">Spend</div>
+          <div class="metric-value red">$26.87</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Impressions</div>
+          <div class="metric-value">1,177</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">CTR</div>
+          <div class="metric-value">3.57%</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">CPM</div>
+          <div class="metric-value">$22.83</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Reach</div>
+          <div class="metric-value">990</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Frequency</div>
+          <div class="metric-value">1.19</div>
+        </div>
+      </div>
+      <div class="results-row">
+        <div class="result-item">
+          <div class="result-label">Appts Booked</div>
+          <div class="result-val zero-red">0</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Cost per Appt</div>
+          <div class="result-val zero-red">∞</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Link Clicks</div>
+          <div class="result-val">32</div>
+        </div>
+      </div>
+      <div class="flag-banner danger">🚨 Active, $27 spent, best CTR in this group — still zero appts. Same broken event.</div>
+    </div>
+
+    <!-- CALLING ALL MECHANICS (LEAD ADSET) -->
+    <div class="ad-card flag-danger">
+      <div class="ad-card-header">
+        <div>
+          <div class="ad-name">Calling All Mechanics</div>
+          <div class="ad-campaign">Lead Gen Campaign · Leads</div>
+        </div>
+        <span class="status-badge status-active">Active</span>
+      </div>
+      <div class="creative-container">
+        <span class="creative-type-badge type-image">🖼 Static</span>
+        <iframe src="https://business.facebook.com/ads/api/preview_iframe.php?d=AQKe6j-lCLEmaWSLGugZwdl5usOkq26pp7lQta6QqJ240tZLIEw1RVlIDenqP9EMKvlswlSfRQ4K_VXtrkIuncb7RD6APgrwAUwsp78MQVOeQu88rb0uGn3w7nIPAxuqcwG5y2jSgfNt6wz-XxXcb5HvoiRc4kF5zbP_34yDbB-GUWPLkn40yay7ZrVrrXGPT-KeNJhR75jts7La-ALyOtdexjjpcBxmXVjr96SKUJI-cg&amp;t=AQI_7IMYzCY6k2OwFFA" scrolling="no" allow="autoplay"></iframe>
+        <div class="creative-overlay"></div>
+      </div>
+      <div class="metrics-grid">
+        <div class="metric">
+          <div class="metric-label">Spend</div>
+          <div class="metric-value red">$21.33</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Impressions</div>
+          <div class="metric-value">819</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">CTR</div>
+          <div class="metric-value green">4.15%</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">CPM</div>
+          <div class="metric-value">$26.04</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Reach</div>
+          <div class="metric-value">679</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Frequency</div>
+          <div class="metric-value">1.21</div>
+        </div>
+      </div>
+      <div class="results-row">
+        <div class="result-item">
+          <div class="result-label">Leads</div>
+          <div class="result-val zero-red">0</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Cost per Lead</div>
+          <div class="result-val zero-red">∞</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Link Clicks</div>
+          <div class="result-val">19</div>
+        </div>
+      </div>
+      <div class="flag-banner danger">🚨 4.15% CTR — great! But zero leads. Post-click problem, not creative.</div>
+    </div>
+
+  </div><!-- /ads-grid cam1 -->
+
+  <!-- CAMPAIGN 2: TRAFFIC -->
+  <div class="campaign-label" style="margin-top:32px;">Campaign 2 — <span>Traffic / Landing Page Views</span> · ~$154 AUD</div>
+  <div class="ads-grid">
+
+    <!-- CALLING ALL MECHANICS TRAFFIC -->
+    <div class="ad-card">
+      <div class="ad-card-header">
+        <div>
+          <div class="ad-name">Calling All Mechanics</div>
+          <div class="ad-campaign">Traffic Campaign · Landing page views</div>
+        </div>
+        <span class="status-badge status-active">Active</span>
+      </div>
+      <div class="creative-container">
+        <span class="creative-type-badge type-image">🖼 Static</span>
+        <iframe src="https://business.facebook.com/ads/api/preview_iframe.php?d=AQI2wWQqEb4NIgx21RAMzZknAdgl_kKZl8fP8O9CoObM8QqChthMjMPBKxcKkb5aRO9-3obMMEPf4bVpkKgp5c5-11AJNp_VZIQ3Az7vBDx0pxvA8ipeBUUi8MJYte__VxkF_7uBSr-p-6bHP_ZHoPWn04dwV174D8VXSgqoKqOLtgR3ribQZ5Qvh900VnW7Q_p10qHfRADGXau0d4P4xJEAZaZwp724lkNa51S-SaRVWw&amp;t=AQKCiI8K1JJ9iRWSv9Y" scrolling="no" allow="autoplay"></iframe>
+        <div class="creative-overlay"></div>
+      </div>
+      <div class="metrics-grid">
+        <div class="metric">
+          <div class="metric-label">Spend</div>
+          <div class="metric-value orange">$79.40</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Impressions</div>
+          <div class="metric-value">11,025</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">CTR</div>
+          <div class="metric-value">2.22%</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">CPM</div>
+          <div class="metric-value green">$7.20</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Reach</div>
+          <div class="metric-value">8,041</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Frequency</div>
+          <div class="metric-value">1.37</div>
+        </div>
+      </div>
+      <div class="results-row">
+        <div class="result-item">
+          <div class="result-label">LPVs</div>
+          <div class="result-val" style="color:#66bb6a;font-size:20px;">193</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Cost/LPV</div>
+          <div class="result-val" style="color:#fff;font-size:18px;">$0.41</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Link Clicks</div>
+          <div class="result-val">191</div>
+        </div>
+      </div>
+      <div class="flag-banner info">ℹ️ Solid volume at low CPM. Healthy traffic driver.</div>
+    </div>
+
+    <!-- DON'T POST THIS - PAUSED BUT WAS BEST -->
+    <div class="ad-card flag-paused">
+      <div class="ad-card-header">
+        <div>
+          <div class="ad-name">Don't Post This Mechanics</div>
+          <div class="ad-campaign">Traffic Campaign · Landing page views</div>
+        </div>
+        <span class="status-badge status-paused">Paused</span>
+      </div>
+      <div class="creative-container">
+        <span class="creative-type-badge type-native">👁 Native</span>
+        <iframe src="https://business.facebook.com/ads/api/preview_iframe.php?d=AQIe44D4SlkAFOLNQpmeg1deaFCvbjM9Jlg6SU96fYXX79cRz2dSbLejz0_77Ryai7gE_Sp_RIuVqgpC15UkM4pM1ZRmZ184WCf6yWmpZw7M1Tl8HKLQq9x7Wz04S_QL5YHbLTTBJ6NTo_pyq83OdV8bEGKn6Rlehi5KJ4n1emCjvsmECCRBwSfH8NCPRi3tzNpzZi8j2ZSKSs8zr3NVsu2PVyibOCKf8BClOXNeFWNXSw&amp;t=AQIo3njvHst4xKdAoLc" scrolling="no" allow="autoplay"></iframe>
+        <div class="creative-overlay"></div>
+      </div>
+      <div class="metrics-grid">
+        <div class="metric">
+          <div class="metric-label">Spend</div>
+          <div class="metric-value orange">$56.01</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Impressions</div>
+          <div class="metric-value">7,115</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">CTR</div>
+          <div class="metric-value green">3.15%</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">CPM</div>
+          <div class="metric-value green">$7.87</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Reach</div>
+          <div class="metric-value">5,759</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Frequency</div>
+          <div class="metric-value">1.24</div>
+        </div>
+      </div>
+      <div class="results-row">
+        <div class="result-item">
+          <div class="result-label">LPVs</div>
+          <div class="result-val" style="color:#66bb6a;font-size:20px;">151</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Cost/LPV</div>
+          <div class="result-val" style="color:#fff;font-size:18px;">$0.37</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Link Clicks</div>
+          <div class="result-val">168</div>
+        </div>
+      </div>
+      <div class="flag-banner winner">⚠️ PAUSED — but was the highest CTR traffic ad (3.15%). Why did this get turned off?</div>
+    </div>
+
+    <!-- FORUM POST - BEST CPL -->
+    <div class="ad-card flag-winner">
+      <div class="ad-card-header">
+        <div>
+          <div class="ad-name">Forum Post</div>
+          <div class="ad-campaign">Traffic Campaign · Landing page views</div>
+        </div>
+        <span class="status-badge status-active">Active</span>
+      </div>
+      <div class="creative-container">
+        <span class="creative-type-badge type-native">👁 Native</span>
+        <iframe src="https://business.facebook.com/ads/api/preview_iframe.php?d=AQKZqOBZULL9Pg0G9-fHaUmNq7Epyfw-ihEe_eLNmHJtp6McZhgg7O2iTpt0svtI8eR3R-10YEcpozZFHcGrHA0gt_ZsuRB9GdYEP3nEbOn6G0MFOFTMW8bzm4c50xJqTPHvmhbAkebP2NZtKCVHl3r66oEC5oxR2aJIwAQOILwEv_H6BJMA4ORJwDPWjb0rQCNpzgM4EiPMi-ZfO_0ARaA35gzcuhuLUX7YyW152-18oA&amp;t=AQK6yJFLWP0QCT_nD3A" scrolling="no" allow="autoplay"></iframe>
+        <div class="creative-overlay"></div>
+      </div>
+      <div class="metrics-grid">
+        <div class="metric">
+          <div class="metric-label">Spend</div>
+          <div class="metric-value orange">$5.77</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Impressions</div>
+          <div class="metric-value">1,372</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">CTR</div>
+          <div class="metric-value">2.19%</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">CPM</div>
+          <div class="metric-value green">$4.21</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Reach</div>
+          <div class="metric-value">1,328</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Frequency</div>
+          <div class="metric-value">1.03</div>
+        </div>
+      </div>
+      <div class="results-row">
+        <div class="result-item">
+          <div class="result-label">LPVs</div>
+          <div class="result-val" style="color:#66bb6a;font-size:20px;">26</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Cost/LPV</div>
+          <div class="result-val green" style="font-size:18px;">$0.22</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">CPM</div>
+          <div class="result-val green">$4.21</div>
+        </div>
+      </div>
+      <div class="flag-banner winner">🏆 Cheapest traffic in the whole account. Scale this one up.</div>
+    </div>
+
+    <!-- YOU FIX CARS - RETARGETING -->
+    <div class="ad-card">
+      <div class="ad-card-header">
+        <div>
+          <div class="ad-name">You Fix Cars, We Fix Marketing</div>
+          <div class="ad-campaign">Retargeting Campaign · Landing page views</div>
+        </div>
+        <span class="status-badge status-active">Active</span>
+      </div>
+      <div class="creative-container">
+        <span class="creative-type-badge type-image">🖼 Static</span>
+        <iframe src="https://business.facebook.com/ads/api/preview_iframe.php?d=AQJdCweSgKGDL8ZAB7QZTCSDDW6KwJjQVS805BaYX6ZTLvxmts3xTQPIsqvOx45Or4vFdD1pXksWwrJItC5ZuKtygJiSov8u-O_gRZMHj3Qs1W2wcj4jm2Cnoei3818OeYyejgLWyaF_mL2GzjyaHc0dkZV0JxBVyQdT2UtogOLynLnLze9JednP8-v9KdSeOPS7MyZo1JsKZhNRD-W1mggCEyxRslFisDUZDw2JZOgZiw&amp;t=AQIs0Bedi8JhwhJhDdw" scrolling="no" allow="autoplay"></iframe>
+        <div class="creative-overlay"></div>
+      </div>
+      <div class="metrics-grid">
+        <div class="metric">
+          <div class="metric-label">Spend</div>
+          <div class="metric-value orange">$38.77</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Impressions</div>
+          <div class="metric-value">5,283</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">CTR</div>
+          <div class="metric-value">2.50%</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">CPM</div>
+          <div class="metric-value green">$7.34</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Reach</div>
+          <div class="metric-value">4,777</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Frequency</div>
+          <div class="metric-value">1.11</div>
+        </div>
+      </div>
+      <div class="results-row">
+        <div class="result-item">
+          <div class="result-label">LPVs</div>
+          <div class="result-val" style="color:#66bb6a;font-size:20px;">117</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Cost/LPV</div>
+          <div class="result-val" style="color:#fff;font-size:18px;">$0.33</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Link Clicks</div>
+          <div class="result-val">133</div>
+        </div>
+      </div>
+      <div class="flag-banner info">ℹ️ Solid retargeting performance. $0.33/LPV is efficient.</div>
+    </div>
+
+  </div><!-- /ads-grid cam2 -->
+</div>
+
+<hr>
+
+<!-- VIDEO RETENTION -->
+<div class="section-block" style="margin-top:40px;">
+  <div class="section-title">Video Retention Analysis — Webinar V1 (Active)</div>
+  <div class="retention-section">
+    <div class="retention-title">Where viewers are dropping off</div>
+    <div class="retention-sub">7,117 impressions → 2,521 started watching → 183 watched to the end (7.3% completion rate). If the lead form CTA is at the end, 93% never saw it.</div>
+    <div class="retention-bars">
+      <div class="ret-bar-row">
+        <div class="ret-label">Impressions</div>
+        <div class="ret-bar-track">
+          <div class="ret-bar-fill" style="width:100%; background: linear-gradient(90deg,#1565c0,#1976d2);">7,117</div>
+        </div>
+        <div class="ret-count">7,117</div>
+        <div class="ret-pct">100%</div>
+      </div>
+      <div class="ret-bar-row">
+        <div class="ret-label">3-sec plays</div>
+        <div class="ret-bar-track">
+          <div class="ret-bar-fill" style="width:35.4%; background: linear-gradient(90deg,#f07f2a,#ff9800);">2,521</div>
+        </div>
+        <div class="ret-count">2,521</div>
+        <div class="ret-pct">35.4%</div>
+      </div>
+      <div class="ret-bar-row">
+        <div class="ret-label">25% watched</div>
+        <div class="ret-bar-track">
+          <div class="ret-bar-fill" style="width:18.3%; background: linear-gradient(90deg,#f07f2a,#ffa726);">1,305</div>
+        </div>
+        <div class="ret-count">1,305</div>
+        <div class="ret-pct" style="color:#ffa726;">18.3%</div>
+      </div>
+      <div class="ret-bar-row">
+        <div class="ret-label">50% watched</div>
+        <div class="ret-bar-track">
+          <div class="ret-bar-fill" style="width:7.7%; background: linear-gradient(90deg,#e53935,#f44336);">551</div>
+        </div>
+        <div class="ret-count">551</div>
+        <div class="ret-pct" style="color:#e53935;">7.7%</div>
+      </div>
+      <div class="ret-bar-row">
+        <div class="ret-label">75% watched</div>
+        <div class="ret-bar-track">
+          <div class="ret-bar-fill" style="width:3.9%; background: linear-gradient(90deg,#b71c1c,#c62828);">279</div>
+        </div>
+        <div class="ret-count">279</div>
+        <div class="ret-pct" style="color:#ef9a9a;">3.9%</div>
+      </div>
+      <div class="ret-bar-row">
+        <div class="ret-label">Completed</div>
+        <div class="ret-bar-track">
+          <div class="ret-bar-fill" style="width:2.6%; background: #b71c1c;">183</div>
+        </div>
+        <div class="ret-count">183</div>
+        <div class="ret-pct" style="color:#ef9a9a;">2.6%</div>
+      </div>
+      <div class="ret-bar-row">
+        <div class="ret-label">Thruplay</div>
+        <div class="ret-bar-track">
+          <div class="ret-bar-fill" style="width:5.2%; background: linear-gradient(90deg,#2e7d32,#43a047);">372</div>
+        </div>
+        <div class="ret-count">372</div>
+        <div class="ret-pct" style="color:#a5d6a7;">5.2%</div>
+      </div>
+    </div>
+    <div style="margin-top:20px; padding:16px; background:#1e0a0a; border-radius:8px; border:1px solid #e5393530;">
+      <p style="font-size:13px; color:#ff8a80; font-weight:600;">⚠️ Critical drop-off between 3-sec plays (2,521) and 25% watched (1,305) — 48% of initial viewers bail in the opening seconds. Another 57% bail between 25% and 50%. Move the hook, the pain point, and the CTA to the first 15–20 seconds of the video.</p>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ACCOUNT 2: MM CLIENT ADS -->
+<div class="section-block" style="margin-top:40px;">
+  <div class="block-header">
+    <div>
+      <div class="block-title">MM Client Ads Account</div>
+      <div style="font-size:13px; color:#8892a4; margin-top:4px;">B2C location-based traffic · Auto workshop clients</div>
+    </div>
+    <div class="block-badge badge-client">Client</div>
+    <div class="block-spend">Total: <strong>~$47 AUD</strong></div>
+  </div>
+  <div style="font-size:13px; color:#8892a4; margin-bottom:20px;">Note: CPMs here (~$7 AUD) are dramatically cheaper than the agency account (~$25–40 AUD) — local audiences vs B2B niche targeting.</div>
+  <div class="client-account-grid">
+
+    <!-- EURO CARS -->
+    <div class="ad-card flag-winner">
+      <div class="ad-card-header">
+        <div>
+          <div class="ad-name">Euro Cars</div>
+          <div class="ad-campaign">MM Client Ads · Website landing page views</div>
+        </div>
+        <span class="status-badge status-active">Active</span>
+      </div>
+      <div class="creative-container">
+        <span class="creative-type-badge type-image">🖼 Static</span>
+        <iframe src="https://business.facebook.com/ads/api/preview_iframe.php?d=AQIpqXIVzRbu4tEbAXlvSFSGA8yeYIncY-JVJSTp-5cup6l8KjMPMQuLEuNptc-dpsSEcAoMljekqkLO08IASLdGcOcLS28QIygPEmXnTnjv_Yqe_8cH4gIkEMlHGEf7caDXpv1nvPCtJSBnjFQlzNGiIeU1A21DsovisS8a_hfD2hqTkTNXkaZJJ3j6kN8HggIx_86mBNG3KPuLnWfdYcTmrs4QsiHmR1vA3_W6t6yW5A&amp;t=AQLhYUW8LKx_wPPYmII" scrolling="no" allow="autoplay"></iframe>
+        <div class="creative-overlay"></div>
+      </div>
+      <div class="metrics-grid">
+        <div class="metric"><div class="metric-label">Spend</div><div class="metric-value orange">$17.70</div></div>
+        <div class="metric"><div class="metric-label">Impressions</div><div class="metric-value">2,409</div></div>
+        <div class="metric"><div class="metric-label">CTR</div><div class="metric-value green">2.45%</div></div>
+        <div class="metric"><div class="metric-label">CPM</div><div class="metric-value green">$7.35</div></div>
+        <div class="metric"><div class="metric-label">Reach</div><div class="metric-value">1,707</div></div>
+        <div class="metric"><div class="metric-label">Frequency</div><div class="metric-value">1.41</div></div>
+      </div>
+      <div class="results-row">
+        <div class="result-item"><div class="result-label">LPVs</div><div class="result-val" style="color:#66bb6a;font-size:20px;">32</div></div>
+        <div class="result-item"><div class="result-label">Cost/LPV</div><div class="result-val" style="color:#fff;font-size:18px;">$0.55</div></div>
+        <div class="result-item"><div class="result-label">Link Clicks</div><div class="result-val">35</div></div>
+      </div>
+      <div class="flag-banner winner">🏆 Best performer in this account — highest CTR and most LPVs.</div>
+    </div>
+
+    <!-- MACQUARIE CENTRE -->
+    <div class="ad-card">
+      <div class="ad-card-header">
+        <div>
+          <div class="ad-name">Macquarie Centre</div>
+          <div class="ad-campaign">MM Client Ads · Website landing page views</div>
+        </div>
+        <span class="status-badge status-active">Active</span>
+      </div>
+      <div class="creative-container">
+        <span class="creative-type-badge type-image">🖼 Static</span>
+        <iframe src="https://business.facebook.com/ads/api/preview_iframe.php?d=AQJ8na7bx4h5IA0n-CEWMrvrjM4p8X3br5FPFtOOtqN3pVXe86MlJ3AFafSdUt9RS2rHLiCgCaeuvxHkgCmvi0-FJlBkTE1urS8I7OLNze1AWcpIETeSCpWzFGJGZvxWxgnzFO7l_K2n90Ybb2XnwLJXnYihNZ9eFrjhYQ3eQv05tZoO3I7fkYBxmYngengSVnQwcu51i5xGV_6G0bB9Wcfb4W3zgL0nE7Y4IoTm5l5ZZQ&amp;t=AQLUh1vL5SJSpWLjl5o" scrolling="no" allow="autoplay"></iframe>
+        <div class="creative-overlay"></div>
+      </div>
+      <div class="metrics-grid">
+        <div class="metric"><div class="metric-label">Spend</div><div class="metric-value orange">$15.54</div></div>
+        <div class="metric"><div class="metric-label">Impressions</div><div class="metric-value">2,167</div></div>
+        <div class="metric"><div class="metric-label">CTR</div><div class="metric-value">1.20%</div></div>
+        <div class="metric"><div class="metric-label">CPM</div><div class="metric-value green">$7.17</div></div>
+        <div class="metric"><div class="metric-label">Reach</div><div class="metric-value">1,552</div></div>
+        <div class="metric"><div class="metric-label">Frequency</div><div class="metric-value">1.40</div></div>
+      </div>
+      <div class="results-row">
+        <div class="result-item"><div class="result-label">LPVs</div><div class="result-val" style="color:#fff;font-size:20px;">19</div></div>
+        <div class="result-item"><div class="result-label">Cost/LPV</div><div class="result-val" style="color:#fff;font-size:18px;">$0.82</div></div>
+        <div class="result-item"><div class="result-label">Link Clicks</div><div class="result-val">20</div></div>
+      </div>
+      <div class="flag-banner info">ℹ️ Lowest CTR (1.20%) — creative or offer may be less compelling for this location.</div>
+    </div>
+
+    <!-- FREE ROAD SIDE -->
+    <div class="ad-card">
+      <div class="ad-card-header">
+        <div>
+          <div class="ad-name">Free Road Side Assistance</div>
+          <div class="ad-campaign">MM Client Ads · Website landing page views</div>
+        </div>
+        <span class="status-badge status-active">Active</span>
+      </div>
+      <div class="creative-container">
+        <span class="creative-type-badge type-image">🖼 Static</span>
+        <iframe src="https://business.facebook.com/ads/api/preview_iframe.php?d=AQI02Syiz9mxrjA3TYJviEVF5j6c7zale2L6ID_PxHXn6a106nKNfdC1GvSDx8mUkX5I_y1czjg6UI8IHoIDUjdRQnxEqL9gUBxKO9wX8MCz0og8S9HBgwS-4HhvdadlACDC6GxvWDhlAFSNmVXcYRUK2NOlilmY0kggsyY3l84keiDrF33Nz9-7Nhmr7Vs8Y5dWoMg-ZjDliBHCul6Atco-zey2XBXvqANTAGS_CGdrrA&amp;t=AQKUzRahf1_OEu7-T7Q" scrolling="no" allow="autoplay"></iframe>
+        <div class="creative-overlay"></div>
+      </div>
+      <div class="metrics-grid">
+        <div class="metric"><div class="metric-label">Spend</div><div class="metric-value orange">$10.83</div></div>
+        <div class="metric"><div class="metric-label">Impressions</div><div class="metric-value">1,495</div></div>
+        <div class="metric"><div class="metric-label">CTR</div><div class="metric-value">1.27%</div></div>
+        <div class="metric"><div class="metric-label">CPM</div><div class="metric-value green">$7.24</div></div>
+        <div class="metric"><div class="metric-label">Reach</div><div class="metric-value">1,048</div></div>
+        <div class="metric"><div class="metric-label">Frequency</div><div class="metric-value">1.43</div></div>
+      </div>
+      <div class="results-row">
+        <div class="result-item"><div class="result-label">LPVs</div><div class="result-val" style="color:#fff;font-size:20px;">14</div></div>
+        <div class="result-item"><div class="result-label">Cost/LPV</div><div class="result-val" style="color:#fff;font-size:18px;">$0.77</div></div>
+        <div class="result-item"><div class="result-label">Link Clicks</div><div class="result-val">14</div></div>
+      </div>
+      <div class="flag-banner info">ℹ️ Offer-led creative. Decent efficiency but lowest LPV count.</div>
+    </div>
+
+    <!-- $50 FUEL VOUCHER -->
+    <div class="ad-card">
+      <div class="ad-card-header">
+        <div>
+          <div class="ad-name">$50 Fuel Gift Voucher</div>
+          <div class="ad-campaign">MM Client Ads · Website landing page views</div>
+        </div>
+        <span class="status-badge status-active">Active</span>
+      </div>
+      <div class="creative-container">
+        <span class="creative-type-badge type-image">🖼 Static</span>
+        <iframe src="https://business.facebook.com/ads/api/preview_iframe.php?d=AQJ1if_REcPmZ6w4VrUcjOVBFJmNv-1BQJu21bZ_EuQQtfraKSXD48qkUhgySczJPTA1WSddj5jVvDQO-4dosK1ZtDyR4EfK67E25B51rP_rhU6PNWao9leWxUZdur8Z26Ifu4XbDUETE9zlNNFf_QUF2-5HBlKIDstfZY0ZD9AoBv0OrekKF1hQhARbDg2Y4ZsqEqN92VIwaT6QYu70pI7QFAoIRal3IdKgBnyfgtzRNw&amp;t=AQIi4hmw0_9cqFR1JaQ" scrolling="no" allow="autoplay"></iframe>
+        <div class="creative-overlay"></div>
+      </div>
+      <div class="metrics-grid">
+        <div class="metric"><div class="metric-label">Spend</div><div class="metric-value orange">$2.52</div></div>
+        <div class="metric"><div class="metric-label">Impressions</div><div class="metric-value">317</div></div>
+        <div class="metric"><div class="metric-label">CTR</div><div class="metric-value">1.58%</div></div>
+        <div class="metric"><div class="metric-label">CPM</div><div class="metric-value green">$7.95</div></div>
+        <div class="metric"><div class="metric-label">Reach</div><div class="metric-value">284</div></div>
+        <div class="metric"><div class="metric-label">Frequency</div><div class="metric-value">1.12</div></div>
+      </div>
+      <div class="results-row">
+        <div class="result-item"><div class="result-label">LPVs</div><div class="result-val" style="color:#fff;font-size:20px;">4</div></div>
+        <div class="result-item"><div class="result-label">Cost/LPV</div><div class="result-val" style="color:#fff;font-size:18px;">$0.63</div></div>
+        <div class="result-item"><div class="result-label">Link Clicks</div><div class="result-val">4</div></div>
+      </div>
+      <div class="flag-banner info">ℹ️ Too early to judge at this spend. Worth more budget to test voucher offer.</div>
+    </div>
+
+  </div>
+</div>
+
+<hr>
+
+<!-- PRIORITY ACTIONS -->
+<div class="section-block" style="margin-top:40px;">
+  <div class="section-title">Priority actions</div>
+  <div class="actions-section">
+    <div class="actions-title">What to do this week</div>
+
+    <div class="action-item">
+      <div class="action-num red">1</div>
+      <div class="action-content">
+        <div class="action-tag tag-urgent">Urgent</div>
+        <h4>Audit the appointment scheduling conversion event</h4>
+        <p>Three active ads ($131+ combined) are clicking but generating zero bookings. Check Meta Events Manager and the landing page booking flow. If the event isn't firing, pause those ads immediately and fix before restarting.</p>
+      </div>
+    </div>
+
+    <div class="action-item">
+      <div class="action-num red">2</div>
+      <div class="action-content">
+        <div class="action-tag tag-urgent">Urgent</div>
+        <h4>Shift budget from Webinar V1 to Webinar V2</h4>
+        <p>V2 is generating leads at $8.18 CPL vs V1's $24.28 — nearly 3× cheaper. They're the same format, different cut. V2 gets more budget now, or at minimum run a proper head-to-head with equal spend.</p>
+      </div>
+    </div>
+
+    <div class="action-item">
+      <div class="action-num" style="background:#e65100;">3</div>
+      <div class="action-content">
+        <div class="action-tag tag-urgent">This week</div>
+        <h4>Move the CTA to the first 20 seconds of the webinar video</h4>
+        <p>93% of viewers never reach the end of V1. The hook, pain point, and lead form prompt need to appear in the first quarter of the video. Even a rough re-edit that front-loads the offer will likely improve CPL significantly.</p>
+      </div>
+    </div>
+
+    <div class="action-item">
+      <div class="action-num">4</div>
+      <div class="action-content">
+        <div class="action-tag tag-test">Consolidate</div>
+        <h4>Pause the 20+ micro-spend ads and consolidate to 3–5 per adset</h4>
+        <p>The algorithm needs ~50 conversions per week per adset to learn. With 30+ ads splitting impressions, nothing exits the learning phase. Pick the 3–5 strongest concepts, pause the rest, and give real budget to the winners.</p>
+      </div>
+    </div>
+
+    <div class="action-item">
+      <div class="action-num green">5</div>
+      <div class="action-content">
+        <div class="action-tag tag-quick">Quick win</div>
+        <h4>Scale Forum Post creative ($0.22/LPV)</h4>
+        <p>The r/AusMechanics-style Reddit post is the cheapest traffic driver in the whole account at $4.21 CPM and $0.22/LPV — about half the cost of everything else. Push it from $5.77 to $30–50 to validate the signal before scaling further.</p>
+      </div>
+    </div>
+
+    <div class="action-item">
+      <div class="action-num green">6</div>
+      <div class="action-content">
+        <div class="action-tag tag-quick">Quick win</div>
+        <h4>Reinvestigate "Don't Post This Mechanics" (paused)</h4>
+        <p>This was the highest-CTR traffic ad at 3.15% before it was paused. If it was paused without a good reason, reactivating it could immediately improve traffic efficiency vs the currently-running alternatives.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="report-footer">
+  <div class="footer-note">Data: Meta Marketing API · 24 May – 22 June 2026 · Accounts: 840839828215029 &amp; 876347268146101</div>
+  <div class="footer-logo">Mechanic Marketing × Hilda</div>
+</div>
+
+</body>
+</html>
