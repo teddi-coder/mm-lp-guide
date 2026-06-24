@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mechanic Marketing — Google Ads Audit · June 2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1117; color: #e8eaf0; line-height: 1.5; }
+
+  /* ── HEADER ── */
+  .report-header { background: linear-gradient(135deg, #1a1d2e 0%, #0f1117 100%); border-bottom: 3px solid #f07f2a; padding: 48px 40px 40px; }
+  .report-header .back { font-size: 12px; color: #8892a4; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 20px; transition: color 0.15s; }
+  .report-header .back:hover { color: #f07f2a; }
+  .report-header .logo { font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #f07f2a; margin-bottom: 16px; }
+  .report-header h1 { font-size: 36px; font-weight: 800; color: #fff; line-height: 1.1; margin-bottom: 8px; }
+  .report-header .meta { font-size: 14px; color: #8892a4; }
+  .report-header .meta span { color: #f07f2a; font-weight: 600; }
+
+  /* ── ALERTS BAR ── */
+  .alerts-bar { background: #1e0a0a; border-left: 4px solid #e53935; padding: 16px 40px; display: flex; gap: 32px; align-items: center; flex-wrap: wrap; }
+  .alerts-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #e53935; font-weight: 700; margin-right: 8px; white-space: nowrap; }
+  .alert-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #ff8a80; font-weight: 600; }
+  .alert-item::before { content: '⚠'; font-size: 16px; }
+
+  /* ── SCORECARD ── */
+  .section { padding: 40px; }
+  .section-title { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #f07f2a; font-weight: 700; margin-bottom: 24px; }
+  .scorecard { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 40px; }
+  .score-card { background: #1a1d2e; border: 1px solid #262b3d; border-radius: 12px; padding: 20px; }
+  .score-card.danger { border-color: #e53935; background: #1e0a0a; }
+  .score-card.warn { border-color: #f07f2a; background: #1e1507; }
+  .score-card.good { border-color: #2e7d32; background: #0a1e0b; }
+  .score-label { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #8892a4; margin-bottom: 8px; }
+  .score-value { font-size: 28px; font-weight: 800; color: #fff; line-height: 1; }
+  .score-value.red { color: #e53935; }
+  .score-value.orange { color: #f07f2a; }
+  .score-value.green { color: #66bb6a; }
+  .score-sub { font-size: 12px; color: #8892a4; margin-top: 4px; }
+
+  /* ── PRIORITY SECTIONS ── */
+  .section-block { margin: 0 40px 40px; }
+  .block-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #262b3d; }
+  .block-title { font-size: 20px; font-weight: 700; color: #fff; }
+  .priority-badge { font-size: 11px; padding: 4px 12px; border-radius: 20px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; white-space: nowrap; }
+  .p1 { background: #1e0a0a; color: #ff8a80; border: 1px solid #e53935; }
+  .p2 { background: #1e0a0a; color: #ff8a80; border: 1px solid #c62828; }
+  .p3 { background: #1e1507; color: #ffcc80; border: 1px solid #f07f2a; }
+  .p4 { background: #1e1507; color: #ffe082; border: 1px solid #f9a825; }
+  .p5 { background: #1a1d2e; color: #90caf9; border: 1px solid #1565c0; }
+  .p-info { background: #0a0f1e; color: #b0bec5; border: 1px solid #37474f; }
+
+  /* ── ACCOUNT CARDS ── */
+  .account-card { background: #1a1d2e; border: 1px solid #262b3d; border-radius: 16px; overflow: hidden; margin-bottom: 24px; }
+  .account-card.flag-danger { border-color: #e53935; }
+  .account-card.flag-warn { border-color: #f07f2a; }
+  .account-card.flag-info { border-color: #1565c0; }
+
+  .account-header { padding: 20px 24px; background: #141726; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+  .account-name { font-size: 16px; font-weight: 700; color: #fff; }
+  .account-id { font-size: 12px; color: #8892a4; margin-top: 3px; font-family: 'SF Mono', 'Fira Code', monospace; }
+  .account-badge { padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+  .badge-enabled { background: #1b5e20; color: #a5d6a7; }
+  .badge-paused { background: #1a1d2e; color: #8892a4; border: 1px solid #262b3d; }
+  .badge-inactive { background: #1a1d2e; color: #546e7a; border: 1px solid #37474f; }
+
+  .account-body { padding: 20px 24px; }
+
+  /* ── ISSUE ROWS ── */
+  .issue-row { display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px solid #262b3d; }
+  .issue-row:last-child { border-bottom: none; }
+  .issue-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .issue-content { flex: 1; }
+  .issue-title { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .issue-desc { font-size: 13px; color: #8892a4; line-height: 1.55; }
+  .issue-action { margin-top: 8px; font-size: 12px; font-weight: 600; color: #f07f2a; }
+  .issue-action::before { content: '→ '; }
+
+  /* ── TABLES ── */
+  .audit-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 16px 0; }
+  .audit-table th { text-align: left; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #8892a4; padding: 8px 12px; border-bottom: 1px solid #262b3d; background: #141726; }
+  .audit-table td { padding: 10px 12px; border-bottom: 1px solid #1e2235; color: #e8eaf0; vertical-align: top; }
+  .audit-table tr:last-child td { border-bottom: none; }
+  .audit-table tr:hover td { background: #1e2235; }
+  .td-mono { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12px; color: #90caf9; }
+  .td-status-enabled { font-weight: 700; color: #66bb6a; }
+  .td-status-paused { color: #8892a4; }
+  .td-offending { color: #ff8a80; }
+  .td-spend { font-weight: 700; color: #ffcc80; }
+  .td-broad { font-weight: 700; color: #f07f2a; }
+  .badge-inline { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; padding: 2px 7px; border-radius: 4px; white-space: nowrap; }
+  .bi-error { background: #1e0a0a; color: #ff8a80; border: 1px solid #e5393530; }
+  .bi-warn { background: #1e1507; color: #ffcc80; border: 1px solid #f07f2a50; }
+  .bi-info { background: #0a0f1e; color: #90caf9; border: 1px solid #1565c030; }
+
+  /* ── FLAG BANNER ── */
+  .flag-banner { padding: 10px 24px; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 8px; border-top: 1px solid #262b3d; }
+  .flag-banner.danger { background: #1e0a0a; color: #ff8a80; border-top-color: #e5393530; }
+  .flag-banner.warn { background: #1e1507; color: #ffcc80; border-top-color: #f07f2a30; }
+  .flag-banner.info { background: #0a0f1e; color: #90caf9; border-top-color: #1565c030; }
+
+  /* ── TOTALS BAR ── */
+  .totals-bar { background: #1e1507; border: 1px solid #f07f2a; border-radius: 12px; padding: 20px 24px; display: flex; gap: 40px; flex-wrap: wrap; margin-bottom: 0; }
+  .total-item { }
+  .total-label { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #8892a4; margin-bottom: 4px; }
+  .total-value { font-size: 22px; font-weight: 800; color: #f07f2a; }
+  .total-sub { font-size: 12px; color: #8892a4; }
+
+  /* ── CHECKLIST ── */
+  .checklist { display: grid; gap: 0; }
+  .check-row { display: grid; grid-template-columns: 36px 36px 1fr 160px 100px; align-items: center; gap: 0; padding: 10px 16px; border-bottom: 1px solid #1e2235; font-size: 13px; }
+  .check-row:first-child { background: #141726; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #8892a4; padding: 8px 16px; }
+  .check-row:hover:not(:first-child) { background: #1e2235; }
+  .check-num { color: #8892a4; font-weight: 700; }
+  .check-box { width: 18px; height: 18px; border: 2px solid #262b3d; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.15s; flex-shrink: 0; }
+  .check-box:hover { border-color: #f07f2a; }
+  .check-label { color: #e8eaf0; padding-left: 8px; }
+  .check-account { color: #8892a4; font-size: 12px; }
+  .check-priority { }
+  .check-row.done .check-box { background: #f07f2a; border-color: #f07f2a; }
+  .check-row.done .check-box::after { content: '✓'; color: #fff; font-size: 11px; font-weight: 700; }
+  .check-row.done .check-label { color: #546e7a; text-decoration: line-through; }
+
+  /* ── CLEAN ACCOUNTS ── */
+  .clean-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+  .clean-card { background: #0a1e0b; border: 1px solid #2e7d32; border-radius: 12px; padding: 16px 20px; }
+  .clean-name { font-size: 14px; font-weight: 700; color: #a5d6a7; margin-bottom: 4px; }
+  .clean-note { font-size: 12px; color: #4caf50; opacity: 0.8; }
+
+  /* ── DORMANT ── */
+  .dormant-card { background: #141726; border: 1px solid #1e2235; border-radius: 12px; padding: 16px 20px; margin-bottom: 12px; opacity: 0.75; }
+  .dormant-name { font-size: 14px; font-weight: 700; color: #546e7a; margin-bottom: 4px; }
+  .dormant-note { font-size: 12px; color: #37474f; }
+
+  /* ── FOOTER ── */
+  .report-footer { padding: 32px 40px; border-top: 1px solid #262b3d; font-size: 12px; color: #546e7a; }
+
+  @media (max-width: 700px) {
+    .report-header { padding: 32px 20px 28px; }
+    .report-header h1 { font-size: 26px; }
+    .alerts-bar { padding: 12px 20px; gap: 16px; }
+    .section { padding: 24px 20px; }
+    .section-block { margin: 0 20px 32px; }
+    .account-header { flex-direction: column; }
+    .check-row { grid-template-columns: 28px 28px 1fr; }
+    .check-account, .check-priority { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<div class="report-header">
+  <a href="index.html" class="back">← Back to Reference Hub</a>
+  <div class="logo">Mechanic Marketing — Internal</div>
+  <h1>Google Ads Account Audit</h1>
+  <div class="meta">
+    <span>24 June 2026</span> &nbsp;·&nbsp;
+    14 sub-accounts audited under MM MCC &nbsp;·&nbsp;
+    Scope: wrong suburbs, wrong business names, broad match, bad copy
+  </div>
+</div>
+
+<!-- ── ALERTS BAR ── -->
+<div class="alerts-bar">
+  <span class="alerts-label">Live Errors</span>
+  <div class="alert-item">Wrong business name in live copy (BCSC, Noranda)</div>
+  <div class="alert-item">Perth suburb in Ballarat ads (Ballarat SC)</div>
+  <div class="alert-item">Competitor bid as positive keyword (BSC, Noranda)</div>
+  <div class="alert-item">~$1,524+ wasted on broad match</div>
+</div>
+
+<!-- ── SCORECARD ── -->
+<div class="section">
+  <div class="section-title">Audit Summary</div>
+  <div class="scorecard">
+    <div class="score-card">
+      <div class="score-label">Accounts Audited</div>
+      <div class="score-value">14</div>
+      <div class="score-sub">Under MM MCC</div>
+    </div>
+    <div class="score-card danger">
+      <div class="score-label">Urgent Action Required</div>
+      <div class="score-value red">7</div>
+      <div class="score-sub">Live errors, spending money</div>
+    </div>
+    <div class="score-card warn">
+      <div class="score-label">Broad Match Waste</div>
+      <div class="score-value orange">$1,524+</div>
+      <div class="score-sub">Confirmed unnecessary spend</div>
+    </div>
+    <div class="score-card">
+      <div class="score-label">Total Issues Found</div>
+      <div class="score-value">20</div>
+      <div class="score-sub">Prioritised action items</div>
+    </div>
+    <div class="score-card good">
+      <div class="score-label">Clean Accounts</div>
+      <div class="score-value green">3</div>
+      <div class="score-sub">No issues found</div>
+    </div>
+    <div class="score-card">
+      <div class="score-label">Dormant / Inactive</div>
+      <div class="score-value">3</div>
+      <div class="score-sub">Zero spend, needs review</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     PRIORITY 1 — WRONG BUSINESS NAME
+════════════════════════════════════════════════════════════ -->
+<div class="section-block">
+  <div class="block-header">
+    <div class="block-title">Wrong Business Name in Ad Copy</div>
+    <span class="priority-badge p1">🔴 Priority 1 — Critical</span>
+  </div>
+
+  <!-- BCSC -->
+  <div class="account-card flag-danger">
+    <div class="account-header">
+      <div>
+        <div class="account-name">Ballarat Commercial Service Centre</div>
+        <div class="account-id">ID: 9007906705</div>
+      </div>
+      <span class="account-badge badge-paused">Ads Paused</span>
+    </div>
+    <div class="flag-banner danger">🚨 Three ads reference "Ballarat Roadworthy Centre" — a completely different MM client. Classic copy-paste error.</div>
+    <div class="account-body">
+      <table class="audit-table">
+        <thead>
+          <tr>
+            <th>Ad ID</th>
+            <th>Ad Group</th>
+            <th>Status</th>
+            <th>Offending Copy</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-mono">785932701996</td>
+            <td>Bus Repair Services</td>
+            <td class="td-status-paused">PAUSED</td>
+            <td class="td-offending">Desc 1: "Need bus mechanics you trust? <strong>Ballarat Roadworthy Centre</strong> has you covered every time."</td>
+          </tr>
+          <tr>
+            <td class="td-mono">785932701996</td>
+            <td>Bus Repair Services</td>
+            <td class="td-status-paused">PAUSED</td>
+            <td class="td-offending">Desc 2: "Don't stress about repairs. <strong>Ballarat Roadworthy Centre</strong> knows buses inside out."</td>
+          </tr>
+          <tr>
+            <td class="td-mono">807274812871</td>
+            <td>Truck Safety Inspections</td>
+            <td class="td-status-paused">PAUSED</td>
+            <td class="td-offending">Desc: "Stay road-ready with <strong>Ballarat Roadworthy Centre's</strong> bus inspections."</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="issue-row">
+        <div class="issue-icon">🗑️</div>
+        <div class="issue-content">
+          <div class="issue-title">Action required</div>
+          <div class="issue-desc">Delete these three ads. Do not re-enable under any circumstances. They are paused now but exist in a live account and can be re-activated at any time.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Noranda wrong brand -->
+  <div class="account-card flag-danger">
+    <div class="account-header">
+      <div>
+        <div class="account-name">M: Noranda Service Centre</div>
+        <div class="account-id">ID: 8046556178</div>
+      </div>
+      <span class="account-badge badge-enabled">ENABLED — Live</span>
+    </div>
+    <div class="flag-banner danger">🚨 Live ENABLED ad in the Audi ad group says "Mercedes". Active, spending money right now.</div>
+    <div class="account-body">
+      <table class="audit-table">
+        <thead>
+          <tr><th>Ad ID</th><th>Ad Group</th><th>Status</th><th>Offending Copy</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-mono">807973575582</td>
+            <td>Audi</td>
+            <td class="td-status-enabled">ENABLED</td>
+            <td class="td-offending">Desc 4: "Strange noises? Just turn the radio up louder. Or book your <strong>Mercedes</strong> service now."</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="issue-row">
+        <div class="issue-icon">✏️</div>
+        <div class="issue-content">
+          <div class="issue-title">Action required</div>
+          <div class="issue-desc">Fix immediately. Replace "Mercedes" with "Audi" in Description 4.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     PRIORITY 2 — WRONG SUBURBS
+════════════════════════════════════════════════════════════ -->
+<div class="section-block">
+  <div class="block-header">
+    <div class="block-title">Wrong Suburbs in Ad Copy (Live, Spending)</div>
+    <span class="priority-badge p2">🔴 Priority 2 — Urgent</span>
+  </div>
+
+  <!-- Ballarat SC -->
+  <div class="account-card flag-danger">
+    <div class="account-header">
+      <div>
+        <div class="account-name">Ballarat Service Centre</div>
+        <div class="account-id">ID: 3500498831</div>
+      </div>
+      <span class="account-badge badge-enabled">ENABLED — Live</span>
+    </div>
+    <div class="flag-banner danger">🚨 Perth suburb "Mirrabooka" appearing in live Ballarat VIC ads — both as a dynamic macro fallback and as a hardcoded headline.</div>
+    <div class="account-body">
+      <p style="font-size:13px;color:#8892a4;margin-bottom:16px;font-weight:600;">Wrong fallback suburb — dynamic macro, showing in live ads:</p>
+      <table class="audit-table">
+        <thead>
+          <tr><th>Ad ID</th><th>Ad Group</th><th>Spend</th><th>Offending Copy</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-mono">796747285860</td>
+            <td>Brakes</td>
+            <td class="td-spend">$114.52</td>
+            <td class="td-offending">H1: "1000s Trust Us in {LOCATION(City):<strong>Mirrabooka</strong>}"</td>
+          </tr>
+          <tr>
+            <td class="td-mono">796747285851</td>
+            <td>Aircon & Heater</td>
+            <td class="td-spend">$17.99</td>
+            <td class="td-offending">H1: "1000s Trust Us in {LOCATION(City):<strong>Mirrabooka</strong>}"</td>
+          </tr>
+          <tr>
+            <td class="td-mono">809573414155</td>
+            <td>Aircon & Heater</td>
+            <td class="td-spend">$53.35</td>
+            <td class="td-offending">H1: "1000s Trust Us in {LOCATION(City):<strong>Mirrabooka</strong>}"</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size:13px;color:#8892a4;margin-top:20px;margin-bottom:16px;font-weight:600;">Hardcoded wrong suburb — always wrong, no macro:</p>
+      <table class="audit-table">
+        <thead>
+          <tr><th>Ad ID</th><th>Ad Group</th><th>Status</th><th>Offending Copy</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-mono">796747285851</td>
+            <td>Aircon & Heater</td>
+            <td class="td-status-enabled">ENABLED</td>
+            <td class="td-offending">H12: "<strong>Mirrabooka Aircon Experts</strong>"</td>
+          </tr>
+          <tr>
+            <td class="td-mono">809573414155</td>
+            <td>Aircon & Heater</td>
+            <td class="td-status-enabled">ENABLED</td>
+            <td class="td-offending">H12: "<strong>Mirrabooka Aircon Experts</strong>"</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="issue-row" style="margin-top:16px;">
+        <div class="issue-icon">✏️</div>
+        <div class="issue-content">
+          <div class="issue-title">Action required</div>
+          <div class="issue-desc">Fix all three ad macro fallbacks: change <code style="color:#90caf9">:Mirrabooka</code> to <code style="color:#66bb6a">:Ballarat</code>. Remove "Mirrabooka Aircon Experts" headline from both ads — replace with "Ballarat Aircon Experts."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Core Diesel suburb -->
+  <div class="account-card flag-danger">
+    <div class="account-header">
+      <div>
+        <div class="account-name">Core Diesel — Maryborough, QLD</div>
+        <div class="account-id">ID: 6728188323</div>
+      </div>
+      <span class="account-badge badge-enabled">ENABLED — Live</span>
+    </div>
+    <div class="account-body">
+      <table class="audit-table">
+        <thead>
+          <tr><th>Ad ID</th><th>Ad Group</th><th>Status</th><th>Offending Copy</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-mono">728724756368</td>
+            <td>Dyno Tuning</td>
+            <td class="td-status-enabled">ENABLED</td>
+            <td class="td-offending">Desc 4: "Get real power gains now in {LOCATION(City):<strong>Brighton</strong>}. Over 500+ drivers trust us for engine tuning." — Brighton is a Melbourne/Brisbane suburb, not Maryborough.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="issue-row" style="margin-top:16px;">
+        <div class="issue-icon">✏️</div>
+        <div class="issue-content">
+          <div class="issue-title">Action required</div>
+          <div class="issue-desc">Change fallback from "Brighton" to "Maryborough" (or "Fraser Coast").</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Auto Response -->
+  <div class="account-card flag-danger">
+    <div class="account-header">
+      <div>
+        <div class="account-name">Auto Response — Stratton/Midland, Perth</div>
+        <div class="account-id">ID: 4451444699</div>
+      </div>
+      <span class="account-badge badge-enabled">ENABLED — Live</span>
+    </div>
+    <div class="flag-banner warn">⚠ "Stratton" misspelled as "Strattan" in 3 places inside a live branded campaign.</div>
+    <div class="account-body">
+      <table class="audit-table">
+        <thead>
+          <tr><th>Location</th><th>Offending Copy</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Headline 6</td><td class="td-offending">"Autoresponse <strong>Strattan</strong>"</td></tr>
+          <tr><td>Headline 14</td><td class="td-offending">"Local Mechanic <strong>Strattan</strong>"</td></tr>
+          <tr><td>Description 4</td><td class="td-offending">"Logbook &amp; general servicing in <strong>Strattan</strong>. Book online today."</td></tr>
+        </tbody>
+      </table>
+      <div class="issue-row" style="margin-top:16px;">
+        <div class="issue-icon">✏️</div>
+        <div class="issue-content">
+          <div class="issue-title">Action required</div>
+          <div class="issue-desc">Fix all three instances. Correct spelling is "Stratton."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     PRIORITY 3 — BROAD MATCH
+════════════════════════════════════════════════════════════ -->
+<div class="section-block">
+  <div class="block-header">
+    <div class="block-title">Broad Match Keywords Spending Real Money</div>
+    <span class="priority-badge p3">🟠 Priority 3</span>
+  </div>
+
+  <div style="font-size:13px;color:#8892a4;margin-bottom:20px;">MM standard is phrase/exact match only. The following accounts are running broad match keywords that are actively spending budget.</div>
+
+  <!-- Core Diesel broad -->
+  <div class="account-card flag-warn">
+    <div class="account-header">
+      <div>
+        <div class="account-name">Core Diesel</div>
+        <div class="account-id">ID: 6728188323 — Biggest offender</div>
+      </div>
+    </div>
+    <div class="account-body">
+      <table class="audit-table">
+        <thead>
+          <tr><th>Keyword</th><th>Match Type</th><th>Spend</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>diesel ecu remapping</td><td class="td-broad">BROAD</td><td class="td-spend">$376.02</td></tr>
+          <tr><td>dpf replacement service</td><td class="td-broad">BROAD</td><td class="td-spend">$263.25</td></tr>
+          <tr><td>dpf replacement</td><td class="td-broad">BROAD</td><td class="td-spend">$52.26</td></tr>
+          <tr><td colspan="2" style="color:#8892a4;font-weight:700;">Total broad match spend</td><td class="td-spend">~$691</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Performance Plus broad -->
+  <div class="account-card flag-warn">
+    <div class="account-header">
+      <div>
+        <div class="account-name">Performance Plus — Queanbeyan NSW</div>
+        <div class="account-id">ID: 5749341466</div>
+      </div>
+    </div>
+    <div class="account-body">
+      <table class="audit-table">
+        <thead>
+          <tr><th>Keyword</th><th>Match Type</th><th>Spend</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>diesel servicing</td><td class="td-broad">BROAD</td><td class="td-spend">$178.79</td></tr>
+          <tr><td>mechanic near me</td><td class="td-broad">BROAD</td><td class="td-spend">$98.37</td></tr>
+          <tr><td>diesel mechanic Queanbeyan</td><td class="td-broad">BROAD</td><td class="td-spend">$86.66</td></tr>
+          <tr><td colspan="2" style="color:#8892a4;font-weight:700;">Total broad match spend</td><td class="td-spend">~$364</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Noranda broad -->
+  <div class="account-card flag-warn">
+    <div class="account-header">
+      <div>
+        <div class="account-name">M: Noranda Service Centre</div>
+        <div class="account-id">ID: 8046556178</div>
+      </div>
+    </div>
+    <div class="account-body">
+      <table class="audit-table">
+        <thead>
+          <tr><th>Keyword</th><th>Match Type</th><th>Spend</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>performance tuning perth</td><td class="td-broad">BROAD</td><td class="td-spend">$169.97</td></tr>
+          <tr><td>Check engine light</td><td class="td-broad">BROAD</td><td class="td-spend">$64.11</td></tr>
+          <tr><td>remapping near me</td><td class="td-broad">BROAD</td><td class="td-spend">$57.18</td></tr>
+          <tr><td colspan="2" style="color:#8892a4;font-weight:700;">Total broad match spend</td><td class="td-spend">~$291</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Ballarat SC broad -->
+  <div class="account-card flag-warn">
+    <div class="account-header">
+      <div>
+        <div class="account-name">Ballarat Service Centre</div>
+        <div class="account-id">ID: 3500498831</div>
+      </div>
+    </div>
+    <div class="account-body">
+      <table class="audit-table">
+        <thead>
+          <tr><th>Keyword</th><th>Match Type</th><th>Spend</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>4x4 suspension specialists near me</td><td class="td-broad">BROAD</td><td class="td-spend">$64.76</td></tr>
+          <tr><td>4wd diesel mechanic near me</td><td class="td-broad">BROAD</td><td class="td-spend">$31.89</td></tr>
+          <tr><td>mr brakes ballarat</td><td class="td-broad">BROAD</td><td class="td-spend">$25.28</td></tr>
+          <tr><td colspan="2" style="color:#8892a4;font-weight:700;">Total broad match spend</td><td class="td-spend">~$122</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- BRC broad -->
+  <div class="account-card flag-warn">
+    <div class="account-header">
+      <div>
+        <div class="account-name">Ballarat Roadworthy Centre</div>
+        <div class="account-id">ID: 6540672934</div>
+      </div>
+    </div>
+    <div class="account-body">
+      <table class="audit-table">
+        <thead>
+          <tr><th>Keyword</th><th>Match Type</th><th>Spend</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>inspection check</td><td class="td-broad">BROAD</td><td class="td-spend">$42.57</td></tr>
+          <tr><td>same day roadworthy near me</td><td class="td-broad">BROAD</td><td class="td-spend">$13.02</td></tr>
+          <tr><td colspan="2" style="color:#8892a4;font-weight:700;">Total broad match spend</td><td class="td-spend">~$56</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Midas Brookvale broad -->
+  <div class="account-card">
+    <div class="account-header">
+      <div>
+        <div class="account-name">Midas Brookvale</div>
+        <div class="account-id">ID: 9774205841 — Confirm with client before changing</div>
+      </div>
+      <span class="account-badge" style="background:#1a1d2e;color:#90caf9;border:1px solid #1565c0;">Check with client</span>
+    </div>
+    <div class="flag-banner info">ℹ Main campaign (1,041 total spend, 9,372 impressions) runs almost entirely on broad match. May be a deliberate franchise strategy — confirm before making changes.</div>
+    <div class="account-body">
+      <div style="font-size:13px;color:#8892a4;">
+        <code style="color:#90caf9">auto repair</code> [BROAD] $226.75 &nbsp;·&nbsp;
+        <code style="color:#90caf9">car repair</code> [BROAD] $74.35 &nbsp;·&nbsp;
+        <code style="color:#90caf9">car repair shop</code> [BROAD] $62.65 &nbsp;·&nbsp;
+        <code style="color:#90caf9">car servicing</code> [BROAD] $53.60 &nbsp;·&nbsp;
+        <code style="color:#90caf9">auto mechanic</code> [BROAD] $37.17 &nbsp;+&nbsp; more
+      </div>
+    </div>
+  </div>
+
+  <!-- Totals -->
+  <div class="totals-bar" style="margin-top:24px;">
+    <div class="total-item">
+      <div class="total-label">Confirmed unnecessary broad match spend</div>
+      <div class="total-value">~$1,524+</div>
+      <div class="total-sub">Across all accounts (excl. Midas — unconfirmed)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     PRIORITY 4 — IRRELEVANT / COMPETITOR KEYWORDS
+════════════════════════════════════════════════════════════ -->
+<div class="section-block">
+  <div class="block-header">
+    <div class="block-title">Irrelevant and Competitor Keywords as Positive Match</div>
+    <span class="priority-badge p4">🟠 Priority 4</span>
+  </div>
+
+  <!-- Performance Plus keywords -->
+  <div class="account-card flag-warn">
+    <div class="account-header">
+      <div>
+        <div class="account-name">Performance Plus — Queanbeyan NSW</div>
+        <div class="account-id">ID: 5749341466</div>
+      </div>
+    </div>
+    <div class="flag-banner danger">🚨 Keywords targeting job seekers, DIY car people, and car buyers sitting inside service ad groups as positive match. These are showing service ads to completely wrong audiences.</div>
+    <div class="account-body">
+      <table class="audit-table">
+        <thead>
+          <tr><th>Keyword</th><th>Match Type</th><th>Ad Groups Affected</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-offending">mechanic jobs</td><td>PHRASE</td><td>General Mechanic, Logbook Servicing, Roadworthy Inspections</td></tr>
+          <tr><td class="td-offending">mechanic salary</td><td>PHRASE</td><td>General Mechanic, Logbook Servicing, Roadworthy Inspections</td></tr>
+          <tr><td class="td-offending">how to fix a car</td><td>PHRASE</td><td>General Mechanic</td></tr>
+          <tr><td class="td-offending">car auctions</td><td>PHRASE</td><td>Multiple groups</td></tr>
+          <tr><td class="td-offending">used car sales</td><td>PHRASE</td><td>Multiple groups</td></tr>
+          <tr><td class="td-offending">cheap cars for sale</td><td>PHRASE</td><td>Multiple groups</td></tr>
+          <tr><td class="td-offending">DIY mechanic tips</td><td>PHRASE</td><td>Multiple groups</td></tr>
+          <tr><td class="td-offending">mechanic orange nsw</td><td>EXACT</td><td>Multiple groups — Orange NSW is 4+ hours from Queanbeyan</td></tr>
+        </tbody>
+      </table>
+      <div class="issue-row" style="margin-top:16px;">
+        <div class="issue-icon">🚫</div>
+        <div class="issue-content">
+          <div class="issue-title">Action required</div>
+          <div class="issue-desc">Remove all irrelevant intent keywords. Add <code style="color:#90caf9">mechanic jobs</code>, <code style="color:#90caf9">mechanic salary</code>, <code style="color:#90caf9">DIY</code>, <code style="color:#90caf9">car auctions</code>, <code style="color:#90caf9">used car sales</code>, <code style="color:#90caf9">for sale</code>, <code style="color:#90caf9">how to</code> as negatives across the account.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BSC competitor -->
+  <div class="account-card flag-warn">
+    <div class="account-header">
+      <div>
+        <div class="account-name">Ballarat Service Centre</div>
+        <div class="account-id">ID: 3500498831</div>
+      </div>
+    </div>
+    <div class="account-body">
+      <div class="issue-row">
+        <div class="issue-icon">⚠️</div>
+        <div class="issue-content">
+          <div class="issue-title">Competitor name as positive broad match keyword</div>
+          <div class="issue-desc"><code style="color:#90caf9">mr brakes ballarat</code> [BROAD] is in the Brakes ad group as a <strong>positive</strong> keyword. "Mr Brakes" is a competitor. Spending $25.28 on their branded traffic with no conquest strategy.</div>
+          <div class="issue-action">Move to negative keywords — or set up a proper conquest campaign separately.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Noranda competitor -->
+  <div class="account-card">
+    <div class="account-header">
+      <div>
+        <div class="account-name">M: Noranda Service Centre</div>
+        <div class="account-id">ID: 8046556178</div>
+      </div>
+      <span class="account-badge" style="background:#1a1d2e;color:#90caf9;border:1px solid #1565c0;">Confirm intent</span>
+    </div>
+    <div class="account-body">
+      <div class="issue-row">
+        <div class="issue-icon">❓</div>
+        <div class="issue-content">
+          <div class="issue-title">Competitor names as positive exact match keywords</div>
+          <div class="issue-desc">In the General Repairs ad group: <code style="color:#90caf9">mirrabooka mechanical and tyres</code>, <code style="color:#90caf9">auto tune mirrabooka</code>, <code style="color:#90caf9">mirrabooka tyre and auto</code>, <code style="color:#90caf9">wheels on yirrigan</code>. If intentional conquest — move to a dedicated conquest campaign. If accidental — move to negatives.</div>
+          <div class="issue-action">Confirm with team whether deliberate. Then act accordingly.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     PRIORITY 5 — COPY QUALITY
+════════════════════════════════════════════════════════════ -->
+<div class="section-block">
+  <div class="block-header">
+    <div class="block-title">Copy Quality Issues</div>
+    <span class="priority-badge p5">🟡 Priority 5</span>
+  </div>
+
+  <!-- BRC -->
+  <div class="account-card flag-info">
+    <div class="account-header">
+      <div>
+        <div class="account-name">Ballarat Roadworthy Centre</div>
+        <div class="account-id">ID: 6540672934</div>
+      </div>
+      <span class="account-badge badge-enabled">ENABLED — Spending</span>
+    </div>
+    <div class="account-body">
+      <div class="issue-row">
+        <div class="issue-icon">🔤</div>
+        <div class="issue-content">
+          <div class="issue-title">Misspelling in multiple live, spending ads</div>
+          <div class="issue-desc"><code class="td-offending">"Local Roadworthy Proffesional"</code> — should be "Professional". Appears across multiple ad groups in the active MM - Roadworthy Services campaign.</div>
+          <div class="issue-action">Find and fix all instances of "Proffesional" in this account.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Noranda copy -->
+  <div class="account-card flag-info">
+    <div class="account-header">
+      <div>
+        <div class="account-name">M: Noranda Service Centre</div>
+        <div class="account-id">ID: 8046556178</div>
+      </div>
+    </div>
+    <div class="account-body">
+      <div class="issue-row">
+        <div class="issue-icon">🔤</div>
+        <div class="issue-content">
+          <div class="issue-title">Typo in live ad</div>
+          <div class="issue-desc">Ad ID 787045085510, Headline 7: <code class="td-offending">"Snall Car Service $195"</code> — should be "Small."</div>
+          <div class="issue-action">Fix headline immediately.</div>
+        </div>
+      </div>
+      <div class="issue-row">
+        <div class="issue-icon">💰</div>
+        <div class="issue-content">
+          <div class="issue-title">Conflicting pricing in the same ad (Ad ID 787045085510)</div>
+          <div class="issue-desc">
+            Desc 3: "Keep your small or medium car running smoothly with a full service for just <code class="td-offending">$195</code>."<br>
+            Desc 4: "Small and medium car services from <code class="td-offending">$265</code> with no surprise costs or hidden fees."<br><br>
+            The same ad advertises the same service at both $195 and $265. One will appear alongside the other.
+          </div>
+          <div class="issue-action">Reconcile pricing — remove or update the incorrect description.</div>
+        </div>
+      </div>
+      <div class="issue-row">
+        <div class="issue-icon">✏️</div>
+        <div class="issue-content">
+          <div class="issue-title">Missing apostrophes in active ads</div>
+          <div class="issue-desc">
+            <code class="td-offending">"Mirrabookas most trusted 4x4 workshop."</code> — should be Mirrabooka's<br>
+            <code class="td-offending">"Weve serviced 4x4 vehicles for over 30 years."</code> — should be We've
+          </div>
+          <div class="issue-action">Fix both apostrophe errors.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Core Diesel copy -->
+  <div class="account-card flag-info">
+    <div class="account-header">
+      <div>
+        <div class="account-name">Core Diesel</div>
+        <div class="account-id">ID: 6728188323</div>
+      </div>
+    </div>
+    <div class="account-body">
+      <div class="issue-row">
+        <div class="issue-icon">📊</div>
+        <div class="issue-content">
+          <div class="issue-title">Spreadsheet artefact in live ad description</div>
+          <div class="issue-desc">Description: <code class="td-offending">"=DPF cleaning, diagnostics and repairs done right. Book your check today."</code><br>The leading <code style="color:#ff8a80">=</code> is a formula character copy-pasted from a spreadsheet. This renders as <code style="color:#ff8a80">"=DPF cleaning..."</code> in the live ad.</div>
+          <div class="issue-action">Remove the leading = from the description.</div>
+        </div>
+      </div>
+      <div class="issue-row">
+        <div class="issue-icon">🔢</div>
+        <div class="issue-content">
+          <div class="issue-title">Inconsistent claimed job numbers across ads</div>
+          <div class="issue-desc">The same business simultaneously claims: <code style="color:#ffcc80">"14,500+ jobs"</code>, <code style="color:#ffcc80">"7,000+ repairs"</code>, <code style="color:#ffcc80">"6,000+ trucks"</code>, <code style="color:#ffcc80">"8,000+ heavy repairs"</code>, <code style="color:#ffcc80">"14k+ jobs"</code>. These cannot all be accurate at the same time.</div>
+          <div class="issue-action">Standardise the numbers across all ads — pick one set of accurate figures and use consistently.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Precision Hydraulics -->
+  <div class="account-card">
+    <div class="account-header">
+      <div>
+        <div class="account-name">Precision Hydraulics</div>
+        <div class="account-id">ID: 2840136219 — Inactive, 0 spend, RYCO 24/7 rebrand underway</div>
+      </div>
+      <span class="account-badge badge-inactive">Inactive</span>
+    </div>
+    <div class="flag-banner info">ℹ Fix before re-activating. All ads are zero spend but ENABLED.</div>
+    <div class="account-body">
+      <div class="issue-row">
+        <div class="issue-icon">🔤</div>
+        <div class="issue-content">
+          <div class="issue-title">"24/7" truncated to "24/" in multiple headlines</div>
+          <div class="issue-desc"><code class="td-offending">"24/ Mobile Hose Repairs"</code> — missing the "7". Appears in multiple headlines.</div>
+          <div class="issue-action">Fix "24/" to "24/7" across all affected headlines.</div>
+        </div>
+      </div>
+      <div class="issue-row">
+        <div class="issue-icon">✂️</div>
+        <div class="issue-content">
+          <div class="issue-title">Truncated description</div>
+          <div class="issue-desc"><code class="td-offending">"...We Know How to Get You Moving Agai."</code> — cut off, missing "n" at end.</div>
+          <div class="issue-action">Fix the truncated description copy.</div>
+        </div>
+      </div>
+      <div class="issue-row">
+        <div class="issue-icon">⚙️</div>
+        <div class="issue-content">
+          <div class="issue-title">Keyword insertion macro formatting error</div>
+          <div class="issue-desc"><code class="td-offending">{KeyWord: Hydraulic Hose Repair}</code> — space after colon may prevent the macro from firing correctly. Could display raw brace text in live ads.</div>
+          <div class="issue-action">Remove the space after the colon in the macro.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ultra Tune -->
+  <div class="account-card flag-warn">
+    <div class="account-header">
+      <div>
+        <div class="account-name">Ultra Tune North Ryde</div>
+        <div class="account-id">ID: 2106714025</div>
+      </div>
+      <span class="account-badge badge-enabled">ENABLED — 3 campaigns</span>
+    </div>
+    <div class="account-body">
+      <div class="issue-row">
+        <div class="issue-icon">⚠️</div>
+        <div class="issue-content">
+          <div class="issue-title">Potentially offensive terminology in live ads</div>
+          <div class="issue-desc">Multiple ENABLED ads across 3 campaigns contain the headline <code class="td-offending">"Jap Cars Welcome"</code>. Used colloquially in the trade but "Jap" is considered a racial slur in broader usage — reputational risk if flagged in reviews or complaints.</div>
+          <div class="issue-action">Replace with "Japanese Cars Welcome" across all three affected ads.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Midas copy -->
+  <div class="account-card">
+    <div class="account-header">
+      <div>
+        <div class="account-name">Midas Brookvale</div>
+        <div class="account-id">ID: 9774205841</div>
+      </div>
+    </div>
+    <div class="account-body">
+      <div class="issue-row">
+        <div class="issue-icon">📝</div>
+        <div class="issue-content">
+          <div class="issue-title">Generic legacy copy in old campaign (77M impression history)</div>
+          <div class="issue-desc">
+            <code class="td-offending">"We Offer A Range Of Car Services At Midas"</code> — says nothing.<br>
+            <code class="td-offending">"Contact Midas For More Information"</code> — says nothing.
+          </div>
+          <div class="issue-action">Pause or delete if these old ads are still live. Newer Brookvale-specific ads are much better.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     LOWER PRIORITY — ADDITIONAL ISSUES
+════════════════════════════════════════════════════════════ -->
+<div class="section-block">
+  <div class="block-header">
+    <div class="block-title">Additional Issues (Lower Priority)</div>
+    <span class="priority-badge p-info">🔵 Lower Priority</span>
+  </div>
+
+  <div class="account-card">
+    <div class="account-header">
+      <div>
+        <div class="account-name">Auto Response</div>
+        <div class="account-id">ID: 4451444699</div>
+      </div>
+    </div>
+    <div class="account-body">
+      <div class="issue-row">
+        <div class="issue-icon">🔗</div>
+        <div class="issue-content">
+          <div class="issue-title">4WD &amp; Diesel ad sends to wrong URL</div>
+          <div class="issue-desc">PAUSED Ad ID 799559700427 sends to <code style="color:#90caf9">/brakes</code>. Fix the destination URL before re-enabling.</div>
+        </div>
+      </div>
+      <div class="issue-row">
+        <div class="issue-icon">📊</div>
+        <div class="issue-content">
+          <div class="issue-title">Stale review count in legacy ads</div>
+          <div class="issue-desc">Legacy PAUSED ads still show "250+ reviews" while active ads show "300+". Update before re-enabling.</div>
+        </div>
+      </div>
+      <div class="issue-row">
+        <div class="issue-icon">✏️</div>
+        <div class="issue-content">
+          <div class="issue-title">Literal quotation marks in PAUSED ad headline</div>
+          <div class="issue-desc"><code class="td-offending">"\"Your Car Doctor\""</code> — would render with visible speech marks in the live ad. Remove the literal quote characters.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     DORMANT ACCOUNTS
+════════════════════════════════════════════════════════════ -->
+<div class="section-block">
+  <div class="block-header">
+    <div class="block-title">Inactive / Dormant Accounts</div>
+    <span class="priority-badge p-info">No Urgent Action</span>
+  </div>
+
+  <div class="dormant-card">
+    <div class="dormant-name">Automotive Insight OLD — ID: 4150504459</div>
+    <div class="dormant-note">All BROAD match, zero impressions. Old 2015 campaign. Effectively dead but still live — consider removing.</div>
+  </div>
+  <div class="dormant-card">
+    <div class="dormant-name">Bus And Camper Parts HQ — ID: 6887055405</div>
+    <div class="dormant-note">Not a mechanic — 0 spend, 0 impressions. Why are we managing this?</div>
+  </div>
+  <div class="dormant-card">
+    <div class="dormant-name">Precision Hydraulics — ID: 2840136219</div>
+    <div class="dormant-note">0 spend, RYCO 24/7 rebrand underway. Fix copy errors (Priority 5) before re-activating.</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     CLEAN ACCOUNTS
+════════════════════════════════════════════════════════════ -->
+<div class="section-block">
+  <div class="block-header">
+    <div class="block-title">Accounts That Look Clean</div>
+    <span class="priority-badge" style="background:#0a1e0b;color:#a5d6a7;border:1px solid #2e7d32;">No Issues Found</span>
+  </div>
+
+  <div class="clean-grid">
+    <div class="clean-card">
+      <div class="clean-name">Automotive Insight NEW</div>
+      <div class="clean-note">ID: 2755597893 — Correct Shenton Park/Perth references, no broad match spending, good copy.</div>
+    </div>
+    <div class="clean-card">
+      <div class="clean-name">My Vehicle Maintenance</div>
+      <div class="clean-note">ID: 1108983786 — NZ client (Masterton), WOF-focused, appropriate keywords.</div>
+    </div>
+    <div class="clean-card">
+      <div class="clean-name">Auto Response (active campaigns)</div>
+      <div class="clean-note">Correct Stratton/Midland/Midvale geo references, aside from the "Strattan" typo logged above.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     ACTION CHECKLIST
+════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Quick-Fix Checklist — 20 Items</div>
+
+  <div class="checklist" id="checklist">
+    <div class="check-row" style="cursor:default;">
+      <div></div>
+      <div></div>
+      <div style="padding-left:8px;">Action</div>
+      <div>Account</div>
+      <div>Priority</div>
+    </div>
+    <div class="check-row" id="item-1">
+      <div class="check-num">1</div>
+      <div class="check-box" onclick="toggle(1)"></div>
+      <div class="check-label">Delete 3 ads referencing "Ballarat Roadworthy Centre"</div>
+      <div class="check-account">BCSC</div>
+      <div class="check-priority"><span class="badge-inline bi-error">P1</span></div>
+    </div>
+    <div class="check-row" id="item-2">
+      <div class="check-num">2</div>
+      <div class="check-box" onclick="toggle(2)"></div>
+      <div class="check-label">Fix {LOCATION(City):Mirrabooka} → Ballarat in 3 ads</div>
+      <div class="check-account">Ballarat SC</div>
+      <div class="check-priority"><span class="badge-inline bi-error">P1</span></div>
+    </div>
+    <div class="check-row" id="item-3">
+      <div class="check-num">3</div>
+      <div class="check-box" onclick="toggle(3)"></div>
+      <div class="check-label">Remove "Mirrabooka Aircon Experts" headline from 2 ads</div>
+      <div class="check-account">Ballarat SC</div>
+      <div class="check-priority"><span class="badge-inline bi-error">P1</span></div>
+    </div>
+    <div class="check-row" id="item-4">
+      <div class="check-num">4</div>
+      <div class="check-box" onclick="toggle(4)"></div>
+      <div class="check-label">Fix "Mercedes" → "Audi" in Audi ad group description</div>
+      <div class="check-account">Noranda</div>
+      <div class="check-priority"><span class="badge-inline bi-error">P1</span></div>
+    </div>
+    <div class="check-row" id="item-5">
+      <div class="check-num">5</div>
+      <div class="check-box" onclick="toggle(5)"></div>
+      <div class="check-label">Fix "Strattan" → "Stratton" (3 instances in branded campaign)</div>
+      <div class="check-account">Auto Response</div>
+      <div class="check-priority"><span class="badge-inline bi-error">P2</span></div>
+    </div>
+    <div class="check-row" id="item-6">
+      <div class="check-num">6</div>
+      <div class="check-box" onclick="toggle(6)"></div>
+      <div class="check-label">Fix {LOCATION(City):Brighton} → Maryborough</div>
+      <div class="check-account">Core Diesel</div>
+      <div class="check-priority"><span class="badge-inline bi-error">P2</span></div>
+    </div>
+    <div class="check-row" id="item-7">
+      <div class="check-num">7</div>
+      <div class="check-box" onclick="toggle(7)"></div>
+      <div class="check-label">Remove job/salary/DIY/auctions keywords from service ad groups</div>
+      <div class="check-account">Performance Plus</div>
+      <div class="check-priority"><span class="badge-inline bi-warn">P3</span></div>
+    </div>
+    <div class="check-row" id="item-8">
+      <div class="check-num">8</div>
+      <div class="check-box" onclick="toggle(8)"></div>
+      <div class="check-label">Add broad match negatives: jobs, salary, DIY, for sale, auctions</div>
+      <div class="check-account">Performance Plus</div>
+      <div class="check-priority"><span class="badge-inline bi-warn">P3</span></div>
+    </div>
+    <div class="check-row" id="item-9">
+      <div class="check-num">9</div>
+      <div class="check-box" onclick="toggle(9)"></div>
+      <div class="check-label">Fix "Snall" → "Small" in servicing headline</div>
+      <div class="check-account">Noranda</div>
+      <div class="check-priority"><span class="badge-inline bi-warn">P4</span></div>
+    </div>
+    <div class="check-row" id="item-10">
+      <div class="check-num">10</div>
+      <div class="check-box" onclick="toggle(10)"></div>
+      <div class="check-label">Fix conflicting pricing ($195 vs $265) in same ad</div>
+      <div class="check-account">Noranda</div>
+      <div class="check-priority"><span class="badge-inline bi-warn">P4</span></div>
+    </div>
+    <div class="check-row" id="item-11">
+      <div class="check-num">11</div>
+      <div class="check-box" onclick="toggle(11)"></div>
+      <div class="check-label">Fix "Proffesional" → "Professional" (multiple ads)</div>
+      <div class="check-account">BRC</div>
+      <div class="check-priority"><span class="badge-inline bi-warn">P4</span></div>
+    </div>
+    <div class="check-row" id="item-12">
+      <div class="check-num">12</div>
+      <div class="check-box" onclick="toggle(12)"></div>
+      <div class="check-label">Remove leading = from DPF description</div>
+      <div class="check-account">Core Diesel</div>
+      <div class="check-priority"><span class="badge-inline bi-warn">P4</span></div>
+    </div>
+    <div class="check-row" id="item-13">
+      <div class="check-num">13</div>
+      <div class="check-box" onclick="toggle(13)"></div>
+      <div class="check-label">Standardise job/repair number claims across all ads</div>
+      <div class="check-account">Core Diesel</div>
+      <div class="check-priority"><span class="badge-inline bi-warn">P4</span></div>
+    </div>
+    <div class="check-row" id="item-14">
+      <div class="check-num">14</div>
+      <div class="check-box" onclick="toggle(14)"></div>
+      <div class="check-label">Change "Jap Cars Welcome" → "Japanese Cars Welcome" (3 ads)</div>
+      <div class="check-account">Ultra Tune NR</div>
+      <div class="check-priority"><span class="badge-inline bi-warn">P4</span></div>
+    </div>
+    <div class="check-row" id="item-15">
+      <div class="check-num">15</div>
+      <div class="check-box" onclick="toggle(15)"></div>
+      <div class="check-label">Fix apostrophes: "Mirrabookas" and "Weve" in active ads</div>
+      <div class="check-account">Noranda</div>
+      <div class="check-priority"><span class="badge-inline bi-warn">P4</span></div>
+    </div>
+    <div class="check-row" id="item-16">
+      <div class="check-num">16</div>
+      <div class="check-box" onclick="toggle(16)"></div>
+      <div class="check-label">Review and pause/remove all broad match keywords not part of a deliberate strategy</div>
+      <div class="check-account">All accounts</div>
+      <div class="check-priority"><span class="badge-inline bi-warn">P3</span></div>
+    </div>
+    <div class="check-row" id="item-17">
+      <div class="check-num">17</div>
+      <div class="check-box" onclick="toggle(17)"></div>
+      <div class="check-label">Move mr brakes ballarat to negative keywords</div>
+      <div class="check-account">Ballarat SC</div>
+      <div class="check-priority"><span class="badge-inline bi-warn">P3</span></div>
+    </div>
+    <div class="check-row" id="item-18">
+      <div class="check-num">18</div>
+      <div class="check-box" onclick="toggle(18)"></div>
+      <div class="check-label">Confirm or relocate competitor keywords to conquest campaign</div>
+      <div class="check-account">Noranda</div>
+      <div class="check-priority"><span class="badge-inline bi-info">P4</span></div>
+    </div>
+    <div class="check-row" id="item-19">
+      <div class="check-num">19</div>
+      <div class="check-box" onclick="toggle(19)"></div>
+      <div class="check-label">Fix "24/" → "24/7", fix truncated description, fix keyword macro space</div>
+      <div class="check-account">Precision Hydraulics</div>
+      <div class="check-priority"><span class="badge-inline bi-info">Pre-launch</span></div>
+    </div>
+    <div class="check-row" id="item-20">
+      <div class="check-num">20</div>
+      <div class="check-box" onclick="toggle(20)"></div>
+      <div class="check-label">Update 4WD &amp; Diesel ad URL from /brakes before re-enabling</div>
+      <div class="check-account">Auto Response</div>
+      <div class="check-priority"><span class="badge-inline bi-info">Before re-enable</span></div>
+    </div>
+  </div>
+
+  <div style="margin-top:20px;font-size:13px;color:#8892a4;">
+    <span id="progress-label">0 / 20 completed</span>
+    <span style="margin-left:16px;">Checkboxes are session-only — they reset on page reload.</span>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<div class="report-footer">
+  Audit conducted by Hilda — Hedgehog Marketing AI &nbsp;·&nbsp; All data pulled directly from Google Ads via the Mechanic Marketing MCP &nbsp;·&nbsp; Account state as at 24 June 2026 &nbsp;·&nbsp; Internal use only
+</div>
+
+<script>
+  let done = new Set()
+
+  function toggle(n) {
+    const row = document.getElementById('item-' + n)
+    if (done.has(n)) {
+      done.delete(n)
+      row.classList.remove('done')
+    } else {
+      done.add(n)
+      row.classList.add('done')
+    }
+    document.getElementById('progress-label').textContent = done.size + ' / 20 completed'
+  }
+</script>
+
+</body>
+</html>
